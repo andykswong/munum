@@ -1,19 +1,19 @@
-import { Float, Int, Vec3, vec3 } from '../index'; 
+import { Float, Vec3, vec3 } from '../index'; 
 
-const ORDER: Int = 3;
+const ORDER = 3;
 const out: Vec3 = vec3.create();
 
 describe('vec3', () => {
   test('create()', () => {
     const v = vec3.create();
-    for (let i: Int = 0; i < ORDER; ++i) {
+    for (let i = 0; i < ORDER; ++i) {
       expect(v[i]).toBe(0);
     }
   });
 
   test('create(x, y, z)', () => {
     const v = vec3.create(1, 2, 3);
-    for (let i: Int = 0; i < ORDER; ++i) {
+    for (let i = 0; i < ORDER; ++i) {
       expect(v[i]).toBe((i + 1) as Float);
     }
   });
@@ -30,7 +30,7 @@ describe('vec3', () => {
   test('copy(a, b)', () => {
     const v = vec3.create(1, 2, 3);
     expect(vec3.copy(v, out)).toBe(out);
-    for (let i: Int = 0; i < ORDER; ++i) {
+    for (let i = 0; i < ORDER; ++i) {
       expect(out[i]).toBe(v[i]);
     }
   });
