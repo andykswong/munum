@@ -1,0 +1,342 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>plane | munum</title>
+	<meta name="description" content="Documentation for munum">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">munum</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../modules.html">munum</a>
+				</li>
+				<li>
+					<a href="plane.html">plane</a>
+				</li>
+			</ul>
+			<h1>Namespace plane</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="plane.html#dist" class="tsd-kind-icon">dist</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="plane.html#fromPointNormal" class="tsd-kind-icon">from<wbr>Point<wbr>Normal</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="plane.html#fromPoints" class="tsd-kind-icon">from<wbr>Points</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="plane.html#frontFacing" class="tsd-kind-icon">front<wbr>Facing</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="plane.html#norm" class="tsd-kind-icon">norm</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
+					<a name="dist" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> dist</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
+						<li class="tsd-signature tsd-kind-icon">dist<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">readonly </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span>, q<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">readonly </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8f5fa93/assembly/plane.ts#L42">assembly/plane.ts:42</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Calculates the shortest signed distance from the given point q to a normalized <a href="../modules.html#Plane">Plane</a> p.
+										Positive if q is on the same side of the plane as the plane normal; negative if it is on the opposite side.
+									Normalized plane has len(a, b, c) = 1.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-symbol">readonly </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span></h5>
+								</li>
+								<li>
+									<h5>q: <span class="tsd-signature-symbol">readonly </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
+					<a name="fromPointNormal" class="tsd-anchor"></a>
+					<h3>from<wbr>Point<wbr>Normal</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
+						<li class="tsd-signature tsd-kind-icon">from<wbr>Point<wbr>Normal<span class="tsd-signature-symbol">(</span>normal<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, point<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8f5fa93/assembly/plane.ts#L14">assembly/plane.ts:14</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Build a normalized <a href="../modules.html#Plane">Plane</a> from a normal and a point on plane.
+									Normalized plane has len(a, b, c) = 1.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>normal: <a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a></h5>
+								</li>
+								<li>
+									<h5>point: <a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a></h5>
+								</li>
+								<li>
+									<h5>out: <a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
+					<a name="fromPoints" class="tsd-anchor"></a>
+					<h3>from<wbr>Points</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
+						<li class="tsd-signature tsd-kind-icon">from<wbr>Points<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, b<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, c<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8f5fa93/assembly/plane.ts#L25">assembly/plane.ts:25</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Build a normalized <a href="../modules.html#Plane">Plane</a> from 3 points on plane.
+										The counter-clockwise face of triangle formed by a, b, c is considered the front face of the plane.
+									Normalized plane has len(a, b, c) = 1.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>a: <a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a></h5>
+								</li>
+								<li>
+									<h5>b: <a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a></h5>
+								</li>
+								<li>
+									<h5>c: <a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a></h5>
+								</li>
+								<li>
+									<h5>out: <a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
+					<a name="frontFacing" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> front<wbr>Facing</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
+						<li class="tsd-signature tsd-kind-icon">front<wbr>Facing<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">readonly </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span>, d<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">readonly </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8f5fa93/assembly/plane.ts#L48">assembly/plane.ts:48</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns if the normal of a <a href="../modules.html#Plane">Plane</a> p is front-facing given the direction vector d.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-symbol">readonly </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span></h5>
+								</li>
+								<li>
+									<h5>d: <span class="tsd-signature-symbol">readonly </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
+					<a name="norm" class="tsd-anchor"></a>
+					<h3>norm</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
+						<li class="tsd-signature tsd-kind-icon">norm<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyPlane" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyPlane</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8f5fa93/assembly/plane.ts#L33">assembly/plane.ts:33</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Normalize a <a href="../modules.html#Plane">Plane</a> equation for correct distance calculation.
+									Normalized plane has len(a, b, c) = 1.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <a href="../modules.html#ReadonlyPlane" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyPlane</a></h5>
+								</li>
+								<li>
+									<h5>out: <a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../modules.html">Exports</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="aabb.html">aabb</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="array.html">array</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="frustum.html">frustum</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="mat2.html">mat2</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="mat3.html">mat3</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="mat4.html">mat4</a>
+					</li>
+					<li class="current tsd-kind-namespace">
+						<a href="plane.html">plane</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="quat.html">quat</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="vec2.html">vec2</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="vec3.html">vec3</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="vec4.html">vec4</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-function tsd-parent-kind-namespace">
+						<a href="plane.html#dist" class="tsd-kind-icon">dist</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-namespace">
+						<a href="plane.html#fromPointNormal" class="tsd-kind-icon">from<wbr>Point<wbr>Normal</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-namespace">
+						<a href="plane.html#fromPoints" class="tsd-kind-icon">from<wbr>Points</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-namespace">
+						<a href="plane.html#frontFacing" class="tsd-kind-icon">front<wbr>Facing</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-namespace">
+						<a href="plane.html#norm" class="tsd-kind-icon">norm</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

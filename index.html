@@ -1,0 +1,313 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>munum</title>
+	<meta name="description" content="Documentation for munum">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">munum</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>munum</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#munum---μnum---assemblyscript-numerical-library" id="munum---μnum---assemblyscript-numerical-library" style="color: inherit; text-decoration: none;">
+					<h1>munum - μNum - AssemblyScript Numerical Library</h1>
+				</a>
+				<p><a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a> <a href="https://www.npmjs.com/package/munum"><img src="https://img.shields.io/npm/v/munum" alt="NPM"></a> <a href="https://github.com/andykswong/munum/actions/workflows/build.yaml"><img src="https://github.com/andykswong/munum/actions/workflows/build.yaml/badge.svg" alt="build"></a></p>
+				<blockquote>
+					<p>A minimal numerical library for 3D graphics and physics simulation in JavaScript and WebAssembly via AssemblyScript.</p>
+				</blockquote>
+				<a href="#overview" id="overview" style="color: inherit; text-decoration: none;">
+					<h2>Overview</h2>
+				</a>
+				<p><code>munum</code> is a small, modular numerical library for high-performance 3D applications running on WebAssembly. Using munum with TypeScript/AssemblyScript, you can compile the same code to both JavaScript with <code>tsc</code> and WebAssembly with <code>asc</code> without any change.</p>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<p>Install via NPM: </p>
+				<pre><code class="language-shell"><span style="color: #000000">npm install --save munum</span>
+</code></pre>
+				<p>Sample usage to build a perspective camera view-projection matrix and frustum:</p>
+				<pre><code class="language-javascript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">frustum</span><span style="color: #000000">, </span><span style="color: #001080">lookAt</span><span style="color: #000000">, </span><span style="color: #001080">mat4</span><span style="color: #000000">, </span><span style="color: #001080">perspective</span><span style="color: #000000">, </span><span style="color: #001080">vec3</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;munum&#039;</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">eye</span><span style="color: #000000"> = </span><span style="color: #001080">vec3</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">target</span><span style="color: #000000"> = </span><span style="color: #001080">vec3</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">view</span><span style="color: #000000"> = </span><span style="color: #795E26">lookAt</span><span style="color: #000000">(</span><span style="color: #001080">eye</span><span style="color: #000000">, </span><span style="color: #001080">target</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">aspectRatio</span><span style="color: #000000"> = </span><span style="color: #001080">width</span><span style="color: #000000"> / </span><span style="color: #001080">height</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">yfov</span><span style="color: #000000"> = </span><span style="color: #267F99">Math</span><span style="color: #000000">.PI / </span><span style="color: #098658">4</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">znear</span><span style="color: #000000"> = </span><span style="color: #098658">0.01</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">zfar</span><span style="color: #000000"> = </span><span style="color: #098658">100</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">proj</span><span style="color: #000000"> = </span><span style="color: #795E26">perspective</span><span style="color: #000000">(</span><span style="color: #001080">aspectRatio</span><span style="color: #000000">, </span><span style="color: #001080">yfov</span><span style="color: #000000">, </span><span style="color: #001080">znear</span><span style="color: #000000">, </span><span style="color: #001080">zfar</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">viewProj</span><span style="color: #000000"> = </span><span style="color: #001080">mat4</span><span style="color: #000000">.</span><span style="color: #795E26">mul</span><span style="color: #000000">(</span><span style="color: #001080">proj</span><span style="color: #000000">, </span><span style="color: #001080">view</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">frustum</span><span style="color: #000000"> = </span><span style="color: #001080">frustum</span><span style="color: #000000">.</span><span style="color: #795E26">fromViewProj</span><span style="color: #000000">(</span><span style="color: #001080">viewProj</span><span style="color: #000000">);</span>
+</code></pre>
+				<a href="#learn-more" id="learn-more" style="color: inherit; text-decoration: none;">
+					<h2>Learn More</h2>
+				</a>
+				<p>See TSDoc: <a href="http://andykswong.github.io/munum">http://andykswong.github.io/munum</a></p>
+				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+					<h2>License</h2>
+				</a>
+				<p>This repository and the code inside it is licensed under the MIT License. Read <a href="./LICENSE">LICENSE</a> for more information.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/aabb.html">aabb</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/array.html">array</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/frustum.html">frustum</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/mat2.html">mat2</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/mat3.html">mat3</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/mat4.html">mat4</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/plane.html">plane</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/quat.html">quat</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/vec2.html">vec2</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/vec3.html">vec3</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/vec4.html">vec4</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/AABB.html" class="tsd-kind-icon">AABB</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ReadonlyAABB.html" class="tsd-kind-icon">ReadonlyAABB</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ReadonlyVec.html" class="tsd-kind-icon">Readonly<wbr>Vec</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/Vec.html" class="tsd-kind-icon">Vec</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#Float" class="tsd-kind-icon">Float</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#Frustum" class="tsd-kind-icon">Frustum</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#Int" class="tsd-kind-icon">Int</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#Mat2" class="tsd-kind-icon">Mat2</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#Mat3" class="tsd-kind-icon">Mat3</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#Mat4" class="tsd-kind-icon">Mat4</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#Plane" class="tsd-kind-icon">Plane</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#ReadonlyFrustum" class="tsd-kind-icon">Readonly<wbr>Frustum</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#ReadonlyMat2" class="tsd-kind-icon">Readonly<wbr>Mat2</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#ReadonlyMat3" class="tsd-kind-icon">Readonly<wbr>Mat3</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#ReadonlyMat4" class="tsd-kind-icon">Readonly<wbr>Mat4</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#ReadonlyPlane" class="tsd-kind-icon">Readonly<wbr>Plane</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#ReadonlyVec2" class="tsd-kind-icon">Readonly<wbr>Vec2</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#ReadonlyVec3" class="tsd-kind-icon">Readonly<wbr>Vec3</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#ReadonlyVec4" class="tsd-kind-icon">Readonly<wbr>Vec4</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#Vec2" class="tsd-kind-icon">Vec2</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#Vec3" class="tsd-kind-icon">Vec3</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#Vec4" class="tsd-kind-icon">Vec4</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="modules.html#EPSILON" class="tsd-kind-icon">EPSILON</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#arcball" class="tsd-kind-icon">arcball</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#clamp" class="tsd-kind-icon">clamp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#copysign" class="tsd-kind-icon">copysign</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#direction" class="tsd-kind-icon">direction</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#fequal" class="tsd-kind-icon">fequal</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#lerp" class="tsd-kind-icon">lerp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#lookAt" class="tsd-kind-icon">look<wbr>At</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#ortho" class="tsd-kind-icon">ortho</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#perspective" class="tsd-kind-icon">perspective</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#rotate" class="tsd-kind-icon">rotate</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#rotate2d" class="tsd-kind-icon">rotate2d</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#rotateAxis" class="tsd-kind-icon">rotate<wbr>Axis</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#rotateX" class="tsd-kind-icon">rotateX</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#rotateY" class="tsd-kind-icon">rotateY</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#rotateZ" class="tsd-kind-icon">rotateZ</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#rotationOf" class="tsd-kind-icon">rotation<wbr>Of</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#scale" class="tsd-kind-icon">scale</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#scale2d" class="tsd-kind-icon">scale2d</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#scaleOf" class="tsd-kind-icon">scale<wbr>Of</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#targetTo" class="tsd-kind-icon">target<wbr>To</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#transform" class="tsd-kind-icon">transform</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#translate" class="tsd-kind-icon">translate</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#translate2d" class="tsd-kind-icon">translate2d</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#translationOf" class="tsd-kind-icon">translation<wbr>Of</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
