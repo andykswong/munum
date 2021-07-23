@@ -1,0 +1,5 @@
+{
+  "ascMain": "assembly/index.ts",
+  "main": "./index.mjs",
+  "types": "./index.d.ts"
+}

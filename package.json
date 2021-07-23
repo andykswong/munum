@@ -1,0 +1,97 @@
+{
+  "name": "munum",
+  "version": "0.0.1",
+  "description": "Micro-sized numerical library for graphics and physics simulation in JavaScript and WebAssembly",
+  "main": "index.mjs",
+  "typings": "index.d.ts",
+  "ascMain": "assembly/index.ts",
+  "files": [
+    "/dist",
+    "/assembly",
+    "index.mjs",
+    "index.d.ts"
+  ],
+  "scripts": {
+    "prepublishOnly": "npm run build && npm test",
+    "clean": "rimraf coverage dist node_modules **/__tests__/**/*.spec.map **/__tests__/**/*.spec.wat",
+    "prebuild": "npm run lint",
+    "build": "npm run asbuild && npm run tsbuild",
+    "lint": "eslint assembly --ext .ts,.tsx",
+    "asbuild": "asc assembly/index.ts --target release",
+    "asbuild:debug": "asc assembly/index.ts --target debug",
+    "tsbuild": "npm run tsc && npm run babel",
+    "babel": "cross-env-shell babel assembly -d dist --source-maps --extensions '.ts' --out-file-extension .mjs",
+    "tsc": "tsc -p ./assembly --emitDeclarationOnly",
+    "test": "npm run asp && npm run jest",
+    "asp": "asp",
+    "jest": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "jest:watch": "jest --watch",
+    "doc": "typedoc --tsconfig assembly/tsconfig.json --out docs assembly/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andykswong/munum.git"
+  },
+  "keywords": [
+    "numeric",
+    "matrix",
+    "math",
+    "typescript",
+    "assemblyscript",
+    "webassembly",
+    "wasm"
+  ],
+  "author": "Andy K.S. Wong <andykswong@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andykswong/munum/issues"
+  },
+  "homepage": "https://github.com/andykswong/munum#readme",
+  "dependencies": {
+    "@andykswong/munum-types": "file:./types"
+  },
+  "bundledDependencies": [
+    "@andykswong/munum-types"
+  ],
+  "devDependencies": {
+    "@as-pect/cli": "^6.2.4",
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.14.8",
+    "@babel/preset-env": "^7.14.8",
+    "@babel/preset-typescript": "^7.14.5",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^16.4.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
+    "assemblyscript": "^0.19.7",
+    "babel-plugin-add-import-extension": "^1.6.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.31.0",
+    "jest": "^27.0.6",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.4",
+    "typedoc": "^0.21.4",
+    "typescript": "^4.3.5"
+  },
+  "jest": {
+    "preset": "ts-jest/presets/default-esm",
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/__tests__/**/*.spec.ts"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "assembly/**/*.{ts,mjs}"
+    ],
+    "coverageDirectory": "coverage",
+    "globals": {
+      "ts-jest": {
+        "useESM": true,
+        "tsconfig": "assembly/tsconfig.json"
+      }
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!@andykswong/munum-types/)"
+    ]
+  }
+}
