@@ -7,15 +7,25 @@
 `munum` is a small, modular numerical library for high-performance 3D applications running on WebAssembly. Using munum with TypeScript/AssemblyScript, you can compile the same code to both JavaScript with `tsc` and WebAssembly with `asc` without any change.
 
 ## Usage
-Install via NPM: 
+Install via NPM for AssemblyScript or TypeScript projects: 
 
 ```shell
 npm install --save munum
 ```
 
+Or load directly from CDN without having to use any build system:
+```html
+<script type="module">
+  import { vec4 } from 'https://unpkg.com/munum@latest';
+  const v = vec4.create();
+</script>
+```
+
 Sample usage to build a perspective camera view-projection matrix and frustum:
+
+[(Try it yourself here)](https://codepen.io/andykswong/pen/yLbPzGy?editors=0011)
 ```javascript
-import { frustum, lookAt, mat4, perspective, vec3 } from 'munum';
+import { frustum, lookAt, mat4, perspective, vec3 } from 'munum'; // Or load from CDN
 
 const eye = vec3.create(1, 1, 1);
 const target = vec3.create(0, 0, 0);
@@ -27,8 +37,8 @@ const znear = 0.01;
 const zfar = 100;
 const proj = perspective(aspectRatio, yfov, znear, zfar);
 
-const viewProj = mat4.mul(proj, view);
-const frustum = frustum.fromViewProj(viewProj);
+const vp = mat4.mul(proj, view);
+const f = frustum.fromViewProj(vp);
 ```
 
 ## Learn More
