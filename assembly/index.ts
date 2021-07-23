@@ -10,7 +10,7 @@ import * as vec2 from './vec2';
 import * as vec3 from './vec3';
 import * as vec4 from './vec4';
 
-export * from '@andykswong/munum-types';
+export * from './types';
 export * from './scalar';
 export * from './transform2d';
 export * from './transform';

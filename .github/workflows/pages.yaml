@@ -9,7 +9,7 @@ jobs:
       with:
         node-version: '14'
     - run: npm ci --ignore-scripts
-    - run: npm run doc -- --excludeInternal
+    - run: npm run docs -- --excludeInternal
     - name: Copy files to public
       run: cp -r ./docs ./public
     - name: Deploy public

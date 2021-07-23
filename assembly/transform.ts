@@ -1,4 +1,4 @@
-import { Float, Mat4, Int, ReadonlyMat4, ReadonlyVec3, Vec3 } from '@andykswong/munum-types';
+import { Float, Mat4, Int, ReadonlyMat4, ReadonlyVec3, Vec3 } from './types';
 import * as array from './array';
 import * as mat4 from './mat4';
 import { Quat, ReadonlyQuat } from './quat';

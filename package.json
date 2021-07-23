@@ -1,13 +1,13 @@
 {
   "name": "munum",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Micro-sized numerical library for graphics and physics simulation in JavaScript and WebAssembly",
   "main": "index.mjs",
   "typings": "index.d.ts",
   "ascMain": "assembly/index.ts",
   "files": [
-    "/dist",
     "/assembly",
+    "/dist",
     "index.mjs",
     "index.d.ts"
   ],
@@ -19,14 +19,14 @@
     "lint": "eslint assembly --ext .ts,.tsx",
     "asbuild": "asc assembly/index.ts --target release",
     "asbuild:debug": "asc assembly/index.ts --target debug",
-    "tsbuild": "npm run tsc && npm run babel",
+    "tsbuild": "npm run types && npm run babel",
     "babel": "cross-env-shell babel assembly -d dist --source-maps --extensions '.ts' --out-file-extension .mjs",
-    "tsc": "tsc -p ./assembly --emitDeclarationOnly",
+    "types": "tsc -p ./assembly --emitDeclarationOnly && copyfiles -f assembly/types/index.d.ts dist/types",
     "test": "npm run asp && npm run jest",
     "asp": "asp",
     "jest": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest",
     "jest:watch": "jest --watch",
-    "doc": "typedoc --tsconfig assembly/tsconfig.json --out docs assembly/index.ts"
+    "docs": "typedoc --tsconfig assembly/tsconfig.json --out docs assembly/index.ts"
   },
   "repository": {
     "type": "git",
@@ -46,13 +46,9 @@
   "bugs": {
     "url": "https://github.com/andykswong/munum/issues"
   },
-  "homepage": "https://github.com/andykswong/munum#readme",
+  "homepage": "https://github.com/andykswong/munum",
   "dependencies": {
-    "@andykswong/munum-types": "file:./types"
   },
-  "bundledDependencies": [
-    "@andykswong/munum-types"
-  ],
   "devDependencies": {
     "@as-pect/cli": "^6.2.4",
     "@babel/cli": "^7.14.8",
@@ -65,6 +61,7 @@
     "@typescript-eslint/parser": "^4.28.4",
     "assemblyscript": "^0.19.7",
     "babel-plugin-add-import-extension": "^1.6.0",
+    "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
     "eslint": "^7.31.0",
     "jest": "^27.0.6",
@@ -81,7 +78,8 @@
     ],
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "assembly/**/*.{ts,mjs}"
+      "assembly/**/*.{ts,mjs}",
+      "!assembly/types/index.ts"
     ],
     "coverageDirectory": "coverage",
     "globals": {
@@ -89,9 +87,6 @@
         "useESM": true,
         "tsconfig": "assembly/tsconfig.json"
       }
-    },
-    "transformIgnorePatterns": [
-      "node_modules/(?!@andykswong/munum-types/)"
-    ]
+    }
   }
 }

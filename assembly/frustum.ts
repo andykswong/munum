@@ -1,4 +1,6 @@
-import { Float, Frustum, Int, ReadonlyAABB, ReadonlyFrustum, ReadonlyMat4, ReadonlyVec3, Vec3 } from '@andykswong/munum-types';
+import {
+  Float, Frustum, Int, ReadonlyAABB, ReadonlyFrustum, ReadonlyMat4, ReadonlyVec3, Vec3
+} from './types';
 import * as vec3 from './vec3';
 import * as plane from './plane';
 

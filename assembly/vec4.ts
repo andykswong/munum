@@ -1,4 +1,4 @@
-import { Float, ReadonlyVec3, ReadonlyVec4, Vec4 } from '@andykswong/munum-types';
+import { Float, ReadonlyVec3, ReadonlyVec4, Vec4 } from './types';
 import * as array from './array';
 
 /**

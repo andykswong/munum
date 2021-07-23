@@ -1,11 +1,5 @@
-import { Float, Int, ReadonlyVec, Vec } from '@andykswong/munum-types';
+import { Float, Int, ReadonlyVec, Vec } from './types';
 import { EPSILON, fequal as fequalNum, lerp as lerpNum } from './scalar';
-
-// tmp variables
-let i: Int = 0;
-let j: Int = 0;
-let k: Int = 0;
-let f: Float = 0;
 
 /**
  * Copy elements from one float vec to another, and returns the destination array.
@@ -14,7 +8,7 @@ let f: Float = 0;
 export function copy(
   src: ReadonlyVec, dst: Vec, srcOffset: Int = 0, dstOffset: Int = 0, count: Int = src.length - srcOffset
 ): Vec {
-  for (i = 0; i < count; ++i) {
+  for (let i: Int = 0; i < count; ++i) {
     dst[dstOffset + i] = src[srcOffset + i];
   }
   return dst;
@@ -28,7 +22,7 @@ export function fequal(a: ReadonlyVec, b: ReadonlyVec, epsilon: Float = EPSILON)
   if (a.length - b.length) {
     return false;
   }
-  for (i = 0; i < a.length; ++i) {
+  for (let i: Int = 0; i < a.length; ++i) {
     if (!fequalNum(a[i], b[i], epsilon)) {
       return false;
     }
@@ -41,7 +35,7 @@ export function fequal(a: ReadonlyVec, b: ReadonlyVec, epsilon: Float = EPSILON)
  * @returns out = a + b
  */
 export function add(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
-  for (i = 0; i < a.length; ++i) {
+  for (let i: Int = 0; i < a.length; ++i) {
     out[i] = a[i] + b[i];
   }
   return out;
@@ -52,7 +46,7 @@ export function add(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
  * @returns out = a - b
  */
 export function sub(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
-  for (i = 0; i < a.length; ++i) {
+  for (let i: Int = 0; i < a.length; ++i) {
     out[i] = a[i] - b[i];
   }
   return out;
@@ -63,7 +57,7 @@ export function sub(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
  * @returns out = s * a
  */
 export function scale(a: ReadonlyVec, s: Float, out: Vec): Vec {
-  for (i = 0; i < a.length; ++i) {
+  for (let i: Int = 0; i < a.length; ++i) {
     out[i] = a[i] * s;
   }
   return out;
@@ -74,7 +68,7 @@ export function scale(a: ReadonlyVec, s: Float, out: Vec): Vec {
  * @returns out = a * b
  */
 export function mul(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
-  for (i = 0; i < a.length; ++i) {
+  for (let i: Int = 0; i < a.length; ++i) {
     out[i] = a[i] * b[i];
   }
   return out;
@@ -85,7 +79,7 @@ export function mul(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
  * @returns out = lerp(a, b, t)
  */
 export function lerp(a: ReadonlyVec, b: ReadonlyVec, t: Float, out: Vec): Vec {
-  for (i = 0; i < a.length; ++i) {
+  for (let i: Int = 0; i < a.length; ++i) {
     out[i] = lerpNum(a[i], b[i], t);
   }
   return out;
@@ -96,8 +90,8 @@ export function lerp(a: ReadonlyVec, b: ReadonlyVec, t: Float, out: Vec): Vec {
  * @returns a * b
  */
 export function dot(a: ReadonlyVec, b: ReadonlyVec): Float {
-  f = 0;
-  for (i = 0; i < a.length; ++i) {
+  let f: Float = 0;
+  for (let i: Int = 0; i < a.length; ++i) {
     f += a[i] * b[i];
   }
   return f;
@@ -111,8 +105,9 @@ export function dot(a: ReadonlyVec, b: ReadonlyVec): Float {
  * @returns out = [M]T
  */
 export function tr(n: Int, m: ReadonlyVec, out: Vec): Vec {
-  for (i = 0; i < n; ++i) {
-    for (j = i; j < n; ++j) {
+  let f: Float = 0;
+  for (let i: Int = 0; i < n; ++i) {
+    for (let j = i; j < n; ++j) {
       // Swap mij and mji
       f = m[j * n + i];
       out[j * n + i] = m[i * n + j];
@@ -133,11 +128,12 @@ export function tr(n: Int, m: ReadonlyVec, out: Vec): Vec {
 export function mmul(n: Int, a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
   const rr = (a.length / n) as Int;
   const rc = (b.length / n) as Int;
+  let f: Float = 0;
 
-  for (i = 0; i < rc; ++i) {
-    for (j = 0; j < rr; ++j) {
+  for (let i: Int = 0; i < rc; ++i) {
+    for (let j: Int = 0; j < rr; ++j) {
       f = 0;
-      for (k = 0; k < n; ++k) {
+      for (let k: Int = 0; k < n; ++k) {
         f += a[k * rr + j] * b[i * n + k];
       }
       out[i * rr + j] = f;

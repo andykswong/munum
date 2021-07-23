@@ -1,4 +1,4 @@
-import { Float, Mat3 } from '@andykswong/munum-types';
+import { Float, Mat3 } from './types';
 import * as mat3 from './mat3';
 
 /**

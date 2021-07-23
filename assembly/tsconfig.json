@@ -17,5 +17,8 @@
   },
   "include": [
     "./**/*.ts"
+  ],
+  "exclude": [
+    "./types"
   ]
 }

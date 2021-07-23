@@ -1,4 +1,4 @@
-import { Float } from '@andykswong/munum-types';
+import { Float } from './types';
 
 /**
  * The float epsilon.
