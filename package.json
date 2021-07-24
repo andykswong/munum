@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "prepublishOnly": "npm run build && npm test",
-    "clean": "rimraf coverage dist node_modules **/__tests__/**/*.spec.map **/__tests__/**/*.spec.wat",
+    "clean": "rimraf coverage docs dist node_modules **/__tests__/**/*.spec.map **/__tests__/**/*.spec.wat",
     "prebuild": "npm run lint",
     "build": "npm run asbuild && npm run tsbuild",
     "lint": "eslint assembly --ext .ts,.tsx",
@@ -69,7 +69,9 @@
     "typescript": "^4.3.5"
   },
   "jest": {
-    "extensionsToTreatAsEsm": [ ".ts" ],
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ],
     "testEnvironment": "node",
     "testMatch": [
       "**/__tests__/**/*.spec.ts"

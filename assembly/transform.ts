@@ -37,7 +37,9 @@ export function scale(s: ReadonlyVec3, out: Mat4 = mat4.create()): Mat4 {
 /**
  * Returns a {@link Mat4} for a rotation by a {@link Quat}.
  */
-export const rotate: (q: ReadonlyQuat, out?: Mat4) => Mat4 = quat.toMat4;
+export function rotate(q: ReadonlyQuat, out: Mat4 = mat4.create()): Mat4 {
+  return quat.toMat4(q, out);
+}
 
 /**
  * Returns a {@link Mat4} for a 3D rotation about the x-axis in couterclockwise direction.
@@ -191,6 +193,7 @@ export function ortho(
 /**
  * Calculate the {@link Mat4} perspective projection using GLTF's formula. Use infinite projection if zfar = Infinity.
  * @see https://github.com/KhronosGroup/glTF/tree/master/specification/2.0
+ * @param zfar defaults to Infinity
  */
 export function perspective(
   aspectRatio: Float, yfov: Float, znear: Float, zfar: Float = Infinity,
@@ -243,9 +246,13 @@ export function perspective(
 /**
  * Calculate the {@link Mat4} view matrix for a camera at eye position looking at the center
  * position with a given up direction.
+ * @param center defaults to the origin, i.e. [0, 0, 0]
+ * @param up defaults to the positive y-axis, i.e. [0, 1, 0]
  */
 export function lookAt(
-  eye: ReadonlyVec3, center: ReadonlyVec3, up: ReadonlyVec3 = vec3.create(0, 1, 0),
+  eye: ReadonlyVec3,
+  center: ReadonlyVec3 = vec3.create(),
+  up: ReadonlyVec3 = vec3.create(0, 1, 0),
   out: Mat4 = mat4.create()
 ): Mat4 {
   const v: Vec3 = vec3.sub(center, eye, v0); // front
@@ -274,6 +281,7 @@ export function lookAt(
 
 /**
  * Calculates the {@link Mat4} view matrix for an arcball camera from the distance to center and a rotation quaternion.
+ * @param center defaults to the origin, i.e. [0, 0, 0]
  */
 export function arcball(
   distance: ReadonlyVec3, rotation: ReadonlyQuat, center: ReadonlyVec3 = vec3.create(),

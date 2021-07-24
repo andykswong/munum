@@ -67,7 +67,9 @@ export function mmul(a: ReadonlyMat3, b: ReadonlyVec3, out: Vec3 = create()): Ve
  * Calculate the dot product of 2 {@link Vec3}.
  * @returns a * b
  */
-export const dot: (a: ReadonlyVec3, b: ReadonlyVec3) => Float = array.dot;
+export function dot(a: ReadonlyVec3, b: ReadonlyVec3): Float {
+  return array.dot(a, b);
+}
 
 /**
  * Linear interpolate 2 {@link Vec3}.

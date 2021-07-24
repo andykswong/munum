@@ -1,4 +1,4 @@
-import { array, Float, mat2, mat3, mat4, Vec, vec2, vec3, vec4 } from '../index';
+import { array, Float, mat2, mat3, mat4, quat, Vec, vec2, vec3, vec4 } from '../index';
 import { expectVecEqual } from './test-utils';
 
 describe('array', () => {
@@ -22,6 +22,7 @@ describe('array', () => {
         [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       ),
+      quat.copy([8, 9, 7, 9.3], [6, 7, 8, 9]),
       array.copy([1, 2, 3], [0, 0, 0, 0, 0]),
     ];
     const expecteds: Vec[] = [
@@ -31,6 +32,7 @@ describe('array', () => {
       [8, 9, 7, 9.3],
       [1, 2, 3, 4, 5, 6, 7, 8, 9],
       [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      [8, 9, 7, 9.3],
       [1, 2, 3, 0, 0]
     ];
 

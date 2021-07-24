@@ -1,14 +1,13 @@
 {
   "targets": {
     "debug": {
-      "binaryFile": "dist/untouched.wasm",
-      "textFile": "dist/untouched.wat",
+      "binaryFile": "dist/munum.wasm",
+      "textFile": "dist/munum.wat",
       "sourceMap": true,
       "debug": true
     },
     "release": {
-      "binaryFile": "dist/optimized.wasm",
-      "textFile": "dist/optimized.wat",
+      "binaryFile": "dist/munum.wasm",
       "sourceMap": true,
       "optimizeLevel": 3,
       "shrinkLevel": 0,
