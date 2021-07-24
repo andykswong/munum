@@ -1,9 +1,9 @@
 {
   "name": "munum",
   "version": "0.0.3",
-  "description": "Micro-sized numerical library for graphics and physics simulation in JavaScript and WebAssembly",
+  "description": "AssemblyScript Numerical Library for JavaScript and WebAssembly Isomorphic Apps",
   "main": "index.mjs",
-  "typings": "index.d.ts",
+  "types": "index.d.ts",
   "ascMain": "assembly/index.ts",
   "files": [
     "/assembly",
