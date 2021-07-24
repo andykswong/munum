@@ -8,8 +8,8 @@ import { EPSILON, fequal as fequalNum, lerp as lerpNum } from './scalar';
 export function copy(
   src: ReadonlyVec, dst: Vec, srcOffset: Int = 0, dstOffset: Int = 0, count: Int = src.length - srcOffset
 ): Vec {
-  for (let i: Int = 0; i < count; ++i) {
-    dst[dstOffset + i] = src[srcOffset + i];
+  for (let i = 0; i < count; ++i) {
+    unchecked(dst[dstOffset + i] = src[srcOffset + i]);
   }
   return dst;
 }
@@ -22,8 +22,8 @@ export function fequal(a: ReadonlyVec, b: ReadonlyVec, epsilon: Float = EPSILON)
   if (a.length - b.length) {
     return false;
   }
-  for (let i: Int = 0; i < a.length; ++i) {
-    if (!fequalNum(a[i], b[i], epsilon)) {
+  for (let i = 0; i < a.length; ++i) {
+    if (!unchecked(fequalNum(a[i], b[i], epsilon))) {
       return false;
     }
   }
@@ -35,8 +35,8 @@ export function fequal(a: ReadonlyVec, b: ReadonlyVec, epsilon: Float = EPSILON)
  * @returns out = a + b
  */
 export function add(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
-  for (let i: Int = 0; i < a.length; ++i) {
-    out[i] = a[i] + b[i];
+  for (let i = 0; i < a.length; ++i) {
+    unchecked(out[i] = a[i] + b[i]);
   }
   return out;
 }
@@ -46,8 +46,8 @@ export function add(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
  * @returns out = a - b
  */
 export function sub(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
-  for (let i: Int = 0; i < a.length; ++i) {
-    out[i] = a[i] - b[i];
+  for (let i = 0; i < a.length; ++i) {
+    unchecked(out[i] = a[i] - b[i]);
   }
   return out;
 }
@@ -57,8 +57,8 @@ export function sub(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
  * @returns out = s * a
  */
 export function scale(a: ReadonlyVec, s: Float, out: Vec): Vec {
-  for (let i: Int = 0; i < a.length; ++i) {
-    out[i] = a[i] * s;
+  for (let i = 0; i < a.length; ++i) {
+    unchecked(out[i] = a[i] * s);
   }
   return out;
 }
@@ -68,8 +68,8 @@ export function scale(a: ReadonlyVec, s: Float, out: Vec): Vec {
  * @returns out = a * b
  */
 export function mul(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
-  for (let i: Int = 0; i < a.length; ++i) {
-    out[i] = a[i] * b[i];
+  for (let i = 0; i < a.length; ++i) {
+    unchecked(out[i] = a[i] * b[i]);
   }
   return out;
 }
@@ -79,8 +79,8 @@ export function mul(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
  * @returns out = lerp(a, b, t)
  */
 export function lerp(a: ReadonlyVec, b: ReadonlyVec, t: Float, out: Vec): Vec {
-  for (let i: Int = 0; i < a.length; ++i) {
-    out[i] = lerpNum(a[i], b[i], t);
+  for (let i = 0; i < a.length; ++i) {
+    unchecked(out[i] = lerpNum(a[i], b[i], t));
   }
   return out;
 }
@@ -91,8 +91,8 @@ export function lerp(a: ReadonlyVec, b: ReadonlyVec, t: Float, out: Vec): Vec {
  */
 export function dot(a: ReadonlyVec, b: ReadonlyVec): Float {
   let f: Float = 0;
-  for (let i: Int = 0; i < a.length; ++i) {
-    f += a[i] * b[i];
+  for (let i = 0; i < a.length; ++i) {
+    f += unchecked(a[i] * b[i]);
   }
   return f;
 }
@@ -106,12 +106,12 @@ export function dot(a: ReadonlyVec, b: ReadonlyVec): Float {
  */
 export function tr(n: Int, m: ReadonlyVec, out: Vec): Vec {
   let f: Float = 0;
-  for (let i: Int = 0; i < n; ++i) {
+  for (let i = 0; i < n; ++i) {
     for (let j = i; j < n; ++j) {
       // Swap mij and mji
-      f = m[j * n + i];
-      out[j * n + i] = m[i * n + j];
-      out[i * n + j] = f;
+      f = unchecked(m[j * n + i]);
+      unchecked(out[j * n + i] = m[i * n + j]);
+      unchecked(out[i * n + j] = f);
     }
   }
   return out;
@@ -130,13 +130,13 @@ export function mmul(n: Int, a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
   const rc = (b.length / n) as Int;
   let f: Float = 0;
 
-  for (let i: Int = 0; i < rc; ++i) {
-    for (let j: Int = 0; j < rr; ++j) {
+  for (let i = 0; i < rc; ++i) {
+    for (let j = 0; j < rr; ++j) {
       f = 0;
-      for (let k: Int = 0; k < n; ++k) {
-        f += a[k * rr + j] * b[i * n + k];
+      for (let k = 0; k < n; ++k) {
+        f += unchecked(a[k * rr + j] * b[i * n + k]);
       }
-      out[i * rr + j] = f;
+      unchecked(out[i * rr + j] = f);
     }
   }
 

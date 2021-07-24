@@ -1,12 +1,8 @@
-import { Float, ReadonlyMat2, Mat2, Int, ReadonlyVec2, Vec2, ReadonlyMat3 } from './types';
-import * as vec2 from './vec2';
+import { Float, ReadonlyMat2, Mat2, ReadonlyMat3 } from './types';
 import * as array from './array';
-
-const ORDER: Int = 2;
 
 // Temp variables
 const m: Mat2 = create();
-const v: Vec2 = vec2.create();
 
 /**
  * Create a new identity {@link Mat2}.
@@ -21,8 +17,8 @@ export function create(): Mat2 {
  * @returns out = I2
  */
 export function id(out: Mat2): Mat2 {
-  out[0] = out[2] = 1;
-  out[1] = out[3] = 0;
+  unchecked(out[0] = out[3] = 1);
+  unchecked(out[1] = out[2] = 0);
   return out;
 }
 
@@ -31,10 +27,10 @@ export function id(out: Mat2): Mat2 {
  * @returns identity Mat2
  */
 export function fromMat3(m: ReadonlyMat3, out: Mat2 = create()): Mat2 {
-  out[0] = m[0];
-  out[1] = m[1];
-  out[2] = m[3];
-  out[3] = m[4];
+  unchecked(out[0] = m[0]);
+  unchecked(out[1] = m[1]);
+  unchecked(out[2] = m[3]);
+  unchecked(out[3] = m[4]);
   return out;
 }
 
@@ -42,51 +38,55 @@ export function fromMat3(m: ReadonlyMat3, out: Mat2 = create()): Mat2 {
  * Copy a {@link Mat2}.
  * @returns out
  */
-export const copy = (v: ReadonlyMat2, out: Mat2 = create()): Mat2 => array.copy(v, out) as Mat2;
+export function copy(v: ReadonlyMat2, out: Mat2 = create()): Mat2 {
+  return array.copy(v, out) as Mat2;
+}
 
 /**
  * Sum 2 {@link Mat2}.
  * @returns out = a + b
  */
-export const add = (a: ReadonlyMat2, b: ReadonlyMat2, out: Mat2 = create()): Mat2 => array.add(a, b, out) as Mat2;
+export function add(a: ReadonlyMat2, b: ReadonlyMat2, out: Mat2 = create()): Mat2 {
+  return array.add(a, b, out) as Mat2;
+}
 
 /**
  * Subtract 2 {@link Mat2}.
  * @returns out = a - b
  */
-export const sub = (a: ReadonlyMat2, b: ReadonlyMat2, out: Mat2 = create()): Mat2 => array.sub(a, b, out) as Mat2;
+export function sub(a: ReadonlyMat2, b: ReadonlyMat2, out: Mat2 = create()): Mat2 {
+  return array.sub(a, b, out) as Mat2;
+}
 
 /**
  * Multiply a {@link Mat2} by a constant.
  * @returns out = s * M
  */
-export const scale = (m: ReadonlyMat2, s: Float, out: Mat2 = create()): Mat2 => array.scale(m, s, out) as Mat2;
+export function scale(m: ReadonlyMat2, s: Float, out: Mat2 = create()): Mat2 {
+  return array.scale(m, s, out) as Mat2;
+}
 
 /**
  * Transpose a {@link Mat2}.
  * @returns [M]T
  */
-export const tr = (m: ReadonlyMat2, out: Mat2 = create()): Mat2 => array.tr(ORDER, m, out) as Mat2;
+export function tr(m: ReadonlyMat2, out: Mat2 = create()): Mat2 {
+  return array.tr(2, m, out) as Mat2;
+}
 
 /**
  * Multiply 2 {@link Mat2}.
  * @returns out = a * b
  */
-export const mul = (a: ReadonlyMat2, b: ReadonlyMat2, out: Mat2 = create()): Mat2 =>
-  array.copy(array.mmul(ORDER, a, b, m), out) as Mat2;
-
-/**
- * Multiply a {@link Mat2} with a {@link Vec2}.
- * @returns out = m * v
- */
-export const vmul = (a: ReadonlyMat2, b: ReadonlyVec2, out: Vec2 = vec2.create()): Vec2 =>
-  array.copy(array.mmul(ORDER, a, b, v), out) as Vec2;
+export function mul(a: ReadonlyMat2, b: ReadonlyMat2, out: Mat2 = create()): Mat2 {
+  return array.copy(array.mmul(2, a, b, m), out) as Mat2;
+}
 
 /**
  * Calculate the determinant of a {@link Mat2}.
  */
 export function det(m: ReadonlyMat2): Float {
-  return (m[0] * m[3] - m[2] * m[1]);
+  return unchecked(m[0] * m[3] - m[2] * m[1]);
 }
 
 /**
@@ -101,10 +101,10 @@ export function invert(a: ReadonlyMat2, out: Mat2 = create()): Mat2 | null {
     return null;
   }
 
-  m[0] = a[3];
-  m[1] = -a[1];
-  m[2] = -a[2];
-  m[3] = a[0];
+  unchecked(m[0] = a[3]);
+  unchecked(m[1] = -a[1]);
+  unchecked(m[2] = -a[2]);
+  unchecked(m[3] = a[0]);
 
   return scale(m, 1 / detA, out);
 }

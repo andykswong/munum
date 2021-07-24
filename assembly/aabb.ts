@@ -1,4 +1,4 @@
-import { AABB, Float, Int, ReadonlyAABB, ReadonlyMat4, ReadonlyVec3, Vec3 } from './types';
+import { AABB, Float, ReadonlyAABB, ReadonlyMat4, ReadonlyVec3, Vec3 } from './types';
 import * as array from './array';
 import * as vec3 from './vec3';
 
@@ -14,12 +14,12 @@ export const create = (min: Vec3 = vec3.create(), max: Vec3 = vec3.create()): AA
  * Calculates the union of 2 {@link ReadonlyAABB}s.
  */
 export function union(a: ReadonlyAABB, b: ReadonlyAABB, out: AABB = create()): AABB {
-  out.min[0] = Math.min(a.min[0], b.min[0]) as Float;
-  out.min[1] = Math.min(a.min[1], b.min[1]) as Float;
-  out.min[2] = Math.min(a.min[2], b.min[2]) as Float;
-  out.max[0] = Math.max(a.max[0], b.max[0]) as Float;
-  out.max[1] = Math.max(a.max[1], b.max[1]) as Float;
-  out.max[2] = Math.max(a.max[2], b.max[2]) as Float;
+  unchecked(out.min[0] = Math.min(a.min[0], b.min[0]) as Float);
+  unchecked(out.min[1] = Math.min(a.min[1], b.min[1]) as Float);
+  unchecked(out.min[2] = Math.min(a.min[2], b.min[2]) as Float);
+  unchecked(out.max[0] = Math.max(a.max[0], b.max[0]) as Float);
+  unchecked(out.max[1] = Math.max(a.max[1], b.max[1]) as Float);
+  unchecked(out.max[2] = Math.max(a.max[2], b.max[2]) as Float);
   return out;
 }
 
@@ -28,15 +28,15 @@ export function union(a: ReadonlyAABB, b: ReadonlyAABB, out: AABB = create()): A
  */
 export function transform(a: ReadonlyAABB, m: ReadonlyMat4, out: AABB = create()): AABB {
   // min: v0, max: v1
-  for (let i: Int = 0; i < 3; ++i) {
-    v0[i] = m[3 * 4 + i];
-    v1[i] = m[3 * 4 + i];
+  for (let i = 0; i < 3; ++i) {
+    unchecked(v0[i] = m[3 * 4 + i]);
+    unchecked(v1[i] = m[3 * 4 + i]);
 
-    for (let j: Int = 0; j < 3; ++j) {
-      const x: Float = a.min[j] * m[j * 4 + i];
-      const y: Float = a.max[j] * m[j * 4 + i];
-      v0[i] += Math.min(x, y) as Float;
-      v1[i] += Math.max(x, y) as Float;
+    for (let j = 0; j < 3; ++j) {
+      const x: Float = unchecked(a.min[j] * m[j * 4 + i]);
+      const y: Float = unchecked(a.max[j] * m[j * 4 + i]);
+      unchecked(v0[i] += Math.min(x, y) as Float);
+      unchecked(v1[i] += Math.max(x, y) as Float);
     }
   }
 
@@ -56,9 +56,9 @@ export function displacement(box: ReadonlyAABB, point: ReadonlyVec3, out: Vec3 =
   vec3.scale(v0, 0.5, v0);
   vec3.scale(v1, 0.5, v1);
 
-  out[0] = Math.abs(point[0] - v0[0]) - v1[0] as Float;
-  out[1] = Math.abs(point[1] - v0[1]) - v1[1] as Float;
-  out[2] = Math.abs(point[2] - v0[2]) - v1[2] as Float;
+  unchecked(out[0] = Math.abs(point[0] - v0[0]) - v1[0] as Float);
+  unchecked(out[1] = Math.abs(point[1] - v0[1]) - v1[1] as Float);
+  unchecked(out[2] = Math.abs(point[2] - v0[2]) - v1[2] as Float);
   return out;
 }
 
@@ -67,10 +67,10 @@ export function displacement(box: ReadonlyAABB, point: ReadonlyVec3, out: Vec3 =
  */
 export function dist(box: ReadonlyAABB, point: ReadonlyVec3): Float {
   displacement(box, point, v0);
-  v0[0] = Math.max(0, v0[0]) as Float;
-  v0[1] = Math.max(0, v0[1]) as Float;
-  v0[2] = Math.max(0, v0[2]) as Float;
-  return ((v0[0] <= 0 && v0[1] <= 0 && v0[2] <= 0) ? -1 : 1) * vec3.len(v0);
+  unchecked(v0[0] = Math.max(0, v0[0]) as Float);
+  unchecked(v0[1] = Math.max(0, v0[1]) as Float);
+  unchecked(v0[2] = Math.max(0, v0[2]) as Float);
+  return (unchecked(v0[0] <= 0 && v0[1] <= 0 && v0[2] <= 0) ? -1 : 1) * vec3.len(v0);
 }
 
 /**
@@ -78,5 +78,5 @@ export function dist(box: ReadonlyAABB, point: ReadonlyVec3): Float {
  */
 export function contains(box: ReadonlyAABB, point: ReadonlyVec3): boolean {
   displacement(box, point, v0);
-  return v0[0] <= 0 && v0[1] <= 0 && v0[2] <= 0;
+  return unchecked(v0[0] <= 0 && v0[1] <= 0 && v0[2]) <= 0;
 }

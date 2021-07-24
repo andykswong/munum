@@ -1,6 +1,6 @@
 {
   "name": "munum",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Micro-sized numerical library for graphics and physics simulation in JavaScript and WebAssembly",
   "main": "index.mjs",
   "typings": "index.d.ts",
@@ -25,7 +25,7 @@
     "test": "npm run asp && npm run jest",
     "asp": "asp",
     "jest": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest",
-    "jest:watch": "jest --watch",
+    "jest:watch": "npm run jest -- --watch",
     "docs": "typedoc --tsconfig assembly/tsconfig.json --out docs assembly/index.ts"
   },
   "repository": {
@@ -47,8 +47,6 @@
     "url": "https://github.com/andykswong/munum/issues"
   },
   "homepage": "https://github.com/andykswong/munum",
-  "dependencies": {
-  },
   "devDependencies": {
     "@as-pect/cli": "^6.2.4",
     "@babel/cli": "^7.14.8",
@@ -60,18 +58,18 @@
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
     "assemblyscript": "^0.19.7",
+    "babel-jest": "^27.0.6",
     "babel-plugin-add-import-extension": "^1.6.0",
     "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
     "eslint": "^7.31.0",
     "jest": "^27.0.6",
     "rimraf": "^3.0.2",
-    "ts-jest": "^27.0.4",
     "typedoc": "^0.21.4",
     "typescript": "^4.3.5"
   },
   "jest": {
-    "preset": "ts-jest/presets/default-esm",
+    "extensionsToTreatAsEsm": [ ".ts" ],
     "testEnvironment": "node",
     "testMatch": [
       "**/__tests__/**/*.spec.ts"
@@ -79,14 +77,9 @@
     "collectCoverage": true,
     "collectCoverageFrom": [
       "assembly/**/*.{ts,mjs}",
-      "!assembly/types/index.ts"
+      "!assembly/types/index.ts",
+      "!**/__tests__/**"
     ],
-    "coverageDirectory": "coverage",
-    "globals": {
-      "ts-jest": {
-        "useESM": true,
-        "tsconfig": "assembly/tsconfig.json"
-      }
-    }
+    "coverageDirectory": "coverage"
   }
 }

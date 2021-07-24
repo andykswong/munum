@@ -13,7 +13,7 @@ const v2: Vec3 = vec3.create();
  */
 export function fromPointNormal(normal: ReadonlyVec3, point: ReadonlyVec3, out: Plane = vec4.create()): Plane {
   vec3.norm(normal, v1);
-  out[3] = -vec3.dot(v1, point);
+  unchecked(out[3] = -vec3.dot(v1, point));
   return array.copy(v1, out) as Plane;
 }
 
@@ -31,7 +31,7 @@ export function fromPoints(a: ReadonlyVec3, b: ReadonlyVec3, c: ReadonlyVec3, ou
  * Normalized plane has len(a, b, c) = 1.
  */
 export function norm(p: ReadonlyPlane, out: Plane = vec4.create()): Plane {
-  return vec4.scale(p, 1 / ((Math.sqrt(p[0] * p[0] + p[1] * p[1] + p[2] * p[2]) as Float) || 1), out);
+  return unchecked(vec4.scale(p, 1 / ((Math.sqrt(p[0] * p[0] + p[1] * p[1] + p[2] * p[2]) as Float) || 1), out));
 }
 
 /**
@@ -39,11 +39,13 @@ export function norm(p: ReadonlyPlane, out: Plane = vec4.create()): Plane {
  * Positive if q is on the same side of the plane as the plane normal; negative if it is on the opposite side.
  * Normalized plane has len(a, b, c) = 1.
  */
-export const dist = (p: ReadonlyPlane, q: ReadonlyVec3): Float =>
-  p[0] * q[0] + p[1] * q[1] + p[2] * q[2] + p[3];
+export function dist(p: ReadonlyPlane, q: ReadonlyVec3): Float {
+  return unchecked(p[0] * q[0] + p[1] * q[1] + p[2] * q[2] + p[3]);
+}
 
 /**
  * Returns if the normal of a {@link Plane} p is front-facing given the direction vector d.
  */
-export const frontFacing = (p: ReadonlyPlane, d: ReadonlyVec3): boolean =>
-  p[0] * d[0] + p[1] * d[1] + p[2] * d[2] <= 0;
+export function frontFacing(p: ReadonlyPlane, d: ReadonlyVec3): boolean {
+  return unchecked(p[0] * d[0] + p[1] * d[1] + p[2] * d[2] <= 0);
+}

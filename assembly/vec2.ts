@@ -1,5 +1,8 @@
-import { Float, ReadonlyVec2, Vec2 } from './types';
+import { Float, ReadonlyMat2, ReadonlyVec2, Vec2 } from './types';
 import * as array from './array';
+
+// Temp variables
+const v: Vec2 = create();
 
 /**
  * Create a new {@link Vec2}.
@@ -15,31 +18,49 @@ export function create(x: Float = 0, y: Float = 0): Vec2 {
  * Copy a {@link Vec2}.
  * @returns out
  */
-export const copy = (v: ReadonlyVec2, out: Vec2 = create()): Vec2 => array.copy(v, out) as Vec2;
+export function copy(v: ReadonlyVec2, out: Vec2 = create()): Vec2 {
+  return array.copy(v, out) as Vec2;
+}
 
 /**
  * Sum 2 {@link Vec2}.
  * @returns out = a + b
  */
-export const add = (a: ReadonlyVec2, b: ReadonlyVec2, out: Vec2 = create()): Vec2 => array.add(a, b, out) as Vec2;
+export function add(a: ReadonlyVec2, b: ReadonlyVec2, out: Vec2 = create()): Vec2 {
+  return array.add(a, b, out) as Vec2;
+}
 
 /**
  * Subtract 2 {@link Vec2}.
  * @returns out = a - b
  */
-export const sub = (a: ReadonlyVec2, b: ReadonlyVec2, out: Vec2 = create()): Vec2 => array.sub(a, b, out) as Vec2;
+export function sub(a: ReadonlyVec2, b: ReadonlyVec2, out: Vec2 = create()): Vec2 {
+  return array.sub(a, b, out) as Vec2;
+}
 
 /**
  * Multiply a {@link Vec2} by a constant.
  * @returns out = s * v
  */
-export const scale = (v: ReadonlyVec2, s: Float, out: Vec2 = create()): Vec2 => array.scale(v, s, out) as Vec2;
+export function scale(v: ReadonlyVec2, s: Float, out: Vec2 = create()): Vec2 {
+  return array.scale(v, s, out) as Vec2;
+}
 
 /**
- * Multiply 2 {@link Vec2} component-wise.
+ * Multiply 2 {@link Vec2} element-wise.
  * @returns out = a * b
  */
-export const mul = (v: ReadonlyVec2, s: ReadonlyVec2, out: Vec2 = create()): Vec2 => array.mul(v, s, out) as Vec2;
+export function mul(v: ReadonlyVec2, s: ReadonlyVec2, out: Vec2 = create()): Vec2 {
+  return array.mul(v, s, out) as Vec2;
+}
+
+/**
+ * Multiply a {@link ReadonlyMat2} with a {@link Vec2}.
+ * @returns out = m * v
+ */
+export function mmul(a: ReadonlyMat2, b: ReadonlyVec2, out: Vec2 = create()): Vec2 {
+  return array.copy(array.mmul(2, a, b, v), out) as Vec2;
+}
 
 /**
  * Calculate the dot product of 2 {@link Vec2}.
@@ -51,22 +72,30 @@ export const dot: (a: ReadonlyVec2, b: ReadonlyVec2) => Float = array.dot;
  * Linear interpolate 2 {@link Vec2}.
  * @returns out = lerp(a, b, t)
  */
-export const lerp = (a: ReadonlyVec2, b: ReadonlyVec2, t: Float, out: Vec2 = create()): Vec2 => array.lerp(a, b, t, out) as Vec2;
+export function lerp(a: ReadonlyVec2, b: ReadonlyVec2, t: Float, out: Vec2 = create()): Vec2 {
+  return array.lerp(a, b, t, out) as Vec2;
+}
 
 /**
  * Calculate squared length of a {@link Vec2}.
  * @returns dot(v, v)
  */
-export const len2 = (v: ReadonlyVec2): Float => dot(v, v);
+export function len2(v: ReadonlyVec2): Float {
+  return dot(v, v);
+}
 
 /**
  * Calculate length of a {@link Vec2}.
  * @returns |v|
  */
-export const len = (v: ReadonlyVec2): Float => Math.hypot(v[0], v[1]) as Float;
+export function len(v: ReadonlyVec2): Float {
+  return Math.hypot(v[0], v[1]) as Float;
+}
 
 /**
  * Normalize a {@link Vec2} and optionally stores result to the out param.
  * @returns v/|v|
  */
-export const norm = (v: ReadonlyVec2, out: Vec2 = create()): Vec2 => array.scale(v, 1 / (len(v) || 1), out) as Vec2;
+export function norm(v: ReadonlyVec2, out: Vec2 = create()): Vec2 {
+  return array.scale(v, 1 / (len(v) || 1), out) as Vec2;
+}

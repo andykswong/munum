@@ -1,10 +1,15 @@
-# munum - μNum - AssemblyScript Numerical Library
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE) [![NPM](https://img.shields.io/npm/v/munum)](https://www.npmjs.com/package/munum) [![build](https://github.com/andykswong/munum/actions/workflows/build.yaml/badge.svg)](https://github.com/andykswong/munum/actions/workflows/build.yaml)
-
-> A minimal numerical library for 3D graphics and physics simulation in JavaScript and WebAssembly via AssemblyScript.
+<h1 align="center">🅼🆄🅽🆄🅼</h1>
+<h2 align="center">μNum - AssemblyScript Numerical Library</h2>
+<br />
+<p align="center">
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a> 
+  <a href="https://www.npmjs.com/package/munum"><img src="https://img.shields.io/npm/v/munum" alt="NPM" /></a> 
+  <a href="https://bundlephobia.com/result?p=munum"><img src="https://badgen.net/bundlephobia/minzip/munum" alt="size" /></a> 
+  <a href="https://github.com/andykswong/munum/actions/workflows/build.yaml"><img src="https://github.com/andykswong/munum/actions/workflows/build.yaml/badge.svg" alt="build" /></a>
+</p>
 
 ## Overview
-`munum` is a small, modular numerical library for high-performance 3D applications running on WebAssembly. Using munum with TypeScript/AssemblyScript, you can compile the same code to both JavaScript with `tsc` and WebAssembly with `asc` without any change.
+`munum` is a small, modular numerical library for high-performance 3D web applications. With munum, you can build isomorphic apps that targets both JavaScript via Babel/TypeScript, and WebAssembly via AssemblyScript with the same code base.
 
 ## Usage
 Install via NPM for AssemblyScript or TypeScript projects: 

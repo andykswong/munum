@@ -6,8 +6,8 @@ import * as mat3 from './mat3';
  */
 export function translate2d(x: Float, y: Float, out: Mat3 = mat3.create()): Mat3 {
   mat3.id(out);
-  out[6] = x;
-  out[7] = y;
+  unchecked(out[6] = x);
+  unchecked(out[7] = y);
   return out;
 }
 
@@ -16,8 +16,8 @@ export function translate2d(x: Float, y: Float, out: Mat3 = mat3.create()): Mat3
  */
 export function scale2d(x: Float, y: Float, out: Mat3 = mat3.create()): Mat3 {
   mat3.id(out);
-  out[0] = x;
-  out[4] = y;
+  unchecked(out[0] = x);
+  unchecked(out[4] = y);
   return out;
 }
 
@@ -26,8 +26,8 @@ export function scale2d(x: Float, y: Float, out: Mat3 = mat3.create()): Mat3 {
  */
 export function rotate2d(theta: Float, out: Mat3 = mat3.create()): Mat3 {
   mat3.id(out);
-  out[0] = out[4] = Math.cos(theta) as Float;
-  out[1] = out[3] = Math.sin(theta) as Float;
-  out[3] *= -1;
+  unchecked(out[0] = out[4] = Math.cos(theta) as Float);
+  unchecked(out[1] = out[3] = Math.sin(theta) as Float);
+  unchecked(out[3] *= -1);
   return out;
 }
