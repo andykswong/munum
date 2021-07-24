@@ -7,7 +7,7 @@ module.exports = api => {
       ["@babel/preset-typescript"]
     ],
     "plugins": [
-      "./babel.transform.js"
+      "./babel.transform.cjs"
     ],
     "ignore": ["node_modules"],
     "comments": false,

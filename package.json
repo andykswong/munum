@@ -1,7 +1,9 @@
 {
   "name": "munum",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "AssemblyScript Numerical Library for JavaScript and WebAssembly Isomorphic Apps",
+  "type": "module",
+  "sideEffects": false,
   "main": "index.mjs",
   "types": "index.d.ts",
   "ascMain": "assembly/index.ts",
@@ -23,7 +25,7 @@
     "babel": "cross-env-shell babel assembly -d dist --source-maps --extensions '.ts' --out-file-extension .mjs",
     "types": "tsc -p ./assembly --emitDeclarationOnly && copyfiles -f assembly/types/index.d.ts dist/types",
     "test": "npm run asp && npm run jest",
-    "asp": "asp",
+    "asp": "asp -c as-pect.config.cjs",
     "jest": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest",
     "jest:watch": "npm run jest -- --watch",
     "docs": "typedoc --tsconfig assembly/tsconfig.json --out docs assembly/index.ts"
