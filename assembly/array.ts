@@ -15,6 +15,18 @@ export function copy(
 }
 
 /**
+ * Generic function to copy elements from any array-like object to another.
+ * This is only useful for use within AssemblyScript. For JS build, you can simply use {@link copy}.
+ */
+export function copyEx<T, U>(src: T, dst: U, srcOffset: Int, dstOffset: Int, count: Int): U {
+  for (let i = 0; i < count; ++i) {
+    // @ts-ignore: Skip type checking
+    unchecked(dst[dstOffset + i] = src[srcOffset + i]);
+  }
+  return dst;
+}
+
+/**
  * Check if 2 number arrays have equal length and equal values within an epsilon.
  * @returns a == b
  */

@@ -5,12 +5,7 @@ const out: Mat4 = mat4.create();
 
 describe('mat4', () => {
   test('create()', () => {
-    const v = mat4.create();
-    for (let i = 0; i < 4; ++i) {
-      for (let j = 0; j < 4; ++j) {
-        expect(v[i * 4 + j]).toBe(i == j ? 1 : 0);
-      }
-    }
+    expectVecEqual(mat4.create(), [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] as Mat4);
   });
 
   test('fromMat3(m)', () => {
@@ -42,9 +37,7 @@ describe('mat4', () => {
     const expected: ReadonlyMat3 = [0, 0, 1, 1, 0, 0, 0, 1, 0];
     const actual = mat4.nmat3(m);
     expect(actual).not.toBeNull();
-    if (actual) {
-      expectVecEqual(actual, expected);
-    }
+    expectVecEqual(actual as Mat3, expected);
   });
 
   test('nmat(m) == null', () => {

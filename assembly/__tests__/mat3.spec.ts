@@ -3,12 +3,7 @@ import { expectVecEqual } from './test-utils';
 
 describe('mat3', () => {
   test('create()', () => {
-    const v = mat3.create();
-    for (let i = 0; i < 3; ++i) {
-      for (let j = 0; j < 3; ++j) {
-        expect(v[i * 3 + j]).toBe(i == j ? 1 : 0);
-      }
-    }
+    expectVecEqual(mat3.create(), [1, 0, 0, 0, 1, 0, 0, 0, 1] as Mat3);
   });
 
   test('id(m)', () => {
@@ -27,9 +22,7 @@ describe('mat3', () => {
     const expected: ReadonlyMat3 = [-24, 20, -5, 18, -15, 4, 5, -4, 1];
     const actual = mat3.invert(m);
     expect(actual).not.toBeNull();
-    if (actual) {
-      expectVecEqual(actual, expected);
-    }
+    expectVecEqual(actual as Mat3, expected);
   });
 
   test('invert(m) == null', () => {
@@ -42,9 +35,7 @@ describe('mat3', () => {
     const expected: ReadonlyMat3 = [0, 0, 1, 1, 0, 0, 0, 1, 0];
     const actual = mat3.nmat(m);
     expect(actual).not.toBeNull();
-    if (actual) {
-      expectVecEqual(actual, expected);
-    }
+    expectVecEqual(actual as Mat3, expected);
   });
 
   test('nmat(m) == null', () => {

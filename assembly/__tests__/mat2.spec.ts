@@ -4,7 +4,7 @@ import { expectVecEqual } from './test-utils';
 
 describe('mat2', () => {
   test('create()', () => {
-    expectVecEqual(mat2.create(), [1, 0, 0, 1]);
+    expectVecEqual(mat2.create(), [1, 0, 0, 1] as Mat2);
   });
 
   test('id(m)', () => {
@@ -28,9 +28,7 @@ describe('mat2', () => {
     const expected: ReadonlyMat2 = [-2, 1, 1.5, -0.5];
     const actual = mat2.invert(m);
     expect(actual).not.toBeNull();
-    if (actual) {
-      expectVecEqual(actual, expected);
-    }
+    expectVecEqual(actual as Mat2, expected);
   });
 
   test('invert(m) == null', () => {

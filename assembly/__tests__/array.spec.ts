@@ -41,6 +41,12 @@ describe('array', () => {
     }
   });
 
+  test('copyEx(a, b)', () => {
+    const actual = array.copyEx([1, 2, 3, 4] as Vec, new Float32Array(5), 1, 2, 3);
+    const expected: Vec = [0, 0, 2, 3, 4];
+    expectVecEqual(actual, expected);
+  });
+
   test('fequal(a, b)', () => {
     expect(array.fequal([0, 1], [2, 3, 4])).toBeFalsy();
     expect(array.fequal([2, 3, 5], [2, 3, 4])).toBeFalsy();
