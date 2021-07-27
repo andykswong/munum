@@ -75,14 +75,17 @@
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="vec2.html#add" class="tsd-kind-icon">add</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="vec2.html#copy" class="tsd-kind-icon">copy</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="vec2.html#create" class="tsd-kind-icon">create</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="vec2.html#dist" class="tsd-kind-icon">dist</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="vec2.html#dot" class="tsd-kind-icon">dot</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="vec2.html#len" class="tsd-kind-icon">len</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="vec2.html#len2" class="tsd-kind-icon">len2</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="vec2.html#lerp" class="tsd-kind-icon">lerp</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="vec2.html#mmul" class="tsd-kind-icon">mmul</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="vec2.html#mmul3" class="tsd-kind-icon">mmul3</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="vec2.html#mul" class="tsd-kind-icon">mul</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="vec2.html#norm" class="tsd-kind-icon">norm</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="vec2.html#scale" class="tsd-kind-icon">scale</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="vec2.html#set" class="tsd-kind-icon">set</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="vec2.html#sub" class="tsd-kind-icon">sub</a></li>
 							</ul>
 						</section>
@@ -101,7 +104,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8b31591/assembly/vec2.ts#L29">vec2.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/eb2136b/assembly/vec2.ts#L45">vec2.ts:45</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -136,7 +139,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8b31591/assembly/vec2.ts#L21">vec2.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/eb2136b/assembly/vec2.ts#L37">vec2.ts:37</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -168,7 +171,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8b31591/assembly/vec2.ts#L13">vec2.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/eb2136b/assembly/vec2.ts#L16">vec2.ts:16</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -196,6 +199,38 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
+					<a name="dist" class="tsd-anchor"></a>
+					<h3>dist</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
+						<li class="tsd-signature tsd-kind-icon">dist<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec2" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec2</a>, b<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec2" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec2</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/eb2136b/assembly/vec2.ts#L126">vec2.ts:126</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Calculate Euclidean distance of 2 <a href="../modules.html#Vec2">Vec2</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>a: <a href="../modules.html#ReadonlyVec2" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec2</a></h5>
+								</li>
+								<li>
+									<h5>b: <a href="../modules.html#ReadonlyVec2" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec2</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a></h4>
+							<p>|a - b|</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
 					<a name="dot" class="tsd-anchor"></a>
 					<h3>dot</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
@@ -205,7 +240,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8b31591/assembly/vec2.ts#L69">vec2.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/eb2136b/assembly/vec2.ts#L94">vec2.ts:94</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -237,7 +272,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8b31591/assembly/vec2.ts#L93">vec2.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/eb2136b/assembly/vec2.ts#L118">vec2.ts:118</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -266,7 +301,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8b31591/assembly/vec2.ts#L85">vec2.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/eb2136b/assembly/vec2.ts#L110">vec2.ts:110</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -295,7 +330,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8b31591/assembly/vec2.ts#L77">vec2.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/eb2136b/assembly/vec2.ts#L102">vec2.ts:102</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -327,34 +362,69 @@
 					<a name="mmul" class="tsd-anchor"></a>
 					<h3>mmul</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">mmul<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyMat2" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyMat2</a>, b<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec2" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec2</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Vec2" class="tsd-signature-type" data-tsd-kind="Type alias">Vec2</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Vec2" class="tsd-signature-type" data-tsd-kind="Type alias">Vec2</a></li>
+						<li class="tsd-signature tsd-kind-icon">mmul<span class="tsd-signature-symbol">(</span>m<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyMat2" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyMat2</a>, x<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec2" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec2</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Vec2" class="tsd-signature-type" data-tsd-kind="Type alias">Vec2</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Vec2" class="tsd-signature-type" data-tsd-kind="Type alias">Vec2</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8b31591/assembly/vec2.ts#L61">vec2.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/eb2136b/assembly/vec2.ts#L77">vec2.ts:77</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Multiply a <a href="../modules.html#ReadonlyMat2">ReadonlyMat2</a> with a <a href="../modules.html#Vec2">Vec2</a>.</p>
+									<p>Multiply a <a href="../modules.html#ReadonlyMat2">ReadonlyMat2</a> with a <a href="../modules.html#ReadonlyVec2">ReadonlyVec2</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>a: <a href="../modules.html#ReadonlyMat2" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyMat2</a></h5>
+									<h5>m: <a href="../modules.html#ReadonlyMat2" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyMat2</a></h5>
 								</li>
 								<li>
-									<h5>b: <a href="../modules.html#ReadonlyVec2" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec2</a></h5>
+									<h5>x: <a href="../modules.html#ReadonlyVec2" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec2</a></h5>
 								</li>
 								<li>
 									<h5>out: <a href="../modules.html#Vec2" class="tsd-signature-type" data-tsd-kind="Type alias">Vec2</a><span class="tsd-signature-symbol"> = ...</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Vec2" class="tsd-signature-type" data-tsd-kind="Type alias">Vec2</a></h4>
-							<p>out = m * v</p>
+							<p>out = m * x</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
+					<a name="mmul3" class="tsd-anchor"></a>
+					<h3>mmul3</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
+						<li class="tsd-signature tsd-kind-icon">mmul3<span class="tsd-signature-symbol">(</span>m<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyMat3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyMat3</a>, x<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec2" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec2</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Vec2" class="tsd-signature-type" data-tsd-kind="Type alias">Vec2</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Vec2" class="tsd-signature-type" data-tsd-kind="Type alias">Vec2</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/eb2136b/assembly/vec2.ts#L85">vec2.ts:85</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Transform a <a href="../modules.html#ReadonlyVec2">ReadonlyVec2</a> by a <a href="../modules.html#ReadonlyMat3">ReadonlyMat3</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>m: <a href="../modules.html#ReadonlyMat3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyMat3</a></h5>
+								</li>
+								<li>
+									<h5>x: <a href="../modules.html#ReadonlyVec2" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec2</a></h5>
+								</li>
+								<li>
+									<h5>out: <a href="../modules.html#Vec2" class="tsd-signature-type" data-tsd-kind="Type alias">Vec2</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Vec2" class="tsd-signature-type" data-tsd-kind="Type alias">Vec2</a></h4>
+							<p>out = m * [x 1]</p>
 						</li>
 					</ul>
 				</section>
@@ -368,7 +438,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8b31591/assembly/vec2.ts#L53">vec2.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/eb2136b/assembly/vec2.ts#L69">vec2.ts:69</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -403,7 +473,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8b31591/assembly/vec2.ts#L101">vec2.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/eb2136b/assembly/vec2.ts#L134">vec2.ts:134</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -435,7 +505,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8b31591/assembly/vec2.ts#L45">vec2.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/eb2136b/assembly/vec2.ts#L61">vec2.ts:61</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -461,6 +531,50 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
+					<a name="set" class="tsd-anchor"></a>
+					<h3>set</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
+						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><a href="../modules.html#Vec2" class="tsd-signature-type" data-tsd-kind="Type alias">Vec2</a>, x<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, y<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Vec2" class="tsd-signature-type" data-tsd-kind="Type alias">Vec2</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/eb2136b/assembly/vec2.ts#L27">vec2.ts:27</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set values of a <a href="../modules.html#Vec2">Vec2</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>v: <a href="../modules.html#Vec2" class="tsd-signature-type" data-tsd-kind="Type alias">Vec2</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the vec</p>
+									</div>
+								</li>
+								<li>
+									<h5>x: <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a><span class="tsd-signature-symbol"> = 0</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>defaults to 0</p>
+									</div>
+								</li>
+								<li>
+									<h5>y: <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a><span class="tsd-signature-symbol"> = 0</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>defaults to 0</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Vec2" class="tsd-signature-type" data-tsd-kind="Type alias">Vec2</a></h4>
+							<p>v</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
 					<a name="sub" class="tsd-anchor"></a>
 					<h3>sub</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
@@ -470,7 +584,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/8b31591/assembly/vec2.ts#L37">vec2.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/eb2136b/assembly/vec2.ts#L53">vec2.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -550,6 +664,9 @@
 						<a href="vec2.html#create" class="tsd-kind-icon">create</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
+						<a href="vec2.html#dist" class="tsd-kind-icon">dist</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-namespace">
 						<a href="vec2.html#dot" class="tsd-kind-icon">dot</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
@@ -565,6 +682,9 @@
 						<a href="vec2.html#mmul" class="tsd-kind-icon">mmul</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
+						<a href="vec2.html#mmul3" class="tsd-kind-icon">mmul3</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-namespace">
 						<a href="vec2.html#mul" class="tsd-kind-icon">mul</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
@@ -572,6 +692,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
 						<a href="vec2.html#scale" class="tsd-kind-icon">scale</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-namespace">
+						<a href="vec2.html#set" class="tsd-kind-icon">set</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
 						<a href="vec2.html#sub" class="tsd-kind-icon">sub</a>
