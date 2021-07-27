@@ -1,8 +1,11 @@
-import { Float, ReadonlyMat2, ReadonlyVec2, Vec2 } from './types';
+import { Float, ReadonlyMat2, ReadonlyMat3, ReadonlyVec2, Vec2, Vec3 } from './types';
 import * as array from './array';
+import * as vec3 from './vec3';
 
 // Temp variables
 const v: Vec2 = create();
+const v3a: Vec3 = vec3.create();
+const v3b: Vec3 = vec3.create();
 
 /**
  * Create a new {@link Vec2}.
@@ -12,6 +15,19 @@ const v: Vec2 = create();
  */
 export function create(x: Float = 0, y: Float = 0): Vec2 {
   return [x, y];
+}
+
+/**
+ * Set values of a {@link Vec2}.
+ * @param v the vec
+ * @param x defaults to 0
+ * @param y defaults to 0
+ * @returns v
+ */
+export function set(v: Vec2, x: Float = 0, y: Float = 0): Vec2 {
+  unchecked(v[0] = x);
+  unchecked(v[1] = y);
+  return v;
 }
 
 /**
@@ -55,11 +71,20 @@ export function mul(v: ReadonlyVec2, s: ReadonlyVec2, out: Vec2 = create()): Vec
 }
 
 /**
- * Multiply a {@link ReadonlyMat2} with a {@link Vec2}.
- * @returns out = m * v
+ * Multiply a {@link ReadonlyMat2} with a {@link ReadonlyVec2}.
+ * @returns out = m * x
  */
-export function mmul(a: ReadonlyMat2, b: ReadonlyVec2, out: Vec2 = create()): Vec2 {
-  return array.copy(array.mmul(2, a, b, v), out) as Vec2;
+export function mmul(m: ReadonlyMat2, x: ReadonlyVec2, out: Vec2 = create()): Vec2 {
+  return array.copy(array.mmul(2, m, x, v), out) as Vec2;
+}
+
+/**
+ * Transform a {@link ReadonlyVec2} by a {@link ReadonlyMat3}.
+ * @returns out = m * [x 1]
+ */
+export function mmul3(m: ReadonlyMat3, x: ReadonlyVec2, out: Vec2 = create()): Vec2 {
+  unchecked(vec3.set(v3a, x[0], x[1], 1));
+  return array.copy(array.mmul(3, m, v3a, v3b), out, 0, 0, 2) as Vec2;
 }
 
 /**
@@ -92,6 +117,14 @@ export function len2(v: ReadonlyVec2): Float {
  */
 export function len(v: ReadonlyVec2): Float {
   return Math.hypot(v[0], v[1]) as Float;
+}
+
+/**
+ * Calculate Euclidean distance of 2 {@link Vec2}.
+ * @returns |a - b|
+ */
+export function dist(a: ReadonlyVec2, b: ReadonlyVec2): Float {
+  return len(sub(a, b, v));
 }
 
 /**

@@ -7,6 +7,9 @@
   "main": "index.mjs",
   "types": "index.d.ts",
   "ascMain": "assembly/index.ts",
+  "exports": {
+    "import": "./index.mjs"
+  },
   "files": [
     "/assembly",
     "/dist",
@@ -21,7 +24,7 @@
     "lint": "eslint assembly --ext .ts,.tsx",
     "asbuild": "asc assembly/index.ts --target release",
     "asbuild:debug": "asc assembly/index.ts --target debug",
-    "tsbuild": "npm run types && npm run babel",
+    "tsbuild": "npm run babel && npm run types",
     "babel": "cross-env-shell babel assembly -d dist --source-maps --extensions '.ts' --out-file-extension .mjs",
     "types": "tsc -p ./assembly --emitDeclarationOnly && copyfiles -f assembly/types/index.d.ts dist/types",
     "test": "npm run asp && npm run jest",
@@ -56,10 +59,10 @@
     "@babel/preset-env": "^7.14.8",
     "@babel/preset-typescript": "^7.14.5",
     "@types/jest": "^26.0.24",
-    "@types/node": "^16.4.0",
+    "@types/node": "^16.4.3",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
-    "assemblyscript": "^0.19.7",
+    "assemblyscript": "^0.19.8",
     "babel-jest": "^27.0.6",
     "babel-plugin-add-import-extension": "^1.6.0",
     "copyfiles": "^2.4.1",

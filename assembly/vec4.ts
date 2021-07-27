@@ -17,6 +17,23 @@ export function create(x: Float = 0, y: Float = 0, z: Float = 0, w: Float = 0): 
 }
 
 /**
+ * Set values of a {@link Vec4}.
+ * @param v the vec
+ * @param x defaults to 0
+ * @param y defaults to 0
+ * @param z defaults to 0
+ * @param w defaults to 0
+ * @returns v
+ */
+ export function set(v: Vec4, x: Float = 0, y: Float = 0, z: Float = 0, w: Float = 0): Vec4 {
+  unchecked(v[0] = x);
+  unchecked(v[1] = y);
+  unchecked(v[2] = z);
+  unchecked(v[3] = w);
+  return v;
+}
+
+/**
  * Create a {@link Vec4} from {@link ReadonlyVec3}.
  * @param v Vec3
  * @param out output Vec4
