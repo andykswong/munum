@@ -1,19 +1,19 @@
 {
   "name": "munum",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "AssemblyScript Numerical Library for JavaScript and WebAssembly Isomorphic Apps",
   "type": "module",
   "sideEffects": false,
-  "main": "index.mjs",
+  "main": "index.js",
   "types": "index.d.ts",
   "ascMain": "assembly/index.ts",
   "exports": {
-    "import": "./index.mjs"
+    "import": "./index.js"
   },
   "files": [
     "/assembly",
     "/dist",
-    "index.mjs",
+    "index.js",
     "index.d.ts"
   ],
   "scripts": {
@@ -25,7 +25,7 @@
     "asbuild": "asc assembly/index.ts --target release",
     "asbuild:debug": "asc assembly/index.ts --target debug",
     "tsbuild": "npm run babel && npm run types",
-    "babel": "cross-env-shell babel assembly -d dist --source-maps --extensions '.ts' --out-file-extension .mjs",
+    "babel": "cross-env-shell babel assembly -d dist --source-maps --extensions '.ts' --out-file-extension .js",
     "types": "tsc -p ./assembly --emitDeclarationOnly && copyfiles -f assembly/types/index.d.ts dist/types",
     "test": "npm run asp && npm run jest",
     "asp": "asp -c as-pect.config.cjs",
@@ -83,8 +83,7 @@
     ],
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "assembly/**/*.{ts,mjs}",
-      "!assembly/types/index.ts",
+      "assembly/**/*.ts",
       "!**/__tests__/**"
     ],
     "coverageDirectory": "coverage"

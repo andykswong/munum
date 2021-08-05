@@ -2,8 +2,22 @@ module.exports = api => {
   const isTest = api.env('test');
 
   const config = {
+    "assumptions": {
+      "setPublicClassFields": true
+    },
     "presets": [
-      ["@babel/preset-env", { "modules": false, "targets": { "node": true } }],
+      [
+        "@babel/preset-env",
+        {
+          "modules": false,
+          "targets": {
+            "node": true
+          },
+          "include": [
+            "@babel/plugin-proposal-class-properties"
+          ]
+        }
+      ],
       ["@babel/preset-typescript"]
     ],
     "plugins": [
@@ -16,7 +30,7 @@ module.exports = api => {
 
   if (!isTest) {
     config.plugins.push(
-      ["babel-plugin-add-import-extension", { "extension": "mjs" }]
+      ["babel-plugin-add-import-extension", { "extension": "js" }]
     );
   }
 
