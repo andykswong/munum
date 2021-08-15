@@ -70,13 +70,6 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Type aliases</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-namespace"><a href="quat.html#Quat" class="tsd-kind-icon">Quat</a></li>
-								<li class="tsd-kind-type-alias tsd-parent-kind-namespace"><a href="quat.html#ReadonlyQuat" class="tsd-kind-icon">Readonly<wbr>Quat</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="quat.html#conj" class="tsd-kind-icon">conj</a></li>
@@ -90,7 +83,6 @@
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="quat.html#lerp" class="tsd-kind-icon">lerp</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="quat.html#mul" class="tsd-kind-icon">mul</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="quat.html#norm" class="tsd-kind-icon">norm</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="quat.html#rotateEuler" class="tsd-kind-icon">rotate<wbr>Euler</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="quat.html#rotateTo" class="tsd-kind-icon">rotate<wbr>To</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="quat.html#rotateVec3" class="tsd-kind-icon">rotate<wbr>Vec3</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="quat.html#rotateX" class="tsd-kind-icon">rotateX</a></li>
@@ -104,68 +96,35 @@
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Type aliases</h2>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-namespace">
-					<a name="Quat" class="tsd-anchor"></a>
-					<h3>Quat</h3>
-					<div class="tsd-signature tsd-kind-icon">Quat<span class="tsd-signature-symbol">:</span> <a href="../modules.html#Vec4" class="tsd-signature-type" data-tsd-kind="Type alias">Vec4</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L15">quat.ts:15</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Quaternion of the form w + x * i + y * j + z * k, stored as <a href="../modules.html#Vec4">Vec4</a>.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-namespace">
-					<a name="ReadonlyQuat" class="tsd-anchor"></a>
-					<h3>Readonly<wbr>Quat</h3>
-					<div class="tsd-signature tsd-kind-icon">Readonly<wbr>Quat<span class="tsd-signature-symbol">:</span> <a href="../modules.html#ReadonlyVec4" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec4</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L20">quat.ts:20</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>A read-only quaternion.</p>
-						</div>
-					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
 					<a name="conj" class="tsd-anchor"></a>
 					<h3>conj</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">conj<span class="tsd-signature-symbol">(</span>q<span class="tsd-signature-symbol">: </span><a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, out<span class="tsd-signature-symbol">?: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
+						<li class="tsd-signature tsd-kind-icon">conj<span class="tsd-signature-symbol">(</span>q<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L104">quat.ts:104</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L94">quat.ts:94</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Calculates the conjugate of a <a href="quat.html#Quat">Quat</a>.</p>
+									<p>Calculates the conjugate of a <a href="../modules.html#Quat">Quat</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>q: <a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
+									<h5>q: <a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
 								</li>
 								<li>
-									<h5>out: <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
+									<h5>out: <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -173,30 +132,30 @@
 					<a name="copy" class="tsd-anchor"></a>
 					<h3>copy</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">copy<span class="tsd-signature-symbol">(</span>q<span class="tsd-signature-symbol">: </span><a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, out<span class="tsd-signature-symbol">?: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
+						<li class="tsd-signature tsd-kind-icon">copy<span class="tsd-signature-symbol">(</span>q<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L74">quat.ts:74</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L64">quat.ts:64</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Copy a <a href="quat.html#Quat">Quat</a>.</p>
+									<p>Copy a <a href="../modules.html#Quat">Quat</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>q: <a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
+									<h5>q: <a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
 								</li>
 								<li>
-									<h5>out: <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
+									<h5>out: <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
 							<p>out</p>
 						</li>
 					</ul>
@@ -205,21 +164,21 @@
 					<a name="create" class="tsd-anchor"></a>
 					<h3>create</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
+						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L26">quat.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L16">quat.ts:16</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Create a new identity <a href="quat.html#Quat">Quat</a>.</p>
+									<p>Create a new identity <a href="../modules.html#Quat">Quat</a>.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -233,12 +192,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L82">quat.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L72">quat.ts:72</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Calculate dot product between 2 <a href="quat.html#Quat">Quat</a>.</p>
+									<p>Calculate dot product between 2 <a href="../modules.html#Quat">Quat</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -259,18 +218,18 @@
 					<a name="fromAxisAngle" class="tsd-anchor"></a>
 					<h3>from<wbr>Axis<wbr>Angle</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">from<wbr>Axis<wbr>Angle<span class="tsd-signature-symbol">(</span>axis<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, angle<span class="tsd-signature-symbol">: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, out<span class="tsd-signature-symbol">?: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
+						<li class="tsd-signature tsd-kind-icon">from<wbr>Axis<wbr>Angle<span class="tsd-signature-symbol">(</span>axis<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, angle<span class="tsd-signature-symbol">: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L33">quat.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L23">quat.ts:23</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Create a <a href="quat.html#Quat">Quat</a> from a unit axis vector and rotation angle in couterclockwise direction.</p>
+									<p>Create a <a href="../modules.html#Quat">Quat</a> from a unit axis vector and rotation angle in couterclockwise direction.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -282,10 +241,10 @@
 									<h5>angle: <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a></h5>
 								</li>
 								<li>
-									<h5>out: <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
+									<h5>out: <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -293,30 +252,30 @@
 					<a name="invert" class="tsd-anchor"></a>
 					<h3>invert</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">invert<span class="tsd-signature-symbol">(</span>q<span class="tsd-signature-symbol">: </span><a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, out<span class="tsd-signature-symbol">?: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
+						<li class="tsd-signature tsd-kind-icon">invert<span class="tsd-signature-symbol">(</span>q<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L115">quat.ts:115</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L105">quat.ts:105</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Calculate the inverse of a <a href="quat.html#Quat">Quat</a>.</p>
+									<p>Calculate the inverse of a <a href="../modules.html#Quat">Quat</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>q: <a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
+									<h5>q: <a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
 								</li>
 								<li>
-									<h5>out: <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
+									<h5>out: <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -330,12 +289,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L94">quat.ts:94</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L84">quat.ts:84</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Calculate length of a <a href="quat.html#Quat">Quat</a>.</p>
+									<p>Calculate length of a <a href="../modules.html#Quat">Quat</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -359,12 +318,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L88">quat.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L78">quat.ts:78</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Calculate squared length of a <a href="quat.html#ReadonlyQuat">ReadonlyQuat</a>.</p>
+									<p>Calculate squared length of a <a href="../modules.html#ReadonlyQuat">ReadonlyQuat</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -382,36 +341,36 @@
 					<a name="lerp" class="tsd-anchor"></a>
 					<h3>lerp</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">lerp<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, b<span class="tsd-signature-symbol">: </span><a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, t<span class="tsd-signature-symbol">: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, out<span class="tsd-signature-symbol">?: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
+						<li class="tsd-signature tsd-kind-icon">lerp<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, b<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, t<span class="tsd-signature-symbol">: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L161">quat.ts:161</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L151">quat.ts:151</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Linear interpolate between 2 <a href="quat.html#Quat">Quat</a>.</p>
+									<p>Linear interpolate between 2 <a href="../modules.html#Quat">Quat</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>a: <a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
+									<h5>a: <a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
 								</li>
 								<li>
-									<h5>b: <a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
+									<h5>b: <a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
 								</li>
 								<li>
 									<h5>t: <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a></h5>
 								</li>
 								<li>
-									<h5>out: <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
+									<h5>out: <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
 							<p>out = lerp(a, b, t)</p>
 						</li>
 					</ul>
@@ -420,33 +379,33 @@
 					<a name="mul" class="tsd-anchor"></a>
 					<h3>mul</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">mul<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, b<span class="tsd-signature-symbol">: </span><a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, out<span class="tsd-signature-symbol">?: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
+						<li class="tsd-signature tsd-kind-icon">mul<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, b<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L128">quat.ts:128</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L118">quat.ts:118</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Multiply 2 <a href="quat.html#Quat">Quat</a>.</p>
+									<p>Multiply 2 <a href="../modules.html#Quat">Quat</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>a: <a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
+									<h5>a: <a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
 								</li>
 								<li>
-									<h5>b: <a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
+									<h5>b: <a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
 								</li>
 								<li>
-									<h5>out: <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
+									<h5>out: <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
 							<p>out = a * b</p>
 						</li>
 					</ul>
@@ -461,12 +420,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L99">quat.ts:99</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L89">quat.ts:89</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Normalize a <a href="quat.html#Quat">Quat</a>.</p>
+									<p>Normalize a <a href="../modules.html#Quat">Quat</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -483,58 +442,21 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
-					<a name="rotateEuler" class="tsd-anchor"></a>
-					<h3>rotate<wbr>Euler</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">rotate<wbr>Euler<span class="tsd-signature-symbol">(</span>euler<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, out<span class="tsd-signature-symbol">?: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L269">quat.ts:269</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns a <a href="quat.html#Quat">Quat</a> from euler rotation in yaw-pitch-roll sequence.</p>
-								</div>
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles#Euler_angles_to_quaternion_conversion">https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles#Euler_angles_to_quaternion_conversion</a></p>
-									</dd>
-								</dl>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>euler: <a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a></h5>
-								</li>
-								<li>
-									<h5>out: <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
-							<p>the quat representing the rotation</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
 					<a name="rotateTo" class="tsd-anchor"></a>
 					<h3>rotate<wbr>To</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">rotate<wbr>To<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, to<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, out<span class="tsd-signature-symbol">?: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
+						<li class="tsd-signature tsd-kind-icon">rotate<wbr>To<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, to<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L210">quat.ts:210</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L200">quat.ts:200</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a <a href="quat.html#Quat">Quat</a> that represents the shortest arc rotation between 2 unit vectors.</p>
+									<p>Returns a <a href="../modules.html#Quat">Quat</a> that represents the shortest arc rotation between 2 unit vectors.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -546,10 +468,10 @@
 									<h5>to: <a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a></h5>
 								</li>
 								<li>
-									<h5>out: <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
+									<h5>out: <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
 							<p>the quat representing the rotation</p>
 						</li>
 					</ul>
@@ -558,18 +480,18 @@
 					<a name="rotateVec3" class="tsd-anchor"></a>
 					<h3>rotate<wbr>Vec3</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">rotate<wbr>Vec3<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, q<span class="tsd-signature-symbol">: </span><a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Vec3" class="tsd-signature-type" data-tsd-kind="Type alias">Vec3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Vec3" class="tsd-signature-type" data-tsd-kind="Type alias">Vec3</a></li>
+						<li class="tsd-signature tsd-kind-icon">rotate<wbr>Vec3<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, q<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Vec3" class="tsd-signature-type" data-tsd-kind="Type alias">Vec3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Vec3" class="tsd-signature-type" data-tsd-kind="Type alias">Vec3</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L150">quat.ts:150</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L140">quat.ts:140</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Rotate a <a href="../modules.html#ReadonlyVec3">ReadonlyVec3</a> using a <a href="quat.html#ReadonlyQuat">ReadonlyQuat</a>, by the formula v&#39; = q * v * q^-1</p>
+									<p>Rotate a <a href="../modules.html#ReadonlyVec3">ReadonlyVec3</a> using a <a href="../modules.html#ReadonlyQuat">ReadonlyQuat</a>, by the formula v&#39; = q * v * q^-1</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>see</dt>
@@ -583,7 +505,7 @@
 									<h5>v: <a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a></h5>
 								</li>
 								<li>
-									<h5>q: <a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
+									<h5>q: <a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
 								</li>
 								<li>
 									<h5>out: <a href="../modules.html#Vec3" class="tsd-signature-type" data-tsd-kind="Type alias">Vec3</a><span class="tsd-signature-symbol"> = ...</span></h5>
@@ -598,18 +520,18 @@
 					<a name="rotateX" class="tsd-anchor"></a>
 					<h3>rotateX</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">rotateX<span class="tsd-signature-symbol">(</span>angle<span class="tsd-signature-symbol">: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, out<span class="tsd-signature-symbol">?: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
+						<li class="tsd-signature tsd-kind-icon">rotateX<span class="tsd-signature-symbol">(</span>angle<span class="tsd-signature-symbol">: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L235">quat.ts:235</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L225">quat.ts:225</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a <a href="quat.html#Quat">Quat</a> from a rotation around x-axis in couterclockwise direction.</p>
+									<p>Returns a <a href="../modules.html#Quat">Quat</a> from a rotation around x-axis in couterclockwise direction.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -618,10 +540,10 @@
 									<h5>angle: <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a></h5>
 								</li>
 								<li>
-									<h5>out: <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
+									<h5>out: <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
 							<p>the quat representing the rotation</p>
 						</li>
 					</ul>
@@ -630,18 +552,18 @@
 					<a name="rotateY" class="tsd-anchor"></a>
 					<h3>rotateY</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">rotateY<span class="tsd-signature-symbol">(</span>angle<span class="tsd-signature-symbol">: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, out<span class="tsd-signature-symbol">?: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
+						<li class="tsd-signature tsd-kind-icon">rotateY<span class="tsd-signature-symbol">(</span>angle<span class="tsd-signature-symbol">: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L246">quat.ts:246</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L236">quat.ts:236</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a <a href="quat.html#Quat">Quat</a> from a rotation around y-axis in couterclockwise direction.</p>
+									<p>Returns a <a href="../modules.html#Quat">Quat</a> from a rotation around y-axis in couterclockwise direction.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -650,10 +572,10 @@
 									<h5>angle: <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a></h5>
 								</li>
 								<li>
-									<h5>out: <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
+									<h5>out: <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
 							<p>the quat representing the rotation</p>
 						</li>
 					</ul>
@@ -662,18 +584,18 @@
 					<a name="rotateZ" class="tsd-anchor"></a>
 					<h3>rotateZ</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">rotateZ<span class="tsd-signature-symbol">(</span>angle<span class="tsd-signature-symbol">: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, out<span class="tsd-signature-symbol">?: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
+						<li class="tsd-signature tsd-kind-icon">rotateZ<span class="tsd-signature-symbol">(</span>angle<span class="tsd-signature-symbol">: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L257">quat.ts:257</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L247">quat.ts:247</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a <a href="quat.html#Quat">Quat</a> from a rotation around z-axis in couterclockwise direction.</p>
+									<p>Returns a <a href="../modules.html#Quat">Quat</a> from a rotation around z-axis in couterclockwise direction.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -682,10 +604,10 @@
 									<h5>angle: <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a></h5>
 								</li>
 								<li>
-									<h5>out: <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
+									<h5>out: <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
 							<p>the quat representing the rotation</p>
 						</li>
 					</ul>
@@ -694,36 +616,36 @@
 					<a name="slerp" class="tsd-anchor"></a>
 					<h3>slerp</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">slerp<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, b<span class="tsd-signature-symbol">: </span><a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, t<span class="tsd-signature-symbol">: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, out<span class="tsd-signature-symbol">?: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
+						<li class="tsd-signature tsd-kind-icon">slerp<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, b<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, t<span class="tsd-signature-symbol">: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L177">quat.ts:177</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L167">quat.ts:167</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Spherical linear interpolate between 2 <a href="quat.html#Quat">Quat</a>.</p>
+									<p>Spherical linear interpolate between 2 <a href="../modules.html#Quat">Quat</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>a: <a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
+									<h5>a: <a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
 								</li>
 								<li>
-									<h5>b: <a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
+									<h5>b: <a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
 								</li>
 								<li>
 									<h5>t: <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a></h5>
 								</li>
 								<li>
-									<h5>out: <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
+									<h5>out: <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a><span class="tsd-signature-symbol"> = ...</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="quat.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Quat" class="tsd-signature-type" data-tsd-kind="Type alias">Quat</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -731,24 +653,24 @@
 					<a name="toMat4" class="tsd-anchor"></a>
 					<h3>to<wbr>Mat4</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">to<wbr>Mat4<span class="tsd-signature-symbol">(</span>q<span class="tsd-signature-symbol">: </span><a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Mat4" class="tsd-signature-type" data-tsd-kind="Type alias">Mat4</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Mat4" class="tsd-signature-type" data-tsd-kind="Type alias">Mat4</a></li>
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Mat4<span class="tsd-signature-symbol">(</span>q<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Mat4" class="tsd-signature-type" data-tsd-kind="Type alias">Mat4</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Mat4" class="tsd-signature-type" data-tsd-kind="Type alias">Mat4</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/d19d393/assembly/quat.ts#L43">quat.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/41259ad/assembly/quat.ts#L33">quat.ts:33</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Convert a <a href="quat.html#Quat">Quat</a> to a <a href="../modules.html#Mat4">Mat4</a>.</p>
+									<p>Convert a <a href="../modules.html#Quat">Quat</a> to a <a href="../modules.html#Mat4">Mat4</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>q: <a href="quat.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
+									<h5>q: <a href="../modules.html#ReadonlyQuat" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyQuat</a></h5>
 								</li>
 								<li>
 									<h5>out: <a href="../modules.html#Mat4" class="tsd-signature-type" data-tsd-kind="Type alias">Mat4</a><span class="tsd-signature-symbol"> = ...</span></h5>
@@ -804,12 +726,6 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-type-alias tsd-parent-kind-namespace">
-						<a href="quat.html#Quat" class="tsd-kind-icon">Quat</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-namespace">
-						<a href="quat.html#ReadonlyQuat" class="tsd-kind-icon">Readonly<wbr>Quat</a>
-					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
 						<a href="quat.html#conj" class="tsd-kind-icon">conj</a>
 					</li>
@@ -842,9 +758,6 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
 						<a href="quat.html#norm" class="tsd-kind-icon">norm</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-namespace">
-						<a href="quat.html#rotateEuler" class="tsd-kind-icon">rotate<wbr>Euler</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
 						<a href="quat.html#rotateTo" class="tsd-kind-icon">rotate<wbr>To</a>
