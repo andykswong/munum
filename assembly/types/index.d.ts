@@ -102,6 +102,16 @@ export type ReadonlyMat3 = Readonly<Mat3>;
 export type ReadonlyMat4 = Readonly<Mat4>;
 
 /**
+ * Quaternion of the form w + x * i + y * j + z * k, stored as {@link Vec4}.
+ */
+export type Quat = Vec4;
+
+/**
+ * A read-only quaternion.
+ */
+export type ReadonlyQuat = ReadonlyVec4;
+
+/**
  * Plane of the form ax + by + cz + d = 0, where (a, b, c) is the normal.
  */
 export type Plane = Vec4;

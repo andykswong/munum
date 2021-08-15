@@ -1,7 +1,6 @@
-import { Float, Mat4, ReadonlyMat4, ReadonlyVec3, Vec3 } from './types';
+import { Float, Mat4, Quat, ReadonlyMat4, ReadonlyQuat, ReadonlyVec3, Vec3 } from './types';
 import * as array from './array';
 import * as mat4 from './mat4';
-import { Quat, ReadonlyQuat } from './quat';
 import * as quat from './quat';
 import * as vec3 from './vec3';
 import { copysign } from './scalar';

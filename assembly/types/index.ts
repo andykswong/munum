@@ -30,6 +30,10 @@ export type ReadonlyMat3 = Vec;
 
 export type ReadonlyMat4 = Vec;
 
+export type Quat = Vec4;
+
+export type ReadonlyQuat = ReadonlyVec4;
+
 export type Plane = Vec4;
 
 export type ReadonlyPlane = ReadonlyVec4;

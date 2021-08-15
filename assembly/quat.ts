@@ -1,4 +1,4 @@
-import { Float, Mat4, ReadonlyVec3, ReadonlyVec4, Vec, Vec3, Vec4 } from './types';
+import { Float, Mat4, Quat, ReadonlyQuat, ReadonlyVec3, Vec, Vec3 } from './types';
 import * as array from './array';
 import * as mat4 from './mat4';
 import * as vec3 from './vec3';
@@ -8,16 +8,6 @@ import { EPSILON, fequal } from './scalar';
 // Temp variables
 const q1: Quat = create();
 const q2: Quat = create();
-
-/**
- * Quaternion of the form w + x * i + y * j + z * k, stored as {@link Vec4}.
- */
-export type Quat = Vec4;
-
-/**
- * A read-only quaternion.
- */
-export type ReadonlyQuat = ReadonlyVec4;
 
 /**
  * Create a new identity {@link Quat}.
@@ -259,13 +249,4 @@ export function rotateZ(angle: Float, out: Quat = create()): Quat {
   unchecked(out[3] = Math.cos(angle / 2) as Float);
   unchecked(out[0] = out[1] = 0);
   return out;
-}
-
-/**
- * Returns a {@link Quat} from euler rotation in yaw-pitch-roll sequence.
- * @see https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles#Euler_angles_to_quaternion_conversion
- * @returns the quat representing the rotation
- */
- export function rotateEuler(euler: ReadonlyVec3, out: Quat = create()): Quat {
-  return mul(rotateY(euler[1], q1), mul(rotateX(euler[0], q2), rotateZ(euler[2], out), out), out);
 }
