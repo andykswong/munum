@@ -33,7 +33,7 @@ describe('transfrom2d', () => {
 
   test('transform2d(t, r, s)', () => {
     const m: Mat3 = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-    const expected: ReadonlyMat3 = [5 * COS_PI_OVER_6, 7 * SIN_PI_OVER_6, 0, -5 * SIN_PI_OVER_6, 7 * COS_PI_OVER_6, 0, 11, 13, 1];
+    const expected: ReadonlyMat3 = [5 * COS_PI_OVER_6, 5 * SIN_PI_OVER_6, 0, -7 * SIN_PI_OVER_6, 7 * COS_PI_OVER_6, 0, 11, 13, 1];
     const actual = transform2d([11, 13], PI_OVER_6, [5, 7], m);
     expect(actual).toBe(m);
     expectVecEqual(actual, expected);

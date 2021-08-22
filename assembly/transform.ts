@@ -114,7 +114,7 @@ export function transform(translation: ReadonlyVec3, rotation: ReadonlyQuat, sca
   // Apply scaling
   for (let i = 0; i < 3; ++i) {
     for (let j = 0; j < 3; ++j) {
-      unchecked(out[4 * i + j] *= scaling[j]);
+      unchecked(out[4 * i + j] *= scaling[i]);
     }
   }
 

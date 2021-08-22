@@ -43,7 +43,7 @@ export function rotate2d(theta: Float, out: Mat3 = mat3.create()): Mat3 {
   // Apply scaling
   for (let i = 0; i < 2; ++i) {
     for (let j = 0; j < 2; ++j) {
-      unchecked(out[3 * i + j] *= scaling[j]);
+      unchecked(out[3 * i + j] *= scaling[i]);
     }
   }
 
