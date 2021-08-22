@@ -8,6 +8,12 @@ describe('vec4', () => {
     expectVecEqual(vec4.create(1, 2, 3, 4), [1, 2, 3, 4] as Vec4);
   });
 
+  test('set(v)', () => {
+    const v = vec4.create(3, 5, 7, 11);
+    expectVecEqual(vec4.set(v), [0, 0, 0, 0] as Vec4);
+    expectVecEqual(vec4.set(v, 1, 2, 3, 4), [1, 2, 3, 4] as Vec4);
+  });
+
   test('fromVec3(v)', () => {
     expectVecEqual(vec4.fromVec3([1, 2, 3]), [1, 2, 3, 0] as Vec4);
     const out = vec4.create();

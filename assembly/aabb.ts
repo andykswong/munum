@@ -80,3 +80,15 @@ export function contains(box: ReadonlyAABB, point: ReadonlyVec3): boolean {
   displacement(box, point, v0);
   return unchecked(v0[0] <= 0 && v0[1] <= 0 && v0[2]) <= 0;
 }
+
+/**
+ * Checks whether 2 {@link ReadonlyAABB} intersect.
+ */
+ export function intersect(a: ReadonlyAABB, b: ReadonlyAABB): boolean {
+  for (let i = 0; i < 3; ++i) {
+    if (unchecked(a.min[i] > b.max[i] || b.min[i] > a.max[i])) {
+      return false;
+    }
+  }
+  return true;
+}
