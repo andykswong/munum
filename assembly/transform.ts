@@ -291,16 +291,3 @@ export function arcball(
   const r: Mat4 = rotate(quat.conj(rotation, q), out); // rotate around the origin
   return mat4.mul(t0, mat4.mul(r, t1, out), out);
 }
-
-/**
- * Calculates the look-at direction {@link Vec3} vector from pitch (up/down) and yaw (left/right) angles in radians.
- * This can be used with lookAt method to build an FPS camera view matrix by:
- * viewMatrix = lookAt(eye, eye + direction(yaw, pitch), up)
- */
-export function direction(yaw: Float, pitch: Float, out: Vec3 = vec3.create()): Vec3 {
-  const cosPitch: Float = Math.cos(pitch) as Float;
-  unchecked(out[0] = cosPitch * Math.cos(yaw) as Float);
-  unchecked(out[1] = Math.sin(pitch) as Float);
-  unchecked(out[2] = cosPitch * Math.sin(yaw) as Float);
-  return out;
-}

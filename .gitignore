@@ -37,11 +37,15 @@ node_modules/
 # TernJS port file
 .tern-port
 
-# Output folders
+# Doc folders
 coverage/
-dist/
 docs/
 
-# as-pect compiled test files
+# Compiled test files
+dist/__tests__/
 **/__tests__/**/*.spec.map
 **/__tests__/**/*.spec.wat
+
+# Compiled WASM files
+*.wasm
+*.wasm.map

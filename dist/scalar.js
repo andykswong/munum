@@ -1,0 +1,2 @@
+export const EPSILON=0.000001;export function fequal(a,b,epsilon=EPSILON){return Math.abs(a-b)<epsilon}export function copysign(a,b){return Math.sign(b)*Math.abs(a)}export function clamp(x,min,max){return x<min?min:x>max?max:x}export function lerp(a,b,t){return a*(1-t)+b*t}
+//# sourceMappingURL=scalar.js.map
