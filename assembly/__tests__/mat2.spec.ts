@@ -1,5 +1,4 @@
-import { Mat2, ReadonlyMat2, mat2 } from '../index';
-import { ReadonlyMat3 } from '../types';
+import { Mat2, ReadonlyMat2, ReadonlyMat3, mat2 } from '../index';
 import { expectVecEqual } from './test-utils';
 
 describe('mat2', () => {

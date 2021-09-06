@@ -51,11 +51,13 @@ export declare function scaleOf(m: ReadonlyMat4, out?: Vec3): Vec3;
 export declare function rotationOf(m: ReadonlyMat4, out?: Quat): Quat;
 /**
  * Calculate the {@link Mat4} orthographic projection matrix.
+ * To apply a glTF orthographic camera, use: left = -xmag, right = xmag, bottom = -ymag, top = ymag.
+ * @see https://en.wikipedia.org/wiki/Orthographic_projection
  * @see https://github.com/KhronosGroup/glTF/tree/master/specification/2.0
  */
 export declare function ortho(left: Float, right: Float, bottom: Float, top: Float, znear: Float, zfar: Float, out?: Mat4): Mat4;
 /**
- * Calculate the {@link Mat4} perspective projection using GLTF's formula. Use infinite projection if zfar = Infinity.
+ * Calculate the {@link Mat4} perspective projection using glTF's formula. Use infinite projection if zfar = Infinity.
  * @see https://github.com/KhronosGroup/glTF/tree/master/specification/2.0
  * @param zfar defaults to Infinity
  */
@@ -73,8 +75,15 @@ export declare function targetTo(eye: ReadonlyVec3, center: ReadonlyVec3, up?: R
  */
 export declare function lookAt(eye: ReadonlyVec3, center?: ReadonlyVec3, up?: ReadonlyVec3, out?: Mat4): Mat4;
 /**
- * Calculates the {@link Mat4} view matrix for an arcball camera from the distance to center and a rotation quaternion.
+ * Calculate the {@link Mat4} view matrix for an arcball camera from the distance to center and a rotation quaternion.
  * @param center defaults to the origin, i.e. [0, 0, 0]
  */
 export declare function arcball(distance: ReadonlyVec3, rotation: ReadonlyQuat, center?: ReadonlyVec3, out?: Mat4): Mat4;
+/**
+ * Calculate the look-at direction {@link Vec3} vector from pitch (up/down) and yaw (left/right) angles in radians.
+ * It looks towards -Z axis when pitch = 0 and yaw = 0.
+ * This can be used with lookAt method to build an FPS camera view matrix by:
+ * viewMatrix = lookAt(eye, add(eye, direction(yaw, pitch)), [0, 1, 0])
+ */
+export declare function direction(pitch: Float, yaw: Float, out?: Vec3): Vec3;
 //# sourceMappingURL=transform.d.ts.map

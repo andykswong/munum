@@ -1,5 +1,4 @@
-import { Mat3, ReadonlyMat3, transform2d, translate2d, scale2d, rotate2d } from '../index';
-import { Float } from '../types';
+import { Float, Mat3, ReadonlyMat3, transform2d, translate2d, scale2d, rotate2d } from '../index';
 import { expectVecEqual } from './test-utils';
 
 const PI_OVER_6 = Math.PI as Float / 6;

@@ -169,28 +169,30 @@ export function rotationOf(m: ReadonlyMat4, out: Quat = quat.create()): Quat {
 
 /**
  * Calculate the {@link Mat4} orthographic projection matrix.
+ * To apply a glTF orthographic camera, use: left = -xmag, right = xmag, bottom = -ymag, top = ymag.
+ * @see https://en.wikipedia.org/wiki/Orthographic_projection
  * @see https://github.com/KhronosGroup/glTF/tree/master/specification/2.0
  */
 export function ortho(
   left: Float, right: Float, bottom: Float, top: Float, znear: Float, zfar: Float,
   out: Mat4 = mat4.create()
 ): Mat4 {
-  const x: Float = 1 / (left - right);
-  const y: Float = 1 / (bottom - top);
+  const x: Float = 1 / (right - left);
+  const y: Float = 1 / (top - bottom);
   const z: Float = 1 / (znear - zfar);
 
   mat4.id(out);
-  unchecked(out[0] = -2 * x);
-  unchecked(out[5] = -2 * y);
+  unchecked(out[0] = 2 * x);
+  unchecked(out[5] = 2 * y);
   unchecked(out[10] = 2 * z);
-  unchecked(out[12] = (left + right) * x);
-  unchecked(out[13] = (top + bottom) * y);
+  unchecked(out[12] = -(right + left) * x);
+  unchecked(out[13] = -(top + bottom) * y);
   unchecked(out[14] = (znear + zfar) * z);
   return out;
 }
 
 /**
- * Calculate the {@link Mat4} perspective projection using GLTF's formula. Use infinite projection if zfar = Infinity.
+ * Calculate the {@link Mat4} perspective projection using glTF's formula. Use infinite projection if zfar = Infinity.
  * @see https://github.com/KhronosGroup/glTF/tree/master/specification/2.0
  * @param zfar defaults to Infinity
  */
@@ -222,7 +224,7 @@ export function perspective(
  * Calculate the {@link Mat4} model matrix for a camera at eye position looking at the center
  * position with a given up direction.
  */
- export function targetTo(
+export function targetTo(
   eye: ReadonlyVec3, center: ReadonlyVec3, up: ReadonlyVec3 = vec3.create(0, 1, 0),
   out: Mat4 = mat4.create()
 ): Mat4 {
@@ -279,7 +281,7 @@ export function lookAt(
 }
 
 /**
- * Calculates the {@link Mat4} view matrix for an arcball camera from the distance to center and a rotation quaternion.
+ * Calculate the {@link Mat4} view matrix for an arcball camera from the distance to center and a rotation quaternion.
  * @param center defaults to the origin, i.e. [0, 0, 0]
  */
 export function arcball(
@@ -290,4 +292,18 @@ export function arcball(
   const t1: Mat4 = translate(vec3.scale(center, -1, v0), m1); // set center as origin
   const r: Mat4 = rotate(quat.conj(rotation, q), out); // rotate around the origin
   return mat4.mul(t0, mat4.mul(r, t1, out), out);
+}
+
+/**
+ * Calculate the look-at direction {@link Vec3} vector from pitch (up/down) and yaw (left/right) angles in radians.
+ * It looks towards -Z axis when pitch = 0 and yaw = 0.
+ * This can be used with lookAt method to build an FPS camera view matrix by:
+ * viewMatrix = lookAt(eye, add(eye, direction(yaw, pitch)), [0, 1, 0])
+ */
+export function direction(pitch: Float, yaw: Float, out: Vec3 = vec3.create()): Vec3 {
+  const negCosPitch: Float = -Math.cos(pitch) as Float;
+  unchecked(out[0] = negCosPitch * Math.sin(yaw) as Float);
+  unchecked(out[1] = Math.sin(pitch) as Float);
+  unchecked(out[2] = negCosPitch * Math.cos(yaw) as Float);
+  return out;
 }

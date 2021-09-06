@@ -1,5 +1,4 @@
-import { quat } from '../index';
-import { Float, Mat4, Quat, Vec3 } from '../types';
+import { Float, Mat4, quat, Quat, Vec3 } from '../index';
 import { expectVecEqual } from './test-utils';
 
 const PI_OVER_3 = Math.PI as Float / 3;

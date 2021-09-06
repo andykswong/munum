@@ -1,6 +1,7 @@
-import { Mat4, ReadonlyMat4, transform, translate, scale, rotate, rotateX, rotateY, rotateZ, rotateAxis } from '../index';
-import { rotationOf, scaleOf, translationOf } from '../transform';
-import { Float, Quat, Vec3 } from '../types';
+import {
+  Float, Mat4, ortho, perspective, Quat, ReadonlyMat4, rotate, rotateX, rotateY, rotateZ, rotateAxis, rotationOf,
+  scale, scaleOf, transform, translate, translationOf, Vec3
+} from '../index';
 import { expectVecEqual } from './test-utils';
 
 const PI_OVER_3 = Math.PI as Float / 3;
@@ -91,6 +92,52 @@ describe('transfrom', () => {
     expectVecEqual(
       rotationOf([2, 2, -1, 0, -2, 4, 4, 0, 6, -3, 6, 0, 1, 2, 3, 1]),
       [ONE_OVER_SQRT3 * SIN_PI_OVER_6, ONE_OVER_SQRT3 * SIN_PI_OVER_6, ONE_OVER_SQRT3 * SIN_PI_OVER_6, COS_PI_OVER_6] as Quat
+    );
+  });
+
+  test('ortho(l, r, b, t, n, f)', () => {
+    expectVecEqual(
+      ortho(-3, 3, -4, 4, -2, 5),
+      [
+        1 / 3, 0, 0, 0,
+        0, 1 / 4, 0, 0,
+        0, 0, -2 / 7, 0,
+        0, 0, -3 / 7, 1
+      ] as Mat4
+    );
+
+    expectVecEqual(
+      ortho(-1, 3, -7, 4, -2, 5),
+      [
+        1 / 2, 0, 0, 0,
+        0, 2 / 11, 0, 0,
+        0, 0, -2 / 7, 0,
+        -1 / 2, 3 / 11, -3 / 7, 1
+      ] as Mat4
+    );
+  });
+
+  test('perspective(a, y, n)', () => {
+    expectVecEqual(
+      perspective(2, Math.PI as Float / 2, 1),
+      [
+        .5, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, -1, -1,
+        0, 0, -2, 0
+      ] as Mat4
+    );
+  });
+
+  test('perspective(a, y, n, f)', () => {
+    expectVecEqual(
+      perspective(2, Math.PI as Float / 2, 1, 9),
+      [
+        .5, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, -1.25, -1,
+        0, 0, -2.25, 0
+      ] as Mat4
     );
   });
 });

@@ -8,10 +8,30 @@ const v1: Vec3 = vec3.create();
 /**
  * Create a new {@link AABB}.
  */
-export const create = (min: Vec3 = vec3.create(), max: Vec3 = vec3.create()): AABB => new AABB(min, max);
+export function create(min: Vec3 = vec3.create(), max: Vec3 = vec3.create()): AABB {
+  return new AABB(min, max);
+}
 
 /**
- * Calculates the union of 2 {@link ReadonlyAABB}s.
+ * Copy an {@link AABB}.
+ */
+export function copy(a: ReadonlyAABB, out: AABB = create()): AABB {
+  array.copy(a.min, out.min);
+  array.copy(a.max, out.max);
+  return out;
+}
+
+/**
+ * Set values of an {@link AABB}.
+ */
+export function set(a: AABB, min: Vec3 = vec3.create(), max: Vec3 = vec3.create()): AABB {
+  array.copy(min, a.min);
+  array.copy(max, a.max);
+  return a;
+}
+
+/**
+ * Calculate the union of 2 {@link ReadonlyAABB}s.
  */
 export function union(a: ReadonlyAABB, b: ReadonlyAABB, out: AABB = create()): AABB {
   unchecked(out.min[0] = Math.min(a.min[0], b.min[0]) as Float);
@@ -20,6 +40,25 @@ export function union(a: ReadonlyAABB, b: ReadonlyAABB, out: AABB = create()): A
   unchecked(out.max[0] = Math.max(a.max[0], b.max[0]) as Float);
   unchecked(out.max[1] = Math.max(a.max[1], b.max[1]) as Float);
   unchecked(out.max[2] = Math.max(a.max[2], b.max[2]) as Float);
+
+  // 
+  unchecked(out.max[0] = Math.max(out.min[0], out.max[0]) as Float);
+  unchecked(out.max[1] = Math.max(out.min[1], out.max[1]) as Float);
+  unchecked(out.max[2] = Math.max(out.min[2], out.max[2]) as Float);
+
+  return out;
+}
+
+/**
+ * Calculate the intersection of 2 {@link ReadonlyAABB}s.
+ */
+export function intersection(a: ReadonlyAABB, b: ReadonlyAABB, out: AABB = create()): AABB {
+  unchecked(out.min[0] = Math.max(a.min[0], b.min[0]) as Float);
+  unchecked(out.min[1] = Math.max(a.min[1], b.min[1]) as Float);
+  unchecked(out.min[2] = Math.max(a.min[2], b.min[2]) as Float);
+  unchecked(out.max[0] = Math.min(a.max[0], b.max[0]) as Float);
+  unchecked(out.max[1] = Math.min(a.max[1], b.max[1]) as Float);
+  unchecked(out.max[2] = Math.min(a.max[2], b.max[2]) as Float);
   return out;
 }
 
@@ -46,7 +85,7 @@ export function transform(a: ReadonlyAABB, m: ReadonlyMat4, out: AABB = create()
 }
 
 /**
- * Calculates the shortest signed displacement (vector distance) between the
+ * Calculate the shortest signed displacement (vector distance) between the
  * {@link AABB} and the given point.
  */
 export function displacement(box: ReadonlyAABB, point: ReadonlyVec3, out: Vec3 = vec3.create()): Vec3 {
@@ -63,7 +102,7 @@ export function displacement(box: ReadonlyAABB, point: ReadonlyVec3, out: Vec3 =
 }
 
 /**
- * Calculates the shortest signed distance between the {@link AABB} and the given point.
+ * Calculate the shortest signed distance between the {@link AABB} and the given point.
  */
 export function dist(box: ReadonlyAABB, point: ReadonlyVec3): Float {
   displacement(box, point, v0);
@@ -74,7 +113,7 @@ export function dist(box: ReadonlyAABB, point: ReadonlyVec3): Float {
 }
 
 /**
- * Checks whether a given point is inside the {@link ReadonlyAABB}.
+ * Check whether a given point is inside the {@link ReadonlyAABB}.
  */
 export function contains(box: ReadonlyAABB, point: ReadonlyVec3): boolean {
   displacement(box, point, v0);
@@ -82,9 +121,9 @@ export function contains(box: ReadonlyAABB, point: ReadonlyVec3): boolean {
 }
 
 /**
- * Checks whether 2 {@link ReadonlyAABB} intersect.
+ * Check whether 2 {@link ReadonlyAABB} intersect.
  */
- export function intersect(a: ReadonlyAABB, b: ReadonlyAABB): boolean {
+export function intersect(a: ReadonlyAABB, b: ReadonlyAABB): boolean {
   for (let i = 0; i < 3; ++i) {
     if (unchecked(a.min[i] > b.max[i] || b.min[i] > a.max[i])) {
       return false;

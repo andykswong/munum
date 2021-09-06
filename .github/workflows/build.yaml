@@ -18,3 +18,8 @@ jobs:
       - run: npm test
         env:
           CI: true
+      - uses: codecov/codecov-action@v2
+        with:
+          name: codecov
+          files: ./coverage/clover.xml
+          flags: unittests

@@ -1,5 +1,4 @@
-import { vec3 } from '../index';
-import { Vec3 } from '../types';
+import { vec3, Vec3 } from '../index';
 import { expectVecEqual } from './test-utils';
 
 describe('vec3', () => {
