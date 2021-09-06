@@ -74,6 +74,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="frustum.html#containsAABB" class="tsd-kind-icon">containsAABB</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="frustum.html#containsPoint" class="tsd-kind-icon">contains<wbr>Point</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="frustum.html#create" class="tsd-kind-icon">create</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="frustum.html#fromViewProj" class="tsd-kind-icon">from<wbr>View<wbr>Proj</a></li>
 							</ul>
 						</section>
@@ -92,12 +93,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/f555762/assembly/frustum.ts#L48">frustum.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/frustum.ts#L61">frustum.ts:61</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Checks whether the given <a href="../classes/AABB.html">AABB</a> is inside given <a href="../modules.html#ReadonlyFrustum">ReadonlyFrustum</a>.</p>
+									<p>Checks whether the given <a href="../classes/AABB.html">AABB</a> intersects with given <a href="../modules.html#ReadonlyFrustum">ReadonlyFrustum</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -123,12 +124,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/f555762/assembly/frustum.ts#L34">frustum.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/frustum.ts#L47">frustum.ts:47</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Checks whether the given point / sphere defined by center and radius is inside a <a href="../modules.html#ReadonlyFrustum">ReadonlyFrustum</a>.</p>
+									<p>Checks whether the given point / sphere defined by center and radius intersects with given <a href="../modules.html#ReadonlyFrustum">ReadonlyFrustum</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -148,16 +149,59 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
-					<a name="fromViewProj" class="tsd-anchor"></a>
-					<h3>from<wbr>View<wbr>Proj</h3>
+					<a name="create" class="tsd-anchor"></a>
+					<h3>create</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">from<wbr>View<wbr>Proj<span class="tsd-signature-symbol">(</span>m<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyMat4" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyMat4</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Frustum" class="tsd-signature-type" data-tsd-kind="Type alias">Frustum</a></li>
+						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span>left<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a>, right<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a>, bottom<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a>, top<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a>, near<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a>, far<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Frustum" class="tsd-signature-type" data-tsd-kind="Type alias">Frustum</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/f555762/assembly/frustum.ts#L14">frustum.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/frustum.ts#L15">frustum.ts:15</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a new <a href="../modules.html#Frustum">Frustum</a> from the 6 normalized planes: left, right, bottom, top, near, far.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>left: <a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+								<li>
+									<h5>right: <a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+								<li>
+									<h5>bottom: <a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+								<li>
+									<h5>top: <a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+								<li>
+									<h5>near: <a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+								<li>
+									<h5>far: <a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Frustum" class="tsd-signature-type" data-tsd-kind="Type alias">Frustum</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
+					<a name="fromViewProj" class="tsd-anchor"></a>
+					<h3>from<wbr>View<wbr>Proj</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
+						<li class="tsd-signature tsd-kind-icon">from<wbr>View<wbr>Proj<span class="tsd-signature-symbol">(</span>m<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyMat4" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyMat4</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Frustum" class="tsd-signature-type" data-tsd-kind="Type alias">Frustum</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Frustum" class="tsd-signature-type" data-tsd-kind="Type alias">Frustum</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/frustum.ts#L27">frustum.ts:27</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -174,6 +218,9 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>m: <a href="../modules.html#ReadonlyMat4" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyMat4</a></h5>
+								</li>
+								<li>
+									<h5>out: <a href="../modules.html#Frustum" class="tsd-signature-type" data-tsd-kind="Type alias">Frustum</a><span class="tsd-signature-symbol"> = ...</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Frustum" class="tsd-signature-type" data-tsd-kind="Type alias">Frustum</a></h4>
@@ -230,6 +277,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
 						<a href="frustum.html#containsPoint" class="tsd-kind-icon">contains<wbr>Point</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-namespace">
+						<a href="frustum.html#create" class="tsd-kind-icon">create</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
 						<a href="frustum.html#fromViewProj" class="tsd-kind-icon">from<wbr>View<wbr>Proj</a>

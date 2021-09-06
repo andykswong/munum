@@ -72,11 +72,13 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="plane.html#copy" class="tsd-kind-icon">copy</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="plane.html#create" class="tsd-kind-icon">create</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="plane.html#dist" class="tsd-kind-icon">dist</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="plane.html#fromPointNormal" class="tsd-kind-icon">from<wbr>Point<wbr>Normal</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="plane.html#fromPoints" class="tsd-kind-icon">from<wbr>Points</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="plane.html#frontFacing" class="tsd-kind-icon">front<wbr>Facing</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="plane.html#norm" class="tsd-kind-icon">norm</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="plane.html#set" class="tsd-kind-icon">set</a></li>
 							</ul>
 						</section>
 					</div>
@@ -84,6 +86,87 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
+					<a name="copy" class="tsd-anchor"></a>
+					<h3>copy</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
+						<li class="tsd-signature tsd-kind-icon">copy<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec4" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec4</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Vec4" class="tsd-signature-type" data-tsd-kind="Type alias">Vec4</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Vec4" class="tsd-signature-type" data-tsd-kind="Type alias">Vec4</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/vec4.ts#L54">vec4.ts:54</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Copy a <a href="../modules.html#Vec4">Vec4</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>v: <a href="../modules.html#ReadonlyVec4" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec4</a></h5>
+								</li>
+								<li>
+									<h5>out: <a href="../modules.html#Vec4" class="tsd-signature-type" data-tsd-kind="Type alias">Vec4</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Vec4" class="tsd-signature-type" data-tsd-kind="Type alias">Vec4</a></h4>
+							<p>out</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
+					<a name="create" class="tsd-anchor"></a>
+					<h3>create</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
+						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, y<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, z<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, w<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Vec4" class="tsd-signature-type" data-tsd-kind="Type alias">Vec4</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/vec4.ts#L15">vec4.ts:15</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a new <a href="../modules.html#Vec4">Vec4</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>x: <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a><span class="tsd-signature-symbol"> = 0</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>defaults to 0</p>
+									</div>
+								</li>
+								<li>
+									<h5>y: <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a><span class="tsd-signature-symbol"> = 0</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>defaults to 0</p>
+									</div>
+								</li>
+								<li>
+									<h5>z: <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a><span class="tsd-signature-symbol"> = 0</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>defaults to 0</p>
+									</div>
+								</li>
+								<li>
+									<h5>w: <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a><span class="tsd-signature-symbol"> = 0</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>defaults to 0</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Vec4" class="tsd-signature-type" data-tsd-kind="Type alias">Vec4</a></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
 					<a name="dist" class="tsd-anchor"></a>
 					<h3>dist</h3>
@@ -94,7 +177,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/f555762/assembly/plane.ts#L42">plane.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/plane.ts#L44">plane.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -121,13 +204,13 @@
 					<a name="fromPointNormal" class="tsd-anchor"></a>
 					<h3>from<wbr>Point<wbr>Normal</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">from<wbr>Point<wbr>Normal<span class="tsd-signature-symbol">(</span>normal<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, point<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a></li>
+						<li class="tsd-signature tsd-kind-icon">from<wbr>Point<wbr>Normal<span class="tsd-signature-symbol">(</span>point<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, normal<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/f555762/assembly/plane.ts#L14">plane.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/plane.ts#L16">plane.ts:16</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -139,10 +222,10 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>normal: <a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a></h5>
+									<h5>point: <a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a></h5>
 								</li>
 								<li>
-									<h5>point: <a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a></h5>
+									<h5>normal: <a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a></h5>
 								</li>
 								<li>
 									<h5>out: <a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a><span class="tsd-signature-symbol"> = ...</span></h5>
@@ -162,7 +245,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/f555762/assembly/plane.ts#L25">plane.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/plane.ts#L27">plane.ts:27</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -192,37 +275,6 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
-					<a name="frontFacing" class="tsd-anchor"></a>
-					<h3>front<wbr>Facing</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
-						<li class="tsd-signature tsd-kind-icon">front<wbr>Facing<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyPlane" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyPlane</a>, d<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/f555762/assembly/plane.ts#L49">plane.ts:49</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns if the normal of a <a href="../modules.html#Plane">Plane</a> p is front-facing given the direction vector d.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>p: <a href="../modules.html#ReadonlyPlane" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyPlane</a></h5>
-								</li>
-								<li>
-									<h5>d: <a href="../modules.html#ReadonlyVec3" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyVec3</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
 					<a name="norm" class="tsd-anchor"></a>
 					<h3>norm</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
@@ -232,7 +284,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/f555762/assembly/plane.ts#L33">plane.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/plane.ts#L35">plane.ts:35</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -251,6 +303,62 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Plane" class="tsd-signature-type" data-tsd-kind="Type alias">Plane</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
+					<a name="set" class="tsd-anchor"></a>
+					<h3>set</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
+						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><a href="../modules.html#Vec4" class="tsd-signature-type" data-tsd-kind="Type alias">Vec4</a>, x<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, y<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, z<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a>, w<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Vec4" class="tsd-signature-type" data-tsd-kind="Type alias">Vec4</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/vec4.ts#L28">vec4.ts:28</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set values of a <a href="../modules.html#Vec4">Vec4</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>v: <a href="../modules.html#Vec4" class="tsd-signature-type" data-tsd-kind="Type alias">Vec4</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the vec</p>
+									</div>
+								</li>
+								<li>
+									<h5>x: <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a><span class="tsd-signature-symbol"> = 0</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>defaults to 0</p>
+									</div>
+								</li>
+								<li>
+									<h5>y: <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a><span class="tsd-signature-symbol"> = 0</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>defaults to 0</p>
+									</div>
+								</li>
+								<li>
+									<h5>z: <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a><span class="tsd-signature-symbol"> = 0</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>defaults to 0</p>
+									</div>
+								</li>
+								<li>
+									<h5>w: <a href="../modules.html#Float" class="tsd-signature-type" data-tsd-kind="Type alias">Float</a><span class="tsd-signature-symbol"> = 0</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>defaults to 0</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Vec4" class="tsd-signature-type" data-tsd-kind="Type alias">Vec4</a></h4>
+							<p>v</p>
 						</li>
 					</ul>
 				</section>
@@ -300,6 +408,12 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
+						<a href="plane.html#copy" class="tsd-kind-icon">copy</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-namespace">
+						<a href="plane.html#create" class="tsd-kind-icon">create</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-namespace">
 						<a href="plane.html#dist" class="tsd-kind-icon">dist</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
@@ -309,10 +423,10 @@
 						<a href="plane.html#fromPoints" class="tsd-kind-icon">from<wbr>Points</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
-						<a href="plane.html#frontFacing" class="tsd-kind-icon">front<wbr>Facing</a>
+						<a href="plane.html#norm" class="tsd-kind-icon">norm</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
-						<a href="plane.html#norm" class="tsd-kind-icon">norm</a>
+						<a href="plane.html#set" class="tsd-kind-icon">set</a>
 					</li>
 				</ul>
 			</nav>

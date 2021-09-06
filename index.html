@@ -59,23 +59,33 @@
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
 				<h1 align="center">🅼🆄🅽🆄🅼</h1>
-				<h2 align="center">μNum - AssemblyScript Numerical Library</h2>
+				<h2 align="center">μNum - Micro Numerical Library in AssemblyScript</h2>
 				<br />
 				<p align="center">
 					<a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
 					<a href="https://www.npmjs.com/package/munum"><img src="https://img.shields.io/npm/v/munum" alt="NPM" /></a>
+					<a href="https://codecov.io/gh/andykswong/munum">
+						<img src="https://codecov.io/gh/andykswong/munum/branch/main/graph/badge.svg?token=68JPTUD7GZ"/>
+					</a>
 					<a href="https://bundlephobia.com/result?p=munum"><img src="https://badgen.net/bundlephobia/minzip/munum" alt="size" /></a>
 					<a href="https://github.com/andykswong/munum/actions/workflows/build.yaml"><img src="https://github.com/andykswong/munum/actions/workflows/build.yaml/badge.svg" alt="build" /></a>
 				</p>
 				<a href="#overview" id="overview" style="color: inherit; text-decoration: none;">
 					<h2>Overview</h2>
 				</a>
-				<p><code>munum</code> is a small, modular numerical library for high-performance 3D web applications. With munum, you can build isomorphic apps that targets both JavaScript via Babel/TypeScript, and WebAssembly via AssemblyScript with the same code base.</p>
+				<p><code>munum</code> is a micro-sized, modular numerical library for high-performance 3D web applications. With munum, you can build isomorphic apps that targets both JavaScript via Babel/TypeScript, and WebAssembly via AssemblyScript using the same code base.</p>
+				<a href="#apis" id="apis" style="color: inherit; text-decoration: none;">
+					<h2>APIs</h2>
+				</a>
+				<p>See TSDoc: <a href="http://andykswong.github.io/munum">http://andykswong.github.io/munum</a></p>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
 				<p>Install via NPM for AssemblyScript or TypeScript projects: </p>
 				<pre><code class="language-shell"><span style="color: #000000">npm install --save munum</span>
+</code></pre>
+				<pre><code class="language-javascript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">vec4</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;munum&#039;</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">v</span><span style="color: #000000"> = </span><span style="color: #001080">vec4</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">();</span>
 </code></pre>
 				<p>Or load directly from CDN without having to use any build system:</p>
 				<pre><code class="language-html"><span style="color: #800000">&lt;script</span><span style="color: #000000FF"> </span><span style="color: #FF0000">type</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;module&quot;</span><span style="color: #800000">&gt;</span>
@@ -93,17 +103,13 @@
 
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">aspectRatio</span><span style="color: #000000"> = </span><span style="color: #001080">width</span><span style="color: #000000"> / </span><span style="color: #001080">height</span><span style="color: #000000">;</span>
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">yfov</span><span style="color: #000000"> = </span><span style="color: #267F99">Math</span><span style="color: #000000">.PI / </span><span style="color: #098658">4</span><span style="color: #000000">;</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">znear</span><span style="color: #000000"> = </span><span style="color: #098658">0.01</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">znear</span><span style="color: #000000"> = </span><span style="color: #098658">1</span><span style="color: #000000">;</span>
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">zfar</span><span style="color: #000000"> = </span><span style="color: #098658">100</span><span style="color: #000000">;</span>
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">proj</span><span style="color: #000000"> = </span><span style="color: #795E26">perspective</span><span style="color: #000000">(</span><span style="color: #001080">aspectRatio</span><span style="color: #000000">, </span><span style="color: #001080">yfov</span><span style="color: #000000">, </span><span style="color: #001080">znear</span><span style="color: #000000">, </span><span style="color: #001080">zfar</span><span style="color: #000000">);</span>
 
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">vp</span><span style="color: #000000"> = </span><span style="color: #001080">mat4</span><span style="color: #000000">.</span><span style="color: #795E26">mul</span><span style="color: #000000">(</span><span style="color: #001080">proj</span><span style="color: #000000">, </span><span style="color: #001080">view</span><span style="color: #000000">);</span>
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">f</span><span style="color: #000000"> = </span><span style="color: #001080">frustum</span><span style="color: #000000">.</span><span style="color: #795E26">fromViewProj</span><span style="color: #000000">(</span><span style="color: #001080">vp</span><span style="color: #000000">);</span>
 </code></pre>
-				<a href="#learn-more" id="learn-more" style="color: inherit; text-decoration: none;">
-					<h2>Learn More</h2>
-				</a>
-				<p>See TSDoc: <a href="http://andykswong.github.io/munum">http://andykswong.github.io/munum</a></p>
 				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
 					<h2>License</h2>
 				</a>
@@ -236,6 +242,9 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#copysign" class="tsd-kind-icon">copysign</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#direction" class="tsd-kind-icon">direction</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#fequal" class="tsd-kind-icon">fequal</a>

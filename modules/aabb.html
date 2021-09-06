@@ -73,10 +73,13 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="aabb.html#contains" class="tsd-kind-icon">contains</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="aabb.html#copy" class="tsd-kind-icon">copy</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="aabb.html#create" class="tsd-kind-icon">create</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="aabb.html#displacement" class="tsd-kind-icon">displacement</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="aabb.html#dist" class="tsd-kind-icon">dist</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="aabb.html#intersect" class="tsd-kind-icon">intersect</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="aabb.html#intersection" class="tsd-kind-icon">intersection</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="aabb.html#set" class="tsd-kind-icon">set</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="aabb.html#transform" class="tsd-kind-icon">transform</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="aabb.html#union" class="tsd-kind-icon">union</a></li>
 							</ul>
@@ -96,12 +99,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/f555762/assembly/aabb.ts#L79">aabb.ts:79</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/aabb.ts#L118">aabb.ts:118</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Checks whether a given point is inside the <a href="../interfaces/ReadonlyAABB.html">ReadonlyAABB</a>.</p>
+									<p>Check whether a given point is inside the <a href="../interfaces/ReadonlyAABB.html">ReadonlyAABB</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -118,8 +121,39 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
+					<a name="copy" class="tsd-anchor"></a>
+					<h3>copy</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
+						<li class="tsd-signature tsd-kind-icon">copy<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="../interfaces/ReadonlyAABB.html" class="tsd-signature-type" data-tsd-kind="Interface">ReadonlyAABB</a>, out<span class="tsd-signature-symbol">?: </span><a href="../classes/AABB.html" class="tsd-signature-type" data-tsd-kind="Class">AABB</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/AABB.html" class="tsd-signature-type" data-tsd-kind="Class">AABB</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/aabb.ts#L18">aabb.ts:18</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Copy an <a href="../classes/AABB.html">AABB</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>a: <a href="../interfaces/ReadonlyAABB.html" class="tsd-signature-type" data-tsd-kind="Interface">ReadonlyAABB</a></h5>
+								</li>
+								<li>
+									<h5>out: <a href="../classes/AABB.html" class="tsd-signature-type" data-tsd-kind="Class">AABB</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../classes/AABB.html" class="tsd-signature-type" data-tsd-kind="Class">AABB</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
 					<a name="create" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> create</h3>
+					<h3>create</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
 						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span>min<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Vec3" class="tsd-signature-type" data-tsd-kind="Type alias">Vec3</a>, max<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Vec3" class="tsd-signature-type" data-tsd-kind="Type alias">Vec3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/AABB.html" class="tsd-signature-type" data-tsd-kind="Class">AABB</a></li>
 					</ul>
@@ -127,7 +161,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/f555762/assembly/aabb.ts#L11">aabb.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/aabb.ts#L11">aabb.ts:11</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -158,12 +192,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/f555762/assembly/aabb.ts#L52">aabb.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/aabb.ts#L91">aabb.ts:91</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Calculates the shortest signed displacement (vector distance) between the
+									<p>Calculate the shortest signed displacement (vector distance) between the
 									<a href="../classes/AABB.html">AABB</a> and the given point.</p>
 								</div>
 							</div>
@@ -193,12 +227,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/f555762/assembly/aabb.ts#L68">aabb.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/aabb.ts#L107">aabb.ts:107</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Calculates the shortest signed distance between the <a href="../classes/AABB.html">AABB</a> and the given point.</p>
+									<p>Calculate the shortest signed distance between the <a href="../classes/AABB.html">AABB</a> and the given point.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -224,12 +258,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/f555762/assembly/aabb.ts#L87">aabb.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/aabb.ts#L126">aabb.ts:126</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Checks whether 2 <a href="../interfaces/ReadonlyAABB.html">ReadonlyAABB</a> intersect.</p>
+									<p>Check whether 2 <a href="../interfaces/ReadonlyAABB.html">ReadonlyAABB</a> intersect.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -246,6 +280,74 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
+					<a name="intersection" class="tsd-anchor"></a>
+					<h3>intersection</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
+						<li class="tsd-signature tsd-kind-icon">intersection<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="../interfaces/ReadonlyAABB.html" class="tsd-signature-type" data-tsd-kind="Interface">ReadonlyAABB</a>, b<span class="tsd-signature-symbol">: </span><a href="../interfaces/ReadonlyAABB.html" class="tsd-signature-type" data-tsd-kind="Interface">ReadonlyAABB</a>, out<span class="tsd-signature-symbol">?: </span><a href="../classes/AABB.html" class="tsd-signature-type" data-tsd-kind="Class">AABB</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/AABB.html" class="tsd-signature-type" data-tsd-kind="Class">AABB</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/aabb.ts#L55">aabb.ts:55</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Calculate the intersection of 2 <a href="../interfaces/ReadonlyAABB.html">ReadonlyAABB</a>s.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>a: <a href="../interfaces/ReadonlyAABB.html" class="tsd-signature-type" data-tsd-kind="Interface">ReadonlyAABB</a></h5>
+								</li>
+								<li>
+									<h5>b: <a href="../interfaces/ReadonlyAABB.html" class="tsd-signature-type" data-tsd-kind="Interface">ReadonlyAABB</a></h5>
+								</li>
+								<li>
+									<h5>out: <a href="../classes/AABB.html" class="tsd-signature-type" data-tsd-kind="Class">AABB</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../classes/AABB.html" class="tsd-signature-type" data-tsd-kind="Class">AABB</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
+					<a name="set" class="tsd-anchor"></a>
+					<h3>set</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
+						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="../classes/AABB.html" class="tsd-signature-type" data-tsd-kind="Class">AABB</a>, min<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Vec3" class="tsd-signature-type" data-tsd-kind="Type alias">Vec3</a>, max<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Vec3" class="tsd-signature-type" data-tsd-kind="Type alias">Vec3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/AABB.html" class="tsd-signature-type" data-tsd-kind="Class">AABB</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/aabb.ts#L27">aabb.ts:27</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set values of an <a href="../classes/AABB.html">AABB</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>a: <a href="../classes/AABB.html" class="tsd-signature-type" data-tsd-kind="Class">AABB</a></h5>
+								</li>
+								<li>
+									<h5>min: <a href="../modules.html#Vec3" class="tsd-signature-type" data-tsd-kind="Type alias">Vec3</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+								<li>
+									<h5>max: <a href="../modules.html#Vec3" class="tsd-signature-type" data-tsd-kind="Type alias">Vec3</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../classes/AABB.html" class="tsd-signature-type" data-tsd-kind="Class">AABB</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
 					<a name="transform" class="tsd-anchor"></a>
 					<h3>transform</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
@@ -255,7 +357,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/f555762/assembly/aabb.ts#L29">aabb.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/aabb.ts#L68">aabb.ts:68</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -289,12 +391,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/f555762/assembly/aabb.ts#L16">aabb.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/36e8357/assembly/aabb.ts#L36">aabb.ts:36</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Calculates the union of 2 <a href="../interfaces/ReadonlyAABB.html">ReadonlyAABB</a>s.</p>
+									<p>Calculate the union of 2 <a href="../interfaces/ReadonlyAABB.html">ReadonlyAABB</a>s.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -362,6 +464,9 @@
 						<a href="aabb.html#contains" class="tsd-kind-icon">contains</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
+						<a href="aabb.html#copy" class="tsd-kind-icon">copy</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-namespace">
 						<a href="aabb.html#create" class="tsd-kind-icon">create</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
@@ -372,6 +477,12 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
 						<a href="aabb.html#intersect" class="tsd-kind-icon">intersect</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-namespace">
+						<a href="aabb.html#intersection" class="tsd-kind-icon">intersection</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-namespace">
+						<a href="aabb.html#set" class="tsd-kind-icon">set</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
 						<a href="aabb.html#transform" class="tsd-kind-icon">transform</a>
