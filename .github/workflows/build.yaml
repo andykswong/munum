@@ -21,5 +21,5 @@ jobs:
       - uses: codecov/codecov-action@v2
         with:
           name: codecov
-          files: ./coverage/clover.xml
+          directory: ./coverage/
           flags: unittests
