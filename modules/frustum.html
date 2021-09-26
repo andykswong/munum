@@ -74,6 +74,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="frustum.html#containsAABB" class="tsd-kind-icon">containsAABB</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="frustum.html#containsPoint" class="tsd-kind-icon">contains<wbr>Point</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="frustum.html#copy" class="tsd-kind-icon">copy</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="frustum.html#create" class="tsd-kind-icon">create</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-namespace"><a href="frustum.html#fromViewProj" class="tsd-kind-icon">from<wbr>View<wbr>Proj</a></li>
 							</ul>
@@ -93,7 +94,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/fadb9a5/assembly/frustum.ts#L61">frustum.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/54c7c36/assembly/frustum.ts#L71">frustum.ts:71</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -124,7 +125,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/fadb9a5/assembly/frustum.ts#L47">frustum.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/54c7c36/assembly/frustum.ts#L57">frustum.ts:57</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -149,6 +150,37 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
+					<a name="copy" class="tsd-anchor"></a>
+					<h3>copy</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
+						<li class="tsd-signature tsd-kind-icon">copy<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="../modules.html#ReadonlyFrustum" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyFrustum</a>, out<span class="tsd-signature-symbol">?: </span><a href="../modules.html#Frustum" class="tsd-signature-type" data-tsd-kind="Type alias">Frustum</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules.html#Frustum" class="tsd-signature-type" data-tsd-kind="Type alias">Frustum</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/54c7c36/assembly/frustum.ts#L26">frustum.ts:26</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Copy a <a href="../modules.html#Frustum">Frustum</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>a: <a href="../modules.html#ReadonlyFrustum" class="tsd-signature-type" data-tsd-kind="Type alias">ReadonlyFrustum</a></h5>
+								</li>
+								<li>
+									<h5>out: <a href="../modules.html#Frustum" class="tsd-signature-type" data-tsd-kind="Type alias">Frustum</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../modules.html#Frustum" class="tsd-signature-type" data-tsd-kind="Type alias">Frustum</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace">
 					<a name="create" class="tsd-anchor"></a>
 					<h3>create</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace">
@@ -158,7 +190,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/fadb9a5/assembly/frustum.ts#L15">frustum.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/54c7c36/assembly/frustum.ts#L15">frustum.ts:15</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -201,7 +233,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/andykswong/munum/blob/fadb9a5/assembly/frustum.ts#L27">frustum.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/andykswong/munum/blob/54c7c36/assembly/frustum.ts#L37">frustum.ts:37</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -277,6 +309,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
 						<a href="frustum.html#containsPoint" class="tsd-kind-icon">contains<wbr>Point</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-namespace">
+						<a href="frustum.html#copy" class="tsd-kind-icon">copy</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-namespace">
 						<a href="frustum.html#create" class="tsd-kind-icon">create</a>
