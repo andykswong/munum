@@ -33,9 +33,9 @@ export declare function displacement(box: ReadonlyAABB, point: ReadonlyVec3, out
  */
 export declare function dist(box: ReadonlyAABB, point: ReadonlyVec3): Float;
 /**
- * Check whether a given point is inside the {@link ReadonlyAABB}.
+ * Checks whether the given point / sphere defined by center and radius intersects with given {@link ReadonlyAABB}.
  */
-export declare function contains(box: ReadonlyAABB, point: ReadonlyVec3): boolean;
+export declare function containsPoint(box: ReadonlyAABB, center: ReadonlyVec3, radius?: Float): boolean;
 /**
  * Check whether 2 {@link ReadonlyAABB} intersect.
  */

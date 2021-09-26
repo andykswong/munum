@@ -1,7 +1,8 @@
 import {
   Float, Mat4, ortho, perspective, Quat, ReadonlyMat4, rotate, rotateX, rotateY, rotateZ, rotateAxis, rotationOf,
-  scale, scaleOf, transform, translate, translationOf, Vec3
+  scale, scaleOf, transform, translate, translationOf, Vec3, direction, vec3
 } from '../index';
+import { lookAt, targetTo } from '../transform';
 import { expectVecEqual } from './test-utils';
 
 const PI_OVER_3 = Math.PI as Float / 3;
@@ -139,5 +140,38 @@ describe('transfrom', () => {
         0, 0, -2.25, 0
       ] as Mat4
     );
+  });
+
+  test('targetTo(e, c, u)', () => {
+    const eye = [0, 2, 0] as Vec3;
+    const center = [0, 0.6, 0] as Vec3;
+    const up = [0, 0, -1] as Vec3;
+
+    const view = targetTo(eye, center, up);
+    expectVecEqual(vec3.mmul4(view, [0, 2, 0]), [0, 2, -2] as Vec3);
+    expectVecEqual(vec3.mmul4(view, [0, 2, -1]), [0, 1, -2] as Vec3);
+    expectVecEqual(vec3.mmul4(view, [1, 2, 0]), [1, 2, -2] as Vec3);
+    expectVecEqual(vec3.mmul4(view, [0, 1, 0]), [0, 2, -1] as Vec3);
+  });
+
+  test('lookAt(e, c, u)', () => {
+    const eye = [0, 2, 0] as Vec3;
+    const center = [0, 0.6, 0] as Vec3;
+    const up = [0, 0, -1] as Vec3;
+
+    const view = lookAt(eye, center, up);
+    expectVecEqual(vec3.mmul4(view, [0, 2, 0]), [0, 0, 0] as Vec3);
+    expectVecEqual(vec3.mmul4(view, [0, 2, -1]), [0, 1, 0] as Vec3);
+    expectVecEqual(vec3.mmul4(view, [1, 2, 0]), [1, 0, 0] as Vec3);
+    expectVecEqual(vec3.mmul4(view, [0, 1, 0]), [0, 0, -1] as Vec3);
+  });
+
+  test('direction(p, y)', () => {
+    expectVecEqual(direction(0, 0), [0, 0, -1] as Vec3);
+    expectVecEqual(direction(Math.PI as Float, 0), [0, 0, 1] as Vec3);
+    expectVecEqual(direction(0, Math.PI as Float), [0, 0, 1] as Vec3);
+    expectVecEqual(direction(Math.PI / 2 as Float, 0), [0, 1, 0] as Vec3);
+    expectVecEqual(direction(0, -Math.PI / 2 as Float), [1, 0, 0] as Vec3);
+    expectVecEqual(direction(Math.PI / 4 as Float, -Math.PI / 2 as Float), [Math.cos(Math.PI / 4) as Float, Math.sin(Math.PI / 4) as Float, 0] as Vec3);
   });
 });

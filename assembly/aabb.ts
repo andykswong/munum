@@ -40,12 +40,6 @@ export function union(a: ReadonlyAABB, b: ReadonlyAABB, out: AABB = create()): A
   unchecked(out.max[0] = Math.max(a.max[0], b.max[0]) as Float);
   unchecked(out.max[1] = Math.max(a.max[1], b.max[1]) as Float);
   unchecked(out.max[2] = Math.max(a.max[2], b.max[2]) as Float);
-
-  // 
-  unchecked(out.max[0] = Math.max(out.min[0], out.max[0]) as Float);
-  unchecked(out.max[1] = Math.max(out.min[1], out.max[1]) as Float);
-  unchecked(out.max[2] = Math.max(out.min[2], out.max[2]) as Float);
-
   return out;
 }
 
@@ -59,6 +53,12 @@ export function intersection(a: ReadonlyAABB, b: ReadonlyAABB, out: AABB = creat
   unchecked(out.max[0] = Math.min(a.max[0], b.max[0]) as Float);
   unchecked(out.max[1] = Math.min(a.max[1], b.max[1]) as Float);
   unchecked(out.max[2] = Math.min(a.max[2], b.max[2]) as Float);
+
+  // ensure max[i] >= min[i]
+  unchecked(out.max[0] = Math.max(out.min[0], out.max[0]) as Float);
+  unchecked(out.max[1] = Math.max(out.min[1], out.max[1]) as Float);
+  unchecked(out.max[2] = Math.max(out.min[2], out.max[2]) as Float);
+
   return out;
 }
 
@@ -106,18 +106,24 @@ export function displacement(box: ReadonlyAABB, point: ReadonlyVec3, out: Vec3 =
  */
 export function dist(box: ReadonlyAABB, point: ReadonlyVec3): Float {
   displacement(box, point, v0);
+
+  // If point is inside of the AABB, the shortest distance is the distance to closest plane
+  if (unchecked(v0[0] <= 0 && v0[1] <= 0 && v0[2] <= 0)) {
+    const dxy = Math.max(v0[0], v0[1]);
+    return Math.max(dxy, v0[2]) as Float;
+  }
+
   unchecked(v0[0] = Math.max(0, v0[0]) as Float);
   unchecked(v0[1] = Math.max(0, v0[1]) as Float);
   unchecked(v0[2] = Math.max(0, v0[2]) as Float);
-  return (unchecked(v0[0] <= 0 && v0[1] <= 0 && v0[2] <= 0) ? -1 : 1) * vec3.len(v0);
+  return vec3.len(v0);
 }
 
 /**
- * Check whether a given point is inside the {@link ReadonlyAABB}.
+ * Checks whether the given point / sphere defined by center and radius intersects with given {@link ReadonlyAABB}.
  */
-export function contains(box: ReadonlyAABB, point: ReadonlyVec3): boolean {
-  displacement(box, point, v0);
-  return unchecked(v0[0] <= 0 && v0[1] <= 0 && v0[2]) <= 0;
+export function containsPoint(box: ReadonlyAABB, center: ReadonlyVec3, radius: Float = 0): boolean {
+  return dist(box, center) <= radius;
 }
 
 /**

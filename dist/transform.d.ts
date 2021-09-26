@@ -75,11 +75,6 @@ export declare function targetTo(eye: ReadonlyVec3, center: ReadonlyVec3, up?: R
  */
 export declare function lookAt(eye: ReadonlyVec3, center?: ReadonlyVec3, up?: ReadonlyVec3, out?: Mat4): Mat4;
 /**
- * Calculate the {@link Mat4} view matrix for an arcball camera from the distance to center and a rotation quaternion.
- * @param center defaults to the origin, i.e. [0, 0, 0]
- */
-export declare function arcball(distance: ReadonlyVec3, rotation: ReadonlyQuat, center?: ReadonlyVec3, out?: Mat4): Mat4;
-/**
  * Calculate the look-at direction {@link Vec3} vector from pitch (up/down) and yaw (left/right) angles in radians.
  * It looks towards -Z axis when pitch = 0 and yaw = 0.
  * This can be used with lookAt method to build an FPS camera view matrix by:

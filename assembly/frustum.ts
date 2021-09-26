@@ -21,6 +21,16 @@ export function create(
 }
 
 /**
+ * Copy a {@link Frustum}.
+ */
+ export function copy(a: ReadonlyFrustum, out: Frustum = create()): Frustum {
+  for (let i = 0; i < FRUSTUM_PLANES; ++i) {
+    plane.copy(a[i], out[i]);
+  }
+  return out;
+}
+
+/**
  * Build a {@link Frustum} in world space from a view-projection matrix (viewProj = proj * view) using Gribb/Hartmann method.
  * @see http://www8.cs.umu.se/kurser/5DV051/HT12/lab/plane_extraction.pdf
  */

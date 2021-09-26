@@ -9,9 +9,6 @@ import { copysign } from './scalar';
 const v0: Vec3 = vec3.create();
 const v1: Vec3 = vec3.create();
 const v2: Vec3 = vec3.create();
-const q: Quat = quat.create();
-const m0: Mat4 = mat4.create();
-const m1: Mat4 = mat4.create();
 
 /**
  * Return a {@link Mat4} for a 3D point translated by (x, y, z).
@@ -278,20 +275,6 @@ export function lookAt(
   unchecked(out[3] = out[7] = out[11] = 0);
   unchecked(out[15] = 1);
   return out;
-}
-
-/**
- * Calculate the {@link Mat4} view matrix for an arcball camera from the distance to center and a rotation quaternion.
- * @param center defaults to the origin, i.e. [0, 0, 0]
- */
-export function arcball(
-  distance: ReadonlyVec3, rotation: ReadonlyQuat, center: ReadonlyVec3 = vec3.create(),
-  out: Mat4 = mat4.create()
-): Mat4 {
-  const t0: Mat4 = translate(vec3.scale(distance, -1, v0), m0); // translate away from origin
-  const t1: Mat4 = translate(vec3.scale(center, -1, v0), m1); // set center as origin
-  const r: Mat4 = rotate(quat.conj(rotation, q), out); // rotate around the origin
-  return mat4.mul(t0, mat4.mul(r, t1, out), out);
 }
 
 /**
