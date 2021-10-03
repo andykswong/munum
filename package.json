@@ -1,7 +1,7 @@
 {
   "name": "munum",
-  "version": "0.0.6",
-  "description": "AssemblyScript Numerical Library for JavaScript and WebAssembly Isomorphic Apps",
+  "version": "0.0.7",
+  "description": "Micro Numerical Library for JavaScript and WebAssembly",
   "type": "module",
   "sideEffects": false,
   "main": "index.js",
