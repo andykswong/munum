@@ -13,22 +13,22 @@ export declare function scale(s: ReadonlyVec3, out?: Mat4): Mat4;
 export declare function rotate(q: ReadonlyQuat, out?: Mat4): Mat4;
 /**
  * Returns a {@link Mat4} for a 3D rotation about the x-axis in couterclockwise direction.
- * see: https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
+ * @see https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
  */
 export declare function rotateX(theta: Float, out?: Mat4): Mat4;
 /**
  * Returns a {@link Mat4} for a 3D rotation about the y-axis in couterclockwise direction.
- * see: https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
+ * @see https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
  */
 export declare function rotateY(theta: Float, out?: Mat4): Mat4;
 /**
  * Returns a {@link Mat4} for a 3D rotation about the z-axis in couterclockwise direction.
- * see: https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
+ * @see https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
  */
 export declare function rotateZ(theta: Float, out?: Mat4): Mat4;
 /**
  * Returns a {@link Mat4} for a 3D rotation about a given unit axis in couterclockwise direction.
- * see: https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
+ * @see https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
  */
 export declare function rotateAxis(axis: ReadonlyVec3, theta: Float, out?: Mat4): Mat4;
 /**
@@ -37,15 +37,21 @@ export declare function rotateAxis(axis: ReadonlyVec3, theta: Float, out?: Mat4)
  */
 export declare function transform(translation: ReadonlyVec3, rotation: ReadonlyQuat, scaling: ReadonlyVec3, out?: Mat4): Mat4;
 /**
+ * Returns the inverse of a {@link ReadonlyMat4} that represents a valid transformation in TRS order (= translation * rotation * scale).
+ * This function is more efficient than {@link mat4.invert} by using the properties of a TRS matrix.
+ * @returns out = M^-1
+ */
+export declare function inverseTransform(m: ReadonlyMat4, out?: Mat4): Mat4;
+/**
  * Extract the {@link Vec3} translation component from a transformation matrix.
  */
 export declare function translationOf(m: ReadonlyMat4, out?: Vec3): Vec3;
 /**
- * Extract the {@link Vec3} scaling components from an affine transformation matrix.
+ * Extract the {@link Vec3} scaling components from a transformation matrix in TRS order (= translation * rotation * scale).
  */
 export declare function scaleOf(m: ReadonlyMat4, out?: Vec3): Vec3;
 /**
- * Extract the {@link Quat} rotation components from an affine transformation matrix.
+ * Extract the {@link Quat} rotation components from a transformation matrix in TRS order (= translation * rotation * scale).
  * @see https://en.wikipedia.org/wiki/Rotation_matrix#Quaternion
  */
 export declare function rotationOf(m: ReadonlyMat4, out?: Quat): Quat;

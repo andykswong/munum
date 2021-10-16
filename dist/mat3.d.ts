@@ -33,7 +33,7 @@ export declare function scale(m: ReadonlyMat3, s: Float, out?: Mat3): Mat3;
  * Transpose a {@link Mat3}.
  * @returns [M]T
  */
-export declare function tr(m: ReadonlyMat3, out?: Mat3): Mat3;
+export declare function transpose(m: ReadonlyMat3, out?: Mat3): Mat3;
 /**
  * Multiply 2 {@link Mat3}.
  * @returns out = a * b

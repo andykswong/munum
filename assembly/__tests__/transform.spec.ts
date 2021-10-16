@@ -2,7 +2,7 @@ import {
   Float, Mat4, ortho, perspective, Quat, ReadonlyMat4, rotate, rotateX, rotateY, rotateZ, rotateAxis, rotationOf,
   scale, scaleOf, transform, translate, translationOf, Vec3, direction, vec3
 } from '../index';
-import { lookAt, targetTo } from '../transform';
+import { inverseTransform, lookAt, targetTo } from '../transform';
 import { expectVecEqual } from './test-utils';
 
 const PI_OVER_3 = Math.PI as Float / 3;
@@ -78,6 +78,13 @@ describe('transfrom', () => {
       m
     );
     expect(actual).toBe(m);
+    expectVecEqual(actual, expected);
+  });
+
+  test('inverseTransform(m)', () => {
+    const m: ReadonlyMat4 = [2, 2, -1, 0, -2, 4, 4, 0, 6, -3, 6, 0, 1, 2, 3, 1];
+    const expected: ReadonlyMat4 = [2/9, -1/18, 2/27, 0, 2/9, 1/9, -1/27, 0, -1/9, 1/9, 2/27, 0, -1/3, -1/2, -2/9, 1];
+    const actual = inverseTransform(m);
     expectVecEqual(actual, expected);
   });
 

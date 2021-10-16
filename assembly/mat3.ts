@@ -59,8 +59,8 @@ export function scale(m: ReadonlyMat3, s: Float, out: Mat3 = create()): Mat3 {
  * Transpose a {@link Mat3}.
  * @returns [M]T
  */
-export function tr(m: ReadonlyMat3, out: Mat3 = create()): Mat3 {
-  return array.tr(3, m, out) as Mat3;
+export function transpose(m: ReadonlyMat3, out: Mat3 = create()): Mat3 {
+  return array.transpose(3, m, out) as Mat3;
 }
 
 /**
@@ -118,5 +118,5 @@ export function nmat(a: ReadonlyMat3, out: Mat3 = create()): Mat3 | null {
   if (!invert(a, out)) {
     return null;
   }
-  return tr(out, out);
+  return transpose(out, out);
 }

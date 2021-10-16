@@ -116,7 +116,7 @@ export function dot(a: ReadonlyVec, b: ReadonlyVec): Float {
  * @param out the output matrix
  * @returns out = [M]T
  */
-export function tr(n: Int, m: ReadonlyVec, out: Vec): Vec {
+export function transpose(n: Int, m: ReadonlyVec, out: Vec): Vec {
   let f: Float = 0;
   for (let i = 0; i < n; ++i) {
     for (let j = i; j < n; ++j) {

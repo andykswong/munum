@@ -39,7 +39,7 @@ export function rotate(q: ReadonlyQuat, out: Mat4 = mat4.create()): Mat4 {
 
 /**
  * Returns a {@link Mat4} for a 3D rotation about the x-axis in couterclockwise direction.
- * see: https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
+ * @see https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
  */
 export function rotateX(theta: Float, out: Mat4 = mat4.create()): Mat4 {
   mat4.id(out);
@@ -51,7 +51,7 @@ export function rotateX(theta: Float, out: Mat4 = mat4.create()): Mat4 {
 
 /**
  * Returns a {@link Mat4} for a 3D rotation about the y-axis in couterclockwise direction.
- * see: https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
+ * @see https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
  */
 export function rotateY(theta: Float, out: Mat4 = mat4.create()): Mat4 {
   mat4.id(out);
@@ -63,7 +63,7 @@ export function rotateY(theta: Float, out: Mat4 = mat4.create()): Mat4 {
 
 /**
  * Returns a {@link Mat4} for a 3D rotation about the z-axis in couterclockwise direction.
- * see: https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
+ * @see https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
  */
 export function rotateZ(theta: Float, out: Mat4 = mat4.create()): Mat4 {
   mat4.id(out);
@@ -75,7 +75,7 @@ export function rotateZ(theta: Float, out: Mat4 = mat4.create()): Mat4 {
 
 /**
  * Returns a {@link Mat4} for a 3D rotation about a given unit axis in couterclockwise direction.
- * see: https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
+ * @see https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
  */
 export function rotateAxis(axis: ReadonlyVec3, theta: Float, out: Mat4 = mat4.create()): Mat4 {
   const
@@ -121,6 +121,42 @@ export function transform(translation: ReadonlyVec3, rotation: ReadonlyQuat, sca
   return out;
 }
 
+/**
+ * Returns the inverse of a {@link ReadonlyMat4} that represents a valid transformation in TRS order (= translation * rotation * scale).
+ * This function is more efficient than {@link mat4.invert} by using the properties of a TRS matrix.
+ * @returns out = M^-1
+ */
+export function inverseTransform(m: ReadonlyMat4, out: Mat4 = mat4.create()): Mat4 {
+  // Assume M is a TRS matrix:
+  // M = T * R * S = [RS  t]
+  //                 [0   1]
+  // Then the inverse of M is:
+  // M^-1 = [(RS)^-1  (RS)^-1 * -t]
+  //        [   0           1     ]
+  // Where: (RS)^-1 = S^-1 * R^-1 = S^-1 * RT = S^-1 * ((RS)(S^-1))T = S^-1 * (S^-1)T * (RS)T = S^-1 * S^-1 * (RS)T
+
+  // Calculate output = (RS)T
+  mat4.transpose(m, out);
+  unchecked(out[3] = out[7] = out[11] = 0);
+
+  // Extract S and premultiply S^-2 = 1/(S*S) to output
+  scaleOf(m, v1);
+  for (let i = 0; i < 3; ++i) {
+    for (let j = 0; j < 3; ++j) {
+      unchecked(out[4 * i + j] *= 1 / (v1[j] * v1[j]));
+    }
+  }
+
+  // With output = (RS)^-1, apply translation = (output * -t) to output
+  array.copy(
+    vec3.mmul4(out, vec3.scale(array.copy(m, v0, 12, 0, 3) as Vec3, -1)),
+    out,
+    0, 12, 3
+  );
+
+  return out;
+}
+
 // -- Transformation matrix decomposition --
 
 /**
@@ -131,7 +167,7 @@ export function translationOf(m: ReadonlyMat4, out: Vec3 = vec3.create()): Vec3 
 }
 
 /**
- * Extract the {@link Vec3} scaling components from an affine transformation matrix.
+ * Extract the {@link Vec3} scaling components from a transformation matrix in TRS order (= translation * rotation * scale).
  */
 export function scaleOf(m: ReadonlyMat4, out: Vec3 = vec3.create()): Vec3 {
   for (let i = 0; i < 3; ++i) {
@@ -144,7 +180,7 @@ export function scaleOf(m: ReadonlyMat4, out: Vec3 = vec3.create()): Vec3 {
 }
 
 /**
- * Extract the {@link Quat} rotation components from an affine transformation matrix.
+ * Extract the {@link Quat} rotation components from a transformation matrix in TRS order (= translation * rotation * scale).
  * @see https://en.wikipedia.org/wiki/Rotation_matrix#Quaternion
  */
 export function rotationOf(m: ReadonlyMat4, out: Quat = quat.create()): Quat {

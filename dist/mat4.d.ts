@@ -47,7 +47,7 @@ export declare function scale(m: ReadonlyMat4, s: Float, out?: Mat4): Mat4;
  * Transpose a {@link Mat4}.
  * @returns [M]T
  */
-export declare function tr(m: ReadonlyMat4, out?: Mat4): Mat4;
+export declare function transpose(m: ReadonlyMat4, out?: Mat4): Mat4;
 /**
  * Multiply 2 {@link Mat4}.
  * @returns out = a * b

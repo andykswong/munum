@@ -51,7 +51,7 @@ export declare function dot(a: ReadonlyVec, b: ReadonlyVec): Float;
  * @param out the output matrix
  * @returns out = [M]T
  */
-export declare function tr(n: Int, m: ReadonlyVec, out: Vec): Vec;
+export declare function transpose(n: Int, m: ReadonlyVec, out: Vec): Vec;
 /**
  * Calculate matrix multiplication of a * b, where size of a is (rr * n), and b is (n * rc).
  * @param n matrix order

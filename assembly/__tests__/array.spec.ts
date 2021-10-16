@@ -192,12 +192,12 @@ describe('array', () => {
     }
   });
 
-  test('tr(a)', () => {
+  test('transpose(a)', () => {
     const actuals: Vec[] = [
-      array.tr(1, [1], [0]),
-      mat2.tr([1, 2, 3, 4]),
-      mat3.tr([1, 2, 3, 4, 5, 6, 7, 8, 9]),
-      mat4.tr([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]),
+      array.transpose(1, [1], [0]),
+      mat2.transpose([1, 2, 3, 4]),
+      mat3.transpose([1, 2, 3, 4, 5, 6, 7, 8, 9]),
+      mat4.transpose([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]),
     ];
 
     const expecteds: Vec[] = [

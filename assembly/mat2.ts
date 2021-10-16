@@ -70,8 +70,8 @@ export function scale(m: ReadonlyMat2, s: Float, out: Mat2 = create()): Mat2 {
  * Transpose a {@link Mat2}.
  * @returns [M]T
  */
-export function tr(m: ReadonlyMat2, out: Mat2 = create()): Mat2 {
-  return array.tr(2, m, out) as Mat2;
+export function transpose(m: ReadonlyMat2, out: Mat2 = create()): Mat2 {
+  return array.transpose(2, m, out) as Mat2;
 }
 
 /**
