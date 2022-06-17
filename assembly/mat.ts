@@ -1,24 +1,18 @@
 import { Float, Int, ReadonlyVec, Vec } from './types';
 import { EPSILON, fequal as fequalNum, lerp as lerpNum } from './scalar';
 
-/**
- * Copy elements from one float vec to another, and returns the destination array.
- * @returns dst
- */
-export function copy(
-  src: ReadonlyVec, dst: Vec, srcOffset: Int = 0, dstOffset: Int = 0, count: Int = src.length - srcOffset
-): Vec {
-  for (let i = 0; i < count; ++i) {
-    unchecked(dst[dstOffset + i] = src[srcOffset + i]);
-  }
-  return dst;
-}
+// Temp variables
+const m = new Array<Float>(16);
 
 /**
  * Generic function to copy elements from any array-like object to another.
- * This is only useful for use within AssemblyScript. For JS build, you can simply use {@link copy}.
+ * @returns dst
  */
-export function copyEx<T, U>(src: T, dst: U, srcOffset: Int, dstOffset: Int, count: Int): U {
+export function copy<T, U>(
+  src: T, dst: U, srcOffset: Int = 0, dstOffset: Int = 0,
+  // @ts-ignore: Skip type checking
+  count: Int = src.length - srcOffset
+): U {
   for (let i = 0; i < count; ++i) {
     // @ts-ignore: Skip type checking
     unchecked(dst[dstOffset + i] = src[srcOffset + i]);
@@ -27,7 +21,7 @@ export function copyEx<T, U>(src: T, dst: U, srcOffset: Int, dstOffset: Int, cou
 }
 
 /**
- * Check if 2 number arrays have equal length and equal values within an epsilon.
+ * Checks if 2 number arrays have equal length and equal values within an epsilon.
  * @returns a == b
  */
 export function fequal(a: ReadonlyVec, b: ReadonlyVec, epsilon: Float = EPSILON): boolean {
@@ -43,7 +37,7 @@ export function fequal(a: ReadonlyVec, b: ReadonlyVec, epsilon: Float = EPSILON)
 }
 
 /**
- * Sum 2 vectors.
+ * Sums 2 vectors.
  * @returns out = a + b
  */
 export function add(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
@@ -54,7 +48,7 @@ export function add(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
 }
 
 /**
- * Subtract 2 vectors.
+ * Subtracts 2 vectors.
  * @returns out = a - b
  */
 export function sub(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
@@ -65,7 +59,7 @@ export function sub(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
 }
 
 /**
- * Scale a vector by a constant.
+ * Scales a vector by a constant.
  * @returns out = s * a
  */
 export function scale(a: ReadonlyVec, s: Float, out: Vec): Vec {
@@ -76,13 +70,30 @@ export function scale(a: ReadonlyVec, s: Float, out: Vec): Vec {
 }
 
 /**
- * Multiply 2 vectors component-wise.
+ * Calculates matrix multiplication of a * b, where size of a is (rr * n), and b is (n * rc).
+ * @param n matrix order
+ * @param a matrix of size rr * n
+ * @param b matrix of size n * rc
+ * @param out the output matrix of size rr * rc
  * @returns out = a * b
  */
-export function mul(a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
-  for (let i = 0; i < a.length; ++i) {
-    unchecked(out[i] = a[i] * b[i]);
+ export function mul(n: Int, a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
+  const rr = (a.length / n) as Int;
+  const rc = (b.length / n) as Int;
+  let f: Float = 0;
+  m.length = rr * rc;
+
+  for (let i = 0; i < rc; ++i) {
+    for (let j = 0; j < rr; ++j) {
+      f = 0;
+      for (let k = 0; k < n; ++k) {
+        f += unchecked(a[k * rr + j] * b[i * n + k]);
+      }
+      unchecked(m[i * rr + j] = f);
+    }
   }
+  copy(m, out, 0, 0, m.length);
+
   return out;
 }
 
@@ -98,7 +109,7 @@ export function lerp(a: ReadonlyVec, b: ReadonlyVec, t: Float, out: Vec): Vec {
 }
 
 /**
- * Calculate the dot product of a 2 vectors.
+ * Calculates the dot product of a 2 vectors.
  * @returns a * b
  */
 export function dot(a: ReadonlyVec, b: ReadonlyVec): Float {
@@ -110,7 +121,7 @@ export function dot(a: ReadonlyVec, b: ReadonlyVec): Float {
 }
 
 /**
- * Transpose a matrix.
+ * Transposes a matrix.
  * @param n matrix order
  * @param m the matrix
  * @param out the output matrix
@@ -126,31 +137,5 @@ export function transpose(n: Int, m: ReadonlyVec, out: Vec): Vec {
       unchecked(out[i * n + j] = f);
     }
   }
-  return out;
-}
-
-/**
- * Calculate matrix multiplication of a * b, where size of a is (rr * n), and b is (n * rc).
- * @param n matrix order
- * @param a matrix of size rr * n
- * @param b matrix of size n * rc
- * @param out the output matrix of size rr * rc, must not be the same object as a or b
- * @returns out = a * b
- */
-export function mmul(n: Int, a: ReadonlyVec, b: ReadonlyVec, out: Vec): Vec {
-  const rr = (a.length / n) as Int;
-  const rc = (b.length / n) as Int;
-  let f: Float = 0;
-
-  for (let i = 0; i < rc; ++i) {
-    for (let j = 0; j < rr; ++j) {
-      f = 0;
-      for (let k = 0; k < n; ++k) {
-        f += unchecked(a[k * rr + j] * b[i * n + k]);
-      }
-      unchecked(out[i * rr + j] = f);
-    }
-  }
-
   return out;
 }

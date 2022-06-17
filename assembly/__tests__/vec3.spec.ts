@@ -18,8 +18,8 @@ describe('vec3', () => {
     expectVecEqual(vec3.mmul4([2, 7, -19, 0, 3, -11, 23, 0, -4, 13, 31, 0, 5, 17, -29, 1], v), [8, 98, 62] as Vec3);
   });
 
-  test('len2(v)', () => {
-    expect(vec3.len2([3, 4, 12])).toBe(169);
+  test('sqrLen(v)', () => {
+    expect(vec3.sqrLen([3, 4, 12])).toBe(169);
   });
 
   test('len(v)', () => {

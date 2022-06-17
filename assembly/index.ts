@@ -1,6 +1,6 @@
 import * as aabb from './aabb';
-import * as array from './array';
 import * as frustum from './frustum';
+import * as mat from './mat';
 import * as mat2 from './mat2';
 import * as mat3 from './mat3';
 import * as mat4 from './mat4';
@@ -17,8 +17,8 @@ export * from './transform';
 
 export {
   aabb,
-  array,
   frustum,
+  mat,
   mat2,
   mat3,
   mat4,

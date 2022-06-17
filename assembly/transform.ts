@@ -1,5 +1,5 @@
 import { Float, Mat4, Quat, ReadonlyMat4, ReadonlyQuat, ReadonlyVec3, Vec3 } from './types';
-import * as array from './array';
+import * as mat from './mat';
 import * as mat4 from './mat4';
 import * as quat from './quat';
 import * as vec3 from './vec3';
@@ -15,7 +15,7 @@ const v2: Vec3 = vec3.create();
  */
 export function translate(v: ReadonlyVec3, out: Mat4 = mat4.create()): Mat4 {
   mat4.id(out);
-  array.copy(v, out, 0, 12, 3);
+  mat.copy(v, out, 0, 12, 3);
   return out;
 }
 
@@ -116,7 +116,7 @@ export function transform(translation: ReadonlyVec3, rotation: ReadonlyQuat, sca
   }
 
   // Apply translation
-  array.copy(translation, out, 0, 12, 3);
+  mat.copy(translation, out, 0, 12, 3);
 
   return out;
 }
@@ -148,8 +148,8 @@ export function inverseTransform(m: ReadonlyMat4, out: Mat4 = mat4.create()): Ma
   }
 
   // With output = (RS)^-1, apply translation = (output * -t) to output
-  array.copy(
-    vec3.mmul4(out, vec3.scale(array.copy(m, v0, 12, 0, 3) as Vec3, -1)),
+  mat.copy(
+    vec3.mmul4(out, vec3.scale(mat.copy(m, v0, 12, 0, 3) as Vec3, -1)),
     out,
     0, 12, 3
   );
@@ -163,7 +163,7 @@ export function inverseTransform(m: ReadonlyMat4, out: Mat4 = mat4.create()): Ma
  * Extract the {@link Vec3} translation component from a transformation matrix.
  */
 export function translationOf(m: ReadonlyMat4, out: Vec3 = vec3.create()): Vec3 {
-  return array.copy(m, out, 12, 0, 3) as Vec3;
+  return mat.copy(m, out, 12, 0, 3) as Vec3;
 }
 
 /**
@@ -268,10 +268,10 @@ export function targetTo(
   const u: Vec3 = vec3.cross(v, n, v2); // up
   vec3.norm(u, u);
 
-  array.copy(n, out, 0, 0, 3);
-  array.copy(u, out, 0, 4, 3);
-  array.copy(v, out, 0, 8, 3);
-  array.copy(eye, out, 0, 12, 3);
+  mat.copy(n, out, 0, 0, 3);
+  mat.copy(u, out, 0, 4, 3);
+  mat.copy(v, out, 0, 8, 3);
+  mat.copy(eye, out, 0, 12, 3);
   unchecked(out[3] = out[7] = out[11] = 0);
   unchecked(out[15] = 1);
   return out;

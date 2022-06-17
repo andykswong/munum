@@ -1,6 +1,6 @@
 import { Float, Mat3, Mat4, ReadonlyMat3, ReadonlyMat4 } from './types';
 import * as mat3 from './mat3';
-import * as array from './array';
+import * as mat from './mat';
 
 // Temp variables
 const m: Mat4 = create();
@@ -62,7 +62,7 @@ export function toMat3(m: ReadonlyMat4, out: Mat3 = mat3.create()): Mat3 {
  * @returns out
  */
 export function copy(v: ReadonlyMat4, out: Mat4 = create()): Mat4 {
-  return array.copy(v, out) as Mat4;
+  return mat.copy(v, out) as Mat4;
 }
 
 /**
@@ -70,7 +70,7 @@ export function copy(v: ReadonlyMat4, out: Mat4 = create()): Mat4 {
  * @returns out = a + b
  */
 export function add(a: ReadonlyMat4, b: ReadonlyMat4, out: Mat4 = create()): Mat4 {
-  return array.add(a, b, out) as Mat4;
+  return mat.add(a, b, out) as Mat4;
 }
 
 /**
@@ -78,7 +78,7 @@ export function add(a: ReadonlyMat4, b: ReadonlyMat4, out: Mat4 = create()): Mat
  * @returns out = a - b
  */
 export function sub(a: ReadonlyMat4, b: ReadonlyMat4, out: Mat4 = create()): Mat4 {
-  return array.sub(a, b, out) as Mat4;
+  return mat.sub(a, b, out) as Mat4;
 }
 
 /**
@@ -86,7 +86,7 @@ export function sub(a: ReadonlyMat4, b: ReadonlyMat4, out: Mat4 = create()): Mat
  * @returns out = s * M
  */
 export function scale(m: ReadonlyMat4, s: Float, out: Mat4 = create()): Mat4 {
-  return array.scale(m, s, out) as Mat4;
+  return mat.scale(m, s, out) as Mat4;
 }
 
 /**
@@ -94,7 +94,7 @@ export function scale(m: ReadonlyMat4, s: Float, out: Mat4 = create()): Mat4 {
  * @returns [M]T
  */
 export function transpose(m: ReadonlyMat4, out: Mat4 = create()): Mat4 {
-  return array.transpose(4, m, out) as Mat4;
+  return mat.transpose(4, m, out) as Mat4;
 }
 
 /**
@@ -102,7 +102,7 @@ export function transpose(m: ReadonlyMat4, out: Mat4 = create()): Mat4 {
  * @returns out = a * b
  */
 export function mul(a: ReadonlyMat4, b: ReadonlyMat4, out: Mat4 = create()): Mat4 {
-  return array.copy(array.mmul(4, a, b, m), out) as Mat4;
+  return mat.mul(4, a, b, out) as Mat4;
 }
 
 /**

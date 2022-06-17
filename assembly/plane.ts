@@ -1,5 +1,5 @@
 import { Float, Plane, ReadonlyPlane, ReadonlyVec3, Vec3 } from './types';
-import * as array from './array';
+import * as mat from './mat';
 import * as vec3 from './vec3';
 import * as vec4 from './vec4';
 
@@ -16,7 +16,7 @@ export { create, copy, set } from './vec4';
 export function fromPointNormal(point: ReadonlyVec3, normal: ReadonlyVec3, out: Plane = vec4.create()): Plane {
   vec3.norm(normal, v1);
   unchecked(out[3] = -vec3.dot(v1, point));
-  return array.copy(v1, out) as Plane;
+  return mat.copy(v1, out) as Plane;
 }
 
 /**

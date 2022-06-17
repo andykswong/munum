@@ -7,27 +7,27 @@ export declare function create(): Quat;
 /**
  * Create a {@link Quat} from a unit axis vector and rotation angle in couterclockwise direction.
  */
-export declare function rotateAxis(axis: ReadonlyVec3, angle: Float, out?: Quat): Quat;
+export declare function fromAxisAngle(axis: ReadonlyVec3, angle: Float, out?: Quat): Quat;
 /**
  * Returns a {@link Quat} from a rotation around x-axis in couterclockwise direction.
  * @returns the quat representing the rotation
  */
-export declare function rotateX(angle: Float, out?: Quat): Quat;
+export declare function fromAngleX(angle: Float, out?: Quat): Quat;
 /**
  * Returns a {@link Quat} from a rotation around y-axis in couterclockwise direction.
  * @returns the quat representing the rotation
  */
-export declare function rotateY(angle: Float, out?: Quat): Quat;
+export declare function fromAngleY(angle: Float, out?: Quat): Quat;
 /**
  * Returns a {@link Quat} from a rotation around z-axis in couterclockwise direction.
  * @returns the quat representing the rotation
  */
-export declare function rotateZ(angle: Float, out?: Quat): Quat;
+export declare function fromAngleZ(angle: Float, out?: Quat): Quat;
 /**
  * Returns a {@link Quat} that represents the shortest arc rotation between 2 unit vectors.
  * @returns the quat representing the rotation
  */
-export declare function rotateTo(from: ReadonlyVec3, to: ReadonlyVec3, out?: Quat): Quat;
+export declare function fromUnitVecs(from: ReadonlyVec3, to: ReadonlyVec3, out?: Quat): Quat;
 /**
  * Convert a {@link Quat} to a {@link Mat4}.
  * @returns Mat4
@@ -47,7 +47,7 @@ export declare const dot: (a: ReadonlyQuat, b: ReadonlyQuat) => Float;
  * Calculate squared length of a {@link ReadonlyQuat}.
  * @returns dot(v, v)
  */
-export declare const len2: (v: ReadonlyQuat) => Float;
+export declare const sqrLen: (v: ReadonlyQuat) => Float;
 /**
  * Calculate length of a {@link Quat}.
  * @returns |v|

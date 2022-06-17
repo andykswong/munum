@@ -1,5 +1,5 @@
 import { Float, ReadonlyMat4, ReadonlyVec3, ReadonlyVec4, Vec4 } from './types';
-import * as array from './array';
+import * as mat from './mat';
 
 // Temp variables
 const v: Vec4 = create();
@@ -52,7 +52,7 @@ export function fromVec3(v: ReadonlyVec3, out: Vec4 = create()): Vec4 {
  * @returns out
  */
 export function copy(v: ReadonlyVec4, out: Vec4 = create()): Vec4 {
-  return array.copy(v, out) as Vec4;
+  return mat.copy(v, out) as Vec4;
 }
 
 /**
@@ -60,7 +60,7 @@ export function copy(v: ReadonlyVec4, out: Vec4 = create()): Vec4 {
  * @returns out = a + b
  */
 export function add(a: ReadonlyVec4, b: ReadonlyVec4, out: Vec4 = create()): Vec4 {
-  return array.add(a, b, out) as Vec4;
+  return mat.add(a, b, out) as Vec4;
 }
 
 /**
@@ -68,7 +68,7 @@ export function add(a: ReadonlyVec4, b: ReadonlyVec4, out: Vec4 = create()): Vec
  * @returns out = a - b
  */
 export function sub(a: ReadonlyVec4, b: ReadonlyVec4, out: Vec4 = create()): Vec4 {
-  return array.sub(a, b, out) as Vec4;
+  return mat.sub(a, b, out) as Vec4;
 }
 
 /**
@@ -76,15 +76,7 @@ export function sub(a: ReadonlyVec4, b: ReadonlyVec4, out: Vec4 = create()): Vec
  * @returns out = s * v
  */
 export function scale(v: ReadonlyVec4, s: Float, out: Vec4 = create()): Vec4 {
-  return array.scale(v, s, out) as Vec4;
-}
-
-/**
- * Multiply 2 {@link Vec4} element-wise.
- * @returns out = a * b
- */
-export function mul(v: ReadonlyVec4, s: ReadonlyVec4, out: Vec4 = create()): Vec4 {
-  return array.mul(v, s, out) as Vec4;
+  return mat.scale(v, s, out) as Vec4;
 }
 
 /**
@@ -92,7 +84,7 @@ export function mul(v: ReadonlyVec4, s: ReadonlyVec4, out: Vec4 = create()): Vec
  * @returns out = m * v
  */
 export function mmul(a: ReadonlyMat4, b: ReadonlyVec4, out: Vec4 = create()): Vec4 {
-  return array.copy(array.mmul(4, a, b, v), out) as Vec4;
+  return mat.mul(4, a, b, out) as Vec4;
 }
 
 /**
@@ -100,7 +92,7 @@ export function mmul(a: ReadonlyMat4, b: ReadonlyVec4, out: Vec4 = create()): Ve
  * @returns a * b
  */
 export function dot(a: ReadonlyVec4, b: ReadonlyVec4): Float {
-  return array.dot(a, b);
+  return mat.dot(a, b);
 }
 
 /**
@@ -108,14 +100,14 @@ export function dot(a: ReadonlyVec4, b: ReadonlyVec4): Float {
  * @returns out = lerp(a, b, t)
  */
 export function lerp(a: ReadonlyVec4, b: ReadonlyVec4, t: Float, out: Vec4 = create()): Vec4 {
-  return array.lerp(a, b, t, out) as Vec4;
+  return mat.lerp(a, b, t, out) as Vec4;
 }
 
 /**
  * Calculate squared length of a {@link Vec4}.
  * @returns dot(v, v)
  */
-export function len2(v: ReadonlyVec4): Float {
+export function sqrLen(v: ReadonlyVec4): Float {
   return dot(v, v);
 }
 
@@ -132,5 +124,5 @@ export function len(v: ReadonlyVec4): Float {
  * @returns v/|v|
  */
 export function norm(v: ReadonlyVec4, out: Vec4 = create()): Vec4 {
-  return array.scale(v, 1 / (len(v) || 1), out) as Vec4;
+  return mat.scale(v, 1 / (len(v) || 1), out) as Vec4;
 }

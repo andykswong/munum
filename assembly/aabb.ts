@@ -1,5 +1,5 @@
 import { AABB, Float, ReadonlyAABB, ReadonlyMat4, ReadonlyVec3, Vec3 } from './types';
-import * as array from './array';
+import * as mat from './mat';
 import * as vec3 from './vec3';
 
 const v0: Vec3 = vec3.create();
@@ -16,8 +16,8 @@ export function create(min: Vec3 = vec3.create(), max: Vec3 = vec3.create()): AA
  * Copy an {@link AABB}.
  */
 export function copy(a: ReadonlyAABB, out: AABB = create()): AABB {
-  array.copy(a.min, out.min);
-  array.copy(a.max, out.max);
+  mat.copy(a.min, out.min);
+  mat.copy(a.max, out.max);
   return out;
 }
 
@@ -25,8 +25,8 @@ export function copy(a: ReadonlyAABB, out: AABB = create()): AABB {
  * Set values of an {@link AABB}.
  */
 export function set(a: AABB, min: Vec3 = vec3.create(), max: Vec3 = vec3.create()): AABB {
-  array.copy(min, a.min);
-  array.copy(max, a.max);
+  mat.copy(min, a.min);
+  mat.copy(max, a.max);
   return a;
 }
 
@@ -79,8 +79,8 @@ export function transform(a: ReadonlyAABB, m: ReadonlyMat4, out: AABB = create()
     }
   }
 
-  array.copy(v0, out.min);
-  array.copy(v1, out.max);
+  mat.copy(v0, out.min);
+  mat.copy(v1, out.max);
   return out;
 }
 

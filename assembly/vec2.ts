@@ -1,5 +1,5 @@
 import { Float, ReadonlyMat2, ReadonlyMat3, ReadonlyVec2, Vec2, Vec3 } from './types';
-import * as array from './array';
+import * as mat from './mat';
 import * as vec3 from './vec3';
 
 // Temp variables
@@ -35,7 +35,7 @@ export function set(v: Vec2, x: Float = 0, y: Float = 0): Vec2 {
  * @returns out
  */
 export function copy(v: ReadonlyVec2, out: Vec2 = create()): Vec2 {
-  return array.copy(v, out) as Vec2;
+  return mat.copy(v, out) as Vec2;
 }
 
 /**
@@ -43,7 +43,7 @@ export function copy(v: ReadonlyVec2, out: Vec2 = create()): Vec2 {
  * @returns out = a + b
  */
 export function add(a: ReadonlyVec2, b: ReadonlyVec2, out: Vec2 = create()): Vec2 {
-  return array.add(a, b, out) as Vec2;
+  return mat.add(a, b, out) as Vec2;
 }
 
 /**
@@ -51,7 +51,7 @@ export function add(a: ReadonlyVec2, b: ReadonlyVec2, out: Vec2 = create()): Vec
  * @returns out = a - b
  */
 export function sub(a: ReadonlyVec2, b: ReadonlyVec2, out: Vec2 = create()): Vec2 {
-  return array.sub(a, b, out) as Vec2;
+  return mat.sub(a, b, out) as Vec2;
 }
 
 /**
@@ -59,23 +59,15 @@ export function sub(a: ReadonlyVec2, b: ReadonlyVec2, out: Vec2 = create()): Vec
  * @returns out = s * v
  */
 export function scale(v: ReadonlyVec2, s: Float, out: Vec2 = create()): Vec2 {
-  return array.scale(v, s, out) as Vec2;
-}
-
-/**
- * Multiply 2 {@link Vec2} element-wise.
- * @returns out = a * b
- */
-export function mul(v: ReadonlyVec2, s: ReadonlyVec2, out: Vec2 = create()): Vec2 {
-  return array.mul(v, s, out) as Vec2;
+  return mat.scale(v, s, out) as Vec2;
 }
 
 /**
  * Multiply a {@link ReadonlyMat2} with a {@link ReadonlyVec2}.
  * @returns out = m * x
  */
-export function mmul(m: ReadonlyMat2, x: ReadonlyVec2, out: Vec2 = create()): Vec2 {
-  return array.copy(array.mmul(2, m, x, v), out) as Vec2;
+export function mul(m: ReadonlyMat2, x: ReadonlyVec2, out: Vec2 = create()): Vec2 {
+  return mat.mul(2, m, x, out) as Vec2;
 }
 
 /**
@@ -84,7 +76,7 @@ export function mmul(m: ReadonlyMat2, x: ReadonlyVec2, out: Vec2 = create()): Ve
  */
 export function mmul3(m: ReadonlyMat3, x: ReadonlyVec2, out: Vec2 = create()): Vec2 {
   unchecked(vec3.set(v3a, x[0], x[1], 1));
-  return array.copy(array.mmul(3, m, v3a, v3b), out, 0, 0, 2) as Vec2;
+  return mat.copy(mat.mul(3, m, v3a, v3b), out, 0, 0, 2) as Vec2;
 }
 
 /**
@@ -92,7 +84,7 @@ export function mmul3(m: ReadonlyMat3, x: ReadonlyVec2, out: Vec2 = create()): V
  * @returns a * b
  */
 export function dot(a: ReadonlyVec2, b: ReadonlyVec2): Float {
-  return array.dot(a, b);
+  return mat.dot(a, b);
 }
 
 /**
@@ -100,14 +92,14 @@ export function dot(a: ReadonlyVec2, b: ReadonlyVec2): Float {
  * @returns out = lerp(a, b, t)
  */
 export function lerp(a: ReadonlyVec2, b: ReadonlyVec2, t: Float, out: Vec2 = create()): Vec2 {
-  return array.lerp(a, b, t, out) as Vec2;
+  return mat.lerp(a, b, t, out) as Vec2;
 }
 
 /**
  * Calculate squared length of a {@link Vec2}.
  * @returns dot(v, v)
  */
-export function len2(v: ReadonlyVec2): Float {
+export function sqrLen(v: ReadonlyVec2): Float {
   return dot(v, v);
 }
 
@@ -132,5 +124,5 @@ export function dist(a: ReadonlyVec2, b: ReadonlyVec2): Float {
  * @returns v/|v|
  */
 export function norm(v: ReadonlyVec2, out: Vec2 = create()): Vec2 {
-  return array.scale(v, 1 / (len(v) || 1), out) as Vec2;
+  return mat.scale(v, 1 / (len(v) || 1), out) as Vec2;
 }

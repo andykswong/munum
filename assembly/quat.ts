@@ -1,5 +1,5 @@
 import { Float, Mat4, Quat, ReadonlyQuat, ReadonlyVec3, Vec, Vec3 } from './types';
-import * as array from './array';
+import * as mat from './mat';
 import * as mat4 from './mat4';
 import * as vec3 from './vec3';
 import * as vec4 from './vec4';
@@ -20,8 +20,8 @@ export function create(): Quat {
 /**
  * Create a {@link Quat} from a unit axis vector and rotation angle in couterclockwise direction.
  */
-export function rotateAxis(axis: ReadonlyVec3, angle: Float, out: Quat = create()): Quat {
-  array.scale(axis, Math.sin(angle / 2) as Float, out);
+export function fromAxisAngle(axis: ReadonlyVec3, angle: Float, out: Quat = create()): Quat {
+  mat.scale(axis, Math.sin(angle / 2) as Float, out);
   unchecked(out[3] = Math.cos(angle / 2) as Float);
   return out;
 }
@@ -30,7 +30,7 @@ export function rotateAxis(axis: ReadonlyVec3, angle: Float, out: Quat = create(
  * Returns a {@link Quat} from a rotation around x-axis in couterclockwise direction.
  * @returns the quat representing the rotation
  */
-export function rotateX(angle: Float, out: Quat = create()): Quat {
+export function fromAngleX(angle: Float, out: Quat = create()): Quat {
   unchecked(out[0] = Math.sin(angle / 2) as Float);
   unchecked(out[3] = Math.cos(angle / 2) as Float);
   unchecked(out[1] = out[2] = 0);
@@ -41,7 +41,7 @@ export function rotateX(angle: Float, out: Quat = create()): Quat {
  * Returns a {@link Quat} from a rotation around y-axis in couterclockwise direction.
  * @returns the quat representing the rotation
  */
-export function rotateY(angle: Float, out: Quat = create()): Quat {
+export function fromAngleY(angle: Float, out: Quat = create()): Quat {
   unchecked(out[1] = Math.sin(angle / 2) as Float);
   unchecked(out[3] = Math.cos(angle / 2) as Float);
   unchecked(out[0] = out[2] = 0);
@@ -52,7 +52,7 @@ export function rotateY(angle: Float, out: Quat = create()): Quat {
  * Returns a {@link Quat} from a rotation around z-axis in couterclockwise direction.
  * @returns the quat representing the rotation
  */
-export function rotateZ(angle: Float, out: Quat = create()): Quat {
+export function fromAngleZ(angle: Float, out: Quat = create()): Quat {
   unchecked(out[2] = Math.sin(angle / 2) as Float);
   unchecked(out[3] = Math.cos(angle / 2) as Float);
   unchecked(out[0] = out[1] = 0);
@@ -63,7 +63,7 @@ export function rotateZ(angle: Float, out: Quat = create()): Quat {
  * Returns a {@link Quat} that represents the shortest arc rotation between 2 unit vectors.
  * @returns the quat representing the rotation
  */
-export function rotateTo(from: ReadonlyVec3, to: ReadonlyVec3, out: Quat = create()): Quat {
+export function fromUnitVecs(from: ReadonlyVec3, to: ReadonlyVec3, out: Quat = create()): Quat {
   const dot: Float = vec3.dot(from, to);
 
   if (fequal(dot, -1)) { // vectors are in parallel but opposite direction
@@ -71,7 +71,7 @@ export function rotateTo(from: ReadonlyVec3, to: ReadonlyVec3, out: Quat = creat
     unchecked(out[0] = 0);
     unchecked(out[1] = from[2]);
     unchecked(out[2] = -from[1]);
-    return rotateAxis(out as Vec as Vec3, Math.PI as Float, out);
+    return fromAxisAngle(out as Vec as Vec3, Math.PI as Float, out);
   } else if (fequal(dot, 1)) { // vectors are in same direction
     unchecked(out[0] = out[1] = out[2] = 0);
     unchecked(out[3] = 1);
@@ -120,20 +120,20 @@ export function toMat4(q: ReadonlyQuat, out: Mat4 = mat4.create()): Mat4 {
  * @returns out
  */
 export function copy(q: ReadonlyQuat, out: Quat = create()): Quat {
-  return array.copy(q, out) as Quat;
+  return mat.copy(q, out) as Quat;
 }
 
 /**
  * Calculate dot product between 2 {@link Quat}.
  * @returns a * b
  */
-export const dot: (a: ReadonlyQuat, b: ReadonlyQuat) => Float = array.dot;
+export const dot: (a: ReadonlyQuat, b: ReadonlyQuat) => Float = mat.dot;
 
 /**
  * Calculate squared length of a {@link ReadonlyQuat}.
  * @returns dot(v, v)
  */
-export const len2: (v: ReadonlyQuat) => Float = vec4.len2;
+export const sqrLen: (v: ReadonlyQuat) => Float = vec4.sqrLen;
 
 /**
  * Calculate length of a {@link Quat}.
@@ -161,7 +161,7 @@ export function conj(q: ReadonlyQuat, out: Quat = create()): Quat {
 * Calculate the inverse of a {@link Quat}.
 */
 export function invert(q: ReadonlyQuat, out: Quat = create()): Quat {
-  const l: Float = 1 / (len2(q) || 1);
+  const l: Float = 1 / (sqrLen(q) || 1);
   unchecked(out[0] = -q[0] * l);
   unchecked(out[1] = -q[1] * l);
   unchecked(out[2] = -q[2] * l);
@@ -196,10 +196,10 @@ export function mul(a: ReadonlyQuat, b: ReadonlyQuat, out: Quat = create()): Qua
  * @returns out = q * v * q^-1
  */
 export function rotateVec3(q: ReadonlyQuat, v: ReadonlyVec3, out: Vec3 = vec3.create()): Vec3 {
-  array.copy(v, q1, 0, 0, 3);
+  mat.copy(v, q1, 0, 0, 3);
   unchecked(q1[3] = 0);
   mul(mul(q, q1, q1), invert(q, q2), q1);
-  return array.copy(q1, out, 0, 0, 3) as Vec3;
+  return mat.copy(q1, out, 0, 0, 3) as Vec3;
 }
 
 /**

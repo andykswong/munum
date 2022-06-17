@@ -20,8 +20,8 @@ describe('vec4', () => {
     expectVecEqual(out, [1, 2, 3, 0] as Vec4);
   });
 
-  test('len2(v)', () => {
-    expect(vec4.len2([2, 5, 14, 8])).toBe(289);
+  test('sqrLen(v)', () => {
+    expect(vec4.sqrLen([2, 5, 14, 8])).toBe(289);
   });
 
   test('len(v)', () => {

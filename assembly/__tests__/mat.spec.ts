@@ -1,10 +1,10 @@
-import { array, Float, mat2, mat3, mat4, quat, Vec, vec2, vec3, vec4 } from '../index';
+import { Float, mat, mat2, mat3, mat4, quat, Vec, vec2, vec3, vec4 } from '../index';
 import { expectVecEqual } from './test-utils';
 
-describe('array', () => {
+describe('mat', () => {
   test('copy(a, b, i, j, c)', () => {
     const out: Vec = [0, 0, 0, 0];
-    const actual = array.copy([1, 2, 3, 4, 5, 6], out, 2, 1, 3);
+    const actual = mat.copy([1. as Float, 2., 3., 4., 5., 6.], out, 2, 1, 3);
     const expected: Vec = [0, 3, 4, 5];
 
     expect(actual).toBe(out);
@@ -23,7 +23,7 @@ describe('array', () => {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       ),
       quat.copy([8, 9, 7, 9.3], [6, 7, 8, 9]),
-      array.copy([1, 2, 3], [0, 0, 0, 0, 0]),
+      mat.copy([1.0, 2.0, 3.0] as Vec, [0., 0., 0., 0., 0.] as Vec),
     ];
     const expecteds: Vec[] = [
       [3.1, 4.15],
@@ -41,21 +41,15 @@ describe('array', () => {
     }
   });
 
-  test('copyEx(a, b)', () => {
-    const actual = array.copyEx([1, 2, 3, 4] as Vec, new Float32Array(5), 1, 2, 3);
-    const expected: Vec = [0, 0, 2, 3, 4];
-    expectVecEqual(actual, expected);
-  });
-
   test('fequal(a, b)', () => {
-    expect(array.fequal([0, 1], [2, 3, 4])).toBeFalsy();
-    expect(array.fequal([2, 3, 5], [2, 3, 4])).toBeFalsy();
-    expect(array.fequal([1, 2, 3, 4], [1, 2, 3, 4])).toBeTruthy();
+    expect(mat.fequal([0, 1], [2, 3, 4])).toBeFalsy();
+    expect(mat.fequal([2, 3, 5], [2, 3, 4])).toBeFalsy();
+    expect(mat.fequal([1, 2, 3, 4], [1, 2, 3, 4])).toBeTruthy();
   });
 
   test('fequal(a, b, e)', () => {
-    expect(array.fequal([1, 2], [1.099, 2.099], 0.1)).toBeTruthy();
-    expect(array.fequal([1, 2], [2.1, 3.1], 0.1)).toBeFalsy();
+    expect(mat.fequal([1, 2], [1.099, 2.099], 0.1)).toBeTruthy();
+    expect(mat.fequal([1, 2], [2.1, 3.1], 0.1)).toBeFalsy();
   });
 
   test('add(a, b)', () => {
@@ -69,7 +63,7 @@ describe('array', () => {
         [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
         [0, 3, 2, 1, 7, 6, 5, 4, 9, 3, 2, 2, 0, 3, 3, 1]
       ),
-      array.add([1, 3, 3, 7], [9, 1, 1, 2, 6], [0, 0, 0, 0])
+      mat.add([1, 3, 3, 7], [9, 1, 1, 2, 6], [0, 0, 0, 0])
     ];
 
     const expecteds: Vec[] = [
@@ -98,7 +92,7 @@ describe('array', () => {
         [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
         [0, 3, 2, 1, 7, 6, 5, 4, 9, 3, 2, 2, 0, 3, 3, 1]
       ),
-      array.sub([1, 3, 3, 7], [9, 1, 1, 2, 6], [0, 0, 0, 0])
+      mat.sub([1, 3, 3, 7], [9, 1, 1, 2, 6], [0, 0, 0, 0])
     ];
 
     const expecteds: Vec[] = [
@@ -122,7 +116,7 @@ describe('array', () => {
       vec3.scale([7, 11, 13], 3),
       vec4.scale([29, 31, 37, 41], 4),
       mat2.scale([29, 31, 37, 41], 4),
-      array.scale([1, 3, 3, 7, 6], 5, [0, 0, 0, 0, 0])
+      mat.scale([1, 3, 3, 7, 6], 5, [0, 0, 0, 0, 0])
     ];
 
     const expecteds: Vec[] = [
@@ -138,32 +132,12 @@ describe('array', () => {
     }
   });
 
-  test('mul(a, b)', () => {
-    const actuals: Vec[] = [
-      vec2.mul([1, 2], [3, 5]),
-      vec3.mul([7, 11, 13], [17, 19, 23]),
-      vec4.mul([29, 31, 37, 41], [43, 47, 53, 59]),
-      array.mul([1, 3, 3, 7], [9, 1, 1, 2, 6], [0, 0, 0, 0])
-    ];
-
-    const expecteds: Vec[] = [
-      [3, 10],
-      [119, 209, 299],
-      [1247, 1457, 1961, 2419],
-      [9, 3, 3, 14]
-    ];
-
-    for (let i = 0; i < expecteds.length; ++i) {
-      expectVecEqual(actuals[i], expecteds[i]);
-    }
-  });
-
   test('dot(a, b)', () => {
     const actuals: Float[] = [
       vec2.dot([1, 2], [3, 5]),
       vec3.dot([7, 11, 13], [17, 19, 23]),
       vec4.dot([29, 31, 37, 41], [43, 47, 53, 59]),
-      array.dot([1, 3, 3, 7], [9, 1, 1, 2, 6])
+      mat.dot([1, 3, 3, 7], [9, 1, 1, 2, 6])
     ];
     const expecteds: Float[] = [13, 627, 7084, 29];
 
@@ -177,7 +151,7 @@ describe('array', () => {
       vec2.lerp([1, 2], [3, 5], .5),
       vec3.lerp([7, 11, 13], [17, 19, 23], .5),
       vec4.lerp([29, 31, 37, 41], [43, 47, 53, 59], .5),
-      array.lerp([1, 3, 3, 7], [9, 1, 1, 2, 6], .5, [0, 0, 0, 0, 0])
+      mat.lerp([1, 3, 3, 7], [9, 1, 1, 2, 6], .5, [0, 0, 0, 0, 0])
     ];
 
     const expecteds: Vec[] = [
@@ -194,7 +168,7 @@ describe('array', () => {
 
   test('transpose(a)', () => {
     const actuals: Vec[] = [
-      array.transpose(1, [1], [0]),
+      mat.transpose(1, [1], [0]),
       mat2.transpose([1, 2, 3, 4]),
       mat3.transpose([1, 2, 3, 4, 5, 6, 7, 8, 9]),
       mat4.transpose([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]),
@@ -212,16 +186,16 @@ describe('array', () => {
     }
   });
 
-  test('mmul(m1, m2)', () => {
+  test('mul(m1, m2)', () => {
     const actuals: Vec[] = [
-      array.mmul(1, [2.5], [3.4], [0]),
+      mat.mul(1, [2.5], [3.4], [0]),
       mat2.mul([1, 2, 3, 4], [5, 6, 7, 8]),
       mat3.mul([1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 9, 7, 2, 1, 6, 3, 1, 8]),
       mat4.mul(
         [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
         [0, 3, 2, 1, 7, 6, 5, 4, 9, 3, 2, 2, 0, 3, 3, 1]
       ),
-      vec2.mmul([1, 2, 3, 4], [5, 6]),
+      vec2.mul([1, 2, 3, 4], [5, 6]),
       vec3.mmul([1, 2, 3, 4, 5, 6, 7, 8, 9], [10, 11, 12]),
       vec4.mmul(
         [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],

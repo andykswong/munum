@@ -1,5 +1,5 @@
 <h1 align="center">🅼🆄🅽🆄🅼</h1>
-<h2 align="center">μNum - Micro Numerical Library for JavaScript and WebAssembly</h2>
+<h2 align="center">μNum - Micro 3D Math Library in JavaScript and WebAssembly</h2>
 <br />
 <p align="center">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a> 

@@ -12,29 +12,29 @@ describe('quat', () => {
     expectVecEqual(quat.create(), [0, 0, 0, 1] as Quat);
   });
 
-  test('rotateAxis(v, a)', () => {
+  test('fromAxisAngle(v, a)', () => {
     expectVecEqual(
-      quat.rotateAxis([3, 5, 7], PI_OVER_3),
+      quat.fromAxisAngle([3, 5, 7], PI_OVER_3),
       [3 * SIN_PI_OVER_6, 5 * SIN_PI_OVER_6, 7 * SIN_PI_OVER_6, COS_PI_OVER_6] as Quat
     );
   });
 
-  test('rotateX(a)', () => {
-    expectVecEqual(quat.rotateX(PI_OVER_3), [SIN_PI_OVER_6, 0, 0, COS_PI_OVER_6] as Quat);
+  test('fromAngleX(a)', () => {
+    expectVecEqual(quat.fromAngleX(PI_OVER_3), [SIN_PI_OVER_6, 0, 0, COS_PI_OVER_6] as Quat);
   });
 
-  test('rotateY(a)', () => {
-    expectVecEqual(quat.rotateY(PI_OVER_3), [0, SIN_PI_OVER_6, 0, COS_PI_OVER_6] as Quat);
+  test('fromAngleY(a)', () => {
+    expectVecEqual(quat.fromAngleY(PI_OVER_3), [0, SIN_PI_OVER_6, 0, COS_PI_OVER_6] as Quat);
   });
 
-  test('rotateZ(a)', () => {
-    expectVecEqual(quat.rotateZ(PI_OVER_3), [0, 0, SIN_PI_OVER_6, COS_PI_OVER_6] as Quat);
+  test('fromAngleZ(a)', () => {
+    expectVecEqual(quat.fromAngleZ(PI_OVER_3), [0, 0, SIN_PI_OVER_6, COS_PI_OVER_6] as Quat);
   });
 
-  test('rotateTo(v1, v2)', () => {
-    expectVecEqual(quat.rotateTo([0, 0, 1], [1, 0, 0]), [0, SIN_PI_OVER_2, 0, SIN_PI_OVER_2] as Quat);
-    expectVecEqual(quat.rotateTo([0, 0, 1], [0, 0, -1]), [0, 1, 0, 0] as Quat);
-    expectVecEqual(quat.rotateTo([1, 0, 0], [1, 0, 0]), [0, 0, 0, 1] as Quat);
+  test('fromUnitVecs(v1, v2)', () => {
+    expectVecEqual(quat.fromUnitVecs([0, 0, 1], [1, 0, 0]), [0, SIN_PI_OVER_2, 0, SIN_PI_OVER_2] as Quat);
+    expectVecEqual(quat.fromUnitVecs([0, 0, 1], [0, 0, -1]), [0, 1, 0, 0] as Quat);
+    expectVecEqual(quat.fromUnitVecs([1, 0, 0], [1, 0, 0]), [0, 0, 0, 1] as Quat);
   });
 
   test('toMat4(q)', () => {

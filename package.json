@@ -1,14 +1,18 @@
 {
   "name": "munum",
-  "version": "0.0.7",
-  "description": "Micro Numerical Library for JavaScript and WebAssembly",
+  "version": "0.1.0",
+  "description": "Micro 3D Math Library in JavaScript and WebAssembly",
   "type": "module",
   "sideEffects": false,
   "main": "index.js",
   "types": "index.d.ts",
-  "ascMain": "assembly/index.ts",
   "exports": {
-    "import": "./index.js"
+    ".": {
+      "import": "./index.js"
+    },
+    "./assembly": {
+      "import": "./assembly/index.ts"
+    }
   },
   "files": [
     "/assembly",
@@ -20,11 +24,9 @@
     "prepublishOnly": "npm run build && npm test",
     "clean": "rimraf coverage docs dist node_modules **/__tests__/**/*.spec.map **/__tests__/**/*.spec.wat",
     "prebuild": "npm run lint",
-    "build": "npm run asbuild && npm run tsbuild",
+    "build": "npm run tsc",
     "lint": "eslint assembly --ext .ts,.tsx",
-    "asbuild": "asc assembly/index.ts --target release",
-    "asbuild:debug": "asc assembly/index.ts --target debug",
-    "tsbuild": "npm run babel && npm run types",
+    "tsc": "npm run babel && npm run types",
     "babel": "cross-env-shell babel assembly -d dist --source-maps --extensions '.ts' --out-file-extension .js",
     "types": "tsc -p ./assembly --emitDeclarationOnly && copyfiles -f assembly/types/index.d.ts dist/types",
     "test": "npm run asp && npm run jest",
@@ -54,24 +56,24 @@
   "homepage": "https://github.com/andykswong/munum",
   "devDependencies": {
     "@as-pect/cli": "^6.2.4",
-    "@babel/cli": "^7.14.8",
-    "@babel/core": "^7.14.8",
-    "@babel/preset-env": "^7.14.8",
-    "@babel/preset-typescript": "^7.14.5",
-    "@types/jest": "^26.0.24",
-    "@types/node": "^16.4.3",
-    "@typescript-eslint/eslint-plugin": "^4.28.4",
-    "@typescript-eslint/parser": "^4.28.4",
-    "assemblyscript": "^0.19.8",
-    "babel-jest": "^27.0.6",
-    "babel-plugin-add-import-extension": "^1.6.0",
-    "copyfiles": "^2.4.1",
-    "cross-env": "^7.0.3",
-    "eslint": "^7.31.0",
-    "jest": "^27.0.6",
-    "rimraf": "^3.0.2",
-    "typedoc": "^0.21.4",
-    "typescript": "^4.3.5"
+    "@babel/cli": "^7.17",
+    "@babel/core": "^7.18",
+    "@babel/preset-env": "^7.18",
+    "@babel/preset-typescript": "^7.17",
+    "@types/jest": "^27.5",
+    "@types/node": "^17.0",
+    "@typescript-eslint/eslint-plugin": "^5.26",
+    "@typescript-eslint/parser": "^5.26",
+    "@webassemblyjs/wasm-opt": "^1.11",
+    "babel-jest": "^28.1",
+    "babel-plugin-add-import-extension": "^1.6",
+    "copyfiles": "^2.4",
+    "cross-env": "^7.0",
+    "eslint": "^8.16",
+    "jest": "^28.1",
+    "rimraf": "^3.0",
+    "typedoc": "^0.22",
+    "typescript": "^4.6"
   },
   "jest": {
     "extensionsToTreatAsEsm": [

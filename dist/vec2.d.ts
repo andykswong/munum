@@ -35,15 +35,10 @@ export declare function sub(a: ReadonlyVec2, b: ReadonlyVec2, out?: Vec2): Vec2;
  */
 export declare function scale(v: ReadonlyVec2, s: Float, out?: Vec2): Vec2;
 /**
- * Multiply 2 {@link Vec2} element-wise.
- * @returns out = a * b
- */
-export declare function mul(v: ReadonlyVec2, s: ReadonlyVec2, out?: Vec2): Vec2;
-/**
  * Multiply a {@link ReadonlyMat2} with a {@link ReadonlyVec2}.
  * @returns out = m * x
  */
-export declare function mmul(m: ReadonlyMat2, x: ReadonlyVec2, out?: Vec2): Vec2;
+export declare function mul(m: ReadonlyMat2, x: ReadonlyVec2, out?: Vec2): Vec2;
 /**
  * Transform a {@link ReadonlyVec2} by a {@link ReadonlyMat3}.
  * @returns out = m * [x 1]
@@ -63,7 +58,7 @@ export declare function lerp(a: ReadonlyVec2, b: ReadonlyVec2, t: Float, out?: V
  * Calculate squared length of a {@link Vec2}.
  * @returns dot(v, v)
  */
-export declare function len2(v: ReadonlyVec2): Float;
+export declare function sqrLen(v: ReadonlyVec2): Float;
 /**
  * Calculate length of a {@link Vec2}.
  * @returns |v|
