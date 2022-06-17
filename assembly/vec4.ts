@@ -1,9 +1,6 @@
 import { Float, ReadonlyMat4, ReadonlyVec3, ReadonlyVec4, Vec4 } from './types';
 import * as mat from './mat';
 
-// Temp variables
-const v: Vec4 = create();
-
 /**
  * Create a new {@link Vec4}.
  * @param x defaults to 0

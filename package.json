@@ -5,13 +5,12 @@
   "type": "module",
   "sideEffects": false,
   "main": "index.js",
+  "ascMain": "index.ts",
   "types": "index.d.ts",
   "exports": {
     ".": {
-      "import": "./index.js"
-    },
-    "./assembly": {
-      "import": "./assembly/index.ts"
+      "import": "./index.js",
+      "types": "./index.d.ts"
     }
   },
   "files": [
