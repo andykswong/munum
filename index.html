@@ -1,337 +1,45 @@
-<!doctype html>
-<html class="default no-js">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>munum</title>
-	<meta name="description" content="Documentation for munum">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/css/main.css">
-	<script async src="assets/js/search.js" id="search-script"></script>
-</head>
-<body>
-<header>
-	<div class="tsd-page-toolbar">
-		<div class="container">
-			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
-					<div class="field">
-						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
-						<input id="tsd-search-field" type="text" />
-					</div>
-					<ul class="results">
-						<li class="state loading">Preparing search index...</li>
-						<li class="state failure">The search index is not available</li>
-					</ul>
-					<a href="index.html" class="title">munum</a>
-				</div>
-				<div class="table-cell" id="tsd-widgets">
-					<div id="tsd-filter">
-						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
-						<div class="tsd-filter-group">
-							<div class="tsd-select" id="tsd-filter-visibility">
-								<span class="tsd-select-label">All</span>
-								<ul class="tsd-select-list">
-									<li data-value="public">Public</li>
-									<li data-value="protected">Public/Protected</li>
-									<li data-value="private" class="selected">All</li>
-								</ul>
-							</div>
-							<input type="checkbox" id="tsd-filter-inherited" checked />
-							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-						</div>
-					</div>
-					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="tsd-page-title">
-		<div class="container">
-			<h1>munum</h1>
-		</div>
-	</div>
-</header>
-<div class="container container-main">
-	<div class="row">
-		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<h1 align="center">🅼🆄🅽🆄🅼</h1>
-				<h2 align="center">μNum - Micro Numerical Library for JavaScript and WebAssembly</h2>
-				<br />
-				<p align="center">
-					<a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
-					<a href="https://www.npmjs.com/package/munum"><img src="https://img.shields.io/npm/v/munum" alt="NPM" /></a>
-					<a href="https://codecov.io/gh/andykswong/munum">
-						<img src="https://codecov.io/gh/andykswong/munum/branch/main/graph/badge.svg?token=68JPTUD7GZ"/>
-					</a>
-					<a href="https://bundlephobia.com/result?p=munum"><img src="https://badgen.net/bundlephobia/minzip/munum" alt="size" /></a>
-					<a href="https://github.com/andykswong/munum/actions/workflows/build.yaml"><img src="https://github.com/andykswong/munum/actions/workflows/build.yaml/badge.svg" alt="build" /></a>
-				</p>
-				<a href="#overview" id="overview" style="color: inherit; text-decoration: none;">
-					<h2>Overview</h2>
-				</a>
-				<p><code>munum</code> is a micro-sized, modular numerical library for high-performance 3D web applications. With munum, you can build isomorphic apps that targets both JavaScript via Babel/TypeScript, and WebAssembly via AssemblyScript using the same code base.</p>
-				<a href="#apis" id="apis" style="color: inherit; text-decoration: none;">
-					<h2>APIs</h2>
-				</a>
-				<p>See TSDoc: <a href="http://andykswong.github.io/munum">http://andykswong.github.io/munum</a></p>
-				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
-					<h2>Usage</h2>
-				</a>
-				<p>Install via NPM for AssemblyScript or TypeScript projects: </p>
-				<pre><code class="language-shell"><span style="color: #000000">npm install --save munum</span>
-</code></pre>
-				<pre><code class="language-javascript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">vec4</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;munum&#039;</span><span style="color: #000000">;</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">v</span><span style="color: #000000"> = </span><span style="color: #001080">vec4</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">();</span>
-</code></pre>
-				<p>Or load directly from CDN without having to use any build system:</p>
-				<pre><code class="language-html"><span style="color: #800000">&lt;script</span><span style="color: #000000FF"> </span><span style="color: #FF0000">type</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;module&quot;</span><span style="color: #800000">&gt;</span>
-<span style="color: #000000FF">  </span><span style="color: #AF00DB">import</span><span style="color: #000000FF"> { </span><span style="color: #001080">vec4</span><span style="color: #000000FF"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;https://unpkg.com/munum@latest&#039;</span><span style="color: #000000FF">;</span>
-<span style="color: #000000FF">  </span><span style="color: #0000FF">const</span><span style="color: #000000FF"> </span><span style="color: #0070C1">v</span><span style="color: #000000FF"> </span><span style="color: #000000">=</span><span style="color: #000000FF"> </span><span style="color: #001080">vec4</span><span style="color: #000000FF">.</span><span style="color: #795E26">create</span><span style="color: #000000FF">();</span>
-<span style="color: #800000">&lt;/script&gt;</span>
-</code></pre>
-				<p>Sample usage to build a perspective camera view-projection matrix and frustum:</p>
-				<p><a href="https://codepen.io/andykswong/pen/yLbPzGy?editors=0011">(Try it yourself here)</a></p>
-				<pre><code class="language-javascript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">frustum</span><span style="color: #000000">, </span><span style="color: #001080">lookAt</span><span style="color: #000000">, </span><span style="color: #001080">mat4</span><span style="color: #000000">, </span><span style="color: #001080">perspective</span><span style="color: #000000">, </span><span style="color: #001080">vec3</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;munum&#039;</span><span style="color: #000000">; </span><span style="color: #008000">// Or load from CDN</span>
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>munum</title><meta name="description" content="Documentation for munum"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">munum</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>munum </h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography"><h1 align="center">🅼🆄🅽🆄🅼</h1>
+<h2 align="center">μNum - Micro 3D Math Library in JavaScript and WebAssembly</h2>
+<br />
+<p align="center">
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a> 
+  <a href="https://www.npmjs.com/package/munum"><img src="https://img.shields.io/npm/v/munum" alt="NPM" /></a> 
+  <a href="https://codecov.io/gh/andykswong/munum">
+    <img src="https://codecov.io/gh/andykswong/munum/branch/main/graph/badge.svg?token=68JPTUD7GZ"/>
+  </a> 
+  <a href="https://bundlephobia.com/result?p=munum"><img src="https://badgen.net/bundlephobia/minzip/munum" alt="size" /></a> 
+  <a href="https://github.com/andykswong/munum/actions/workflows/build.yaml"><img src="https://github.com/andykswong/munum/actions/workflows/build.yaml/badge.svg" alt="build" /></a>
+</p>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">eye</span><span style="color: #000000"> = </span><span style="color: #001080">vec3</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #098658">1</span><span style="color: #000000">);</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">target</span><span style="color: #000000"> = </span><span style="color: #001080">vec3</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">);</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">view</span><span style="color: #000000"> = </span><span style="color: #795E26">lookAt</span><span style="color: #000000">(</span><span style="color: #001080">eye</span><span style="color: #000000">, </span><span style="color: #001080">target</span><span style="color: #000000">);</span>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">aspectRatio</span><span style="color: #000000"> = </span><span style="color: #001080">width</span><span style="color: #000000"> / </span><span style="color: #001080">height</span><span style="color: #000000">;</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">yfov</span><span style="color: #000000"> = </span><span style="color: #267F99">Math</span><span style="color: #000000">.PI / </span><span style="color: #098658">4</span><span style="color: #000000">;</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">znear</span><span style="color: #000000"> = </span><span style="color: #098658">1</span><span style="color: #000000">;</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">zfar</span><span style="color: #000000"> = </span><span style="color: #098658">100</span><span style="color: #000000">;</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">proj</span><span style="color: #000000"> = </span><span style="color: #795E26">perspective</span><span style="color: #000000">(</span><span style="color: #001080">aspectRatio</span><span style="color: #000000">, </span><span style="color: #001080">yfov</span><span style="color: #000000">, </span><span style="color: #001080">znear</span><span style="color: #000000">, </span><span style="color: #001080">zfar</span><span style="color: #000000">);</span>
+<a href="#overview" id="overview" style="color: inherit; text-decoration: none;">
+  <h2>Overview</h2>
+</a>
+<p><code>munum</code> is a micro-sized, modular numerical library for high-performance 3D web applications. With munum, you can build isomorphic apps that targets both JavaScript via Babel/TypeScript, and WebAssembly via AssemblyScript using the same code base.</p>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">vp</span><span style="color: #000000"> = </span><span style="color: #001080">mat4</span><span style="color: #000000">.</span><span style="color: #795E26">mul</span><span style="color: #000000">(</span><span style="color: #001080">proj</span><span style="color: #000000">, </span><span style="color: #001080">view</span><span style="color: #000000">);</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">f</span><span style="color: #000000"> = </span><span style="color: #001080">frustum</span><span style="color: #000000">.</span><span style="color: #795E26">fromViewProj</span><span style="color: #000000">(</span><span style="color: #001080">vp</span><span style="color: #000000">);</span>
+<a href="#apis" id="apis" style="color: inherit; text-decoration: none;">
+  <h2>APIs</h2>
+</a>
+<p>See TSDoc: <a href="http://andykswong.github.io/munum">http://andykswong.github.io/munum</a></p>
+
+<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+  <h2>Usage</h2>
+</a>
+<p>Install via NPM for AssemblyScript or TypeScript projects: </p>
+<pre><code class="language-shell"><span class="hl-0">npm install --save munum</span>
 </code></pre>
-				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
-					<h2>License</h2>
-				</a>
-				<p>This repository and the code inside it is licensed under the MIT License. Read <a href="./LICENSE">LICENSE</a> for more information.</p>
-			</div>
-		</div>
-		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-			<nav class="tsd-navigation primary">
-				<ul>
-					<li class=" ">
-						<a href="modules.html">Exports</a>
-					</li>
-					<li class=" tsd-kind-namespace">
-						<a href="modules/aabb.html">aabb</a>
-					</li>
-					<li class=" tsd-kind-namespace">
-						<a href="modules/array.html">array</a>
-					</li>
-					<li class=" tsd-kind-namespace">
-						<a href="modules/frustum.html">frustum</a>
-					</li>
-					<li class=" tsd-kind-namespace">
-						<a href="modules/mat2.html">mat2</a>
-					</li>
-					<li class=" tsd-kind-namespace">
-						<a href="modules/mat3.html">mat3</a>
-					</li>
-					<li class=" tsd-kind-namespace">
-						<a href="modules/mat4.html">mat4</a>
-					</li>
-					<li class=" tsd-kind-namespace">
-						<a href="modules/plane.html">plane</a>
-					</li>
-					<li class=" tsd-kind-namespace">
-						<a href="modules/quat.html">quat</a>
-					</li>
-					<li class=" tsd-kind-namespace">
-						<a href="modules/vec2.html">vec2</a>
-					</li>
-					<li class=" tsd-kind-namespace">
-						<a href="modules/vec3.html">vec3</a>
-					</li>
-					<li class=" tsd-kind-namespace">
-						<a href="modules/vec4.html">vec4</a>
-					</li>
-				</ul>
-			</nav>
-			<nav class="tsd-navigation secondary menu-sticky">
-				<ul class="before-current">
-					<li class=" tsd-kind-class">
-						<a href="classes/AABB.html" class="tsd-kind-icon">AABB</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/ReadonlyAABB.html" class="tsd-kind-icon">ReadonlyAABB</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/ReadonlyVec.html" class="tsd-kind-icon">Readonly<wbr>Vec</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/Vec.html" class="tsd-kind-icon">Vec</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#Float" class="tsd-kind-icon">Float</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#Frustum" class="tsd-kind-icon">Frustum</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#Int" class="tsd-kind-icon">Int</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#Mat2" class="tsd-kind-icon">Mat2</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#Mat3" class="tsd-kind-icon">Mat3</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#Mat4" class="tsd-kind-icon">Mat4</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#Plane" class="tsd-kind-icon">Plane</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#Quat" class="tsd-kind-icon">Quat</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#ReadonlyFrustum" class="tsd-kind-icon">Readonly<wbr>Frustum</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#ReadonlyMat2" class="tsd-kind-icon">Readonly<wbr>Mat2</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#ReadonlyMat3" class="tsd-kind-icon">Readonly<wbr>Mat3</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#ReadonlyMat4" class="tsd-kind-icon">Readonly<wbr>Mat4</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#ReadonlyPlane" class="tsd-kind-icon">Readonly<wbr>Plane</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#ReadonlyQuat" class="tsd-kind-icon">Readonly<wbr>Quat</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#ReadonlyVec2" class="tsd-kind-icon">Readonly<wbr>Vec2</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#ReadonlyVec3" class="tsd-kind-icon">Readonly<wbr>Vec3</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#ReadonlyVec4" class="tsd-kind-icon">Readonly<wbr>Vec4</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#Vec2" class="tsd-kind-icon">Vec2</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#Vec3" class="tsd-kind-icon">Vec3</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="modules.html#Vec4" class="tsd-kind-icon">Vec4</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="modules.html#EPSILON" class="tsd-kind-icon">EPSILON</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#clamp" class="tsd-kind-icon">clamp</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#copysign" class="tsd-kind-icon">copysign</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#direction" class="tsd-kind-icon">direction</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#fequal" class="tsd-kind-icon">fequal</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#inverseTransform" class="tsd-kind-icon">inverse<wbr>Transform</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#lerp" class="tsd-kind-icon">lerp</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#lookAt" class="tsd-kind-icon">look<wbr>At</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#ortho" class="tsd-kind-icon">ortho</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#perspective" class="tsd-kind-icon">perspective</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#rotate" class="tsd-kind-icon">rotate</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#rotate2d" class="tsd-kind-icon">rotate2d</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#rotateAxis" class="tsd-kind-icon">rotate<wbr>Axis</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#rotateX" class="tsd-kind-icon">rotateX</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#rotateY" class="tsd-kind-icon">rotateY</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#rotateZ" class="tsd-kind-icon">rotateZ</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#rotationOf" class="tsd-kind-icon">rotation<wbr>Of</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#scale" class="tsd-kind-icon">scale</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#scale2d" class="tsd-kind-icon">scale2d</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#scaleOf" class="tsd-kind-icon">scale<wbr>Of</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#targetTo" class="tsd-kind-icon">target<wbr>To</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#transform" class="tsd-kind-icon">transform</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#transform2d" class="tsd-kind-icon">transform2d</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#translate" class="tsd-kind-icon">translate</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#translate2d" class="tsd-kind-icon">translate2d</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#translationOf" class="tsd-kind-icon">translation<wbr>Of</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-</div>
-<footer class="with-border-bottom">
-	<div class="container">
-		<h2>Legend</h2>
-		<div class="tsd-legend-group">
-			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-			</ul>
-		</div>
-	</div>
-</footer>
-<div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
-</div>
-<div class="overlay"></div>
-<script src="assets/js/main.js"></script>
-</body>
-</html>
+<pre><code class="language-javascript"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">vec4</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;munum&#39;</span><span class="hl-0">;</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">v</span><span class="hl-0"> = </span><span class="hl-2">vec4</span><span class="hl-0">.</span><span class="hl-6">create</span><span class="hl-0">();</span>
+</code></pre>
+<p>Or load directly from CDN without having to use any build system:</p>
+<pre><code class="language-html"><span class="hl-7">&lt;</span><span class="hl-8">script</span><span class="hl-9"> </span><span class="hl-10">type</span><span class="hl-9">=</span><span class="hl-11">&quot;module&quot;</span><span class="hl-7">&gt;</span><br/><span class="hl-9">  </span><span class="hl-1">import</span><span class="hl-9"> { </span><span class="hl-2">vec4</span><span class="hl-9"> } </span><span class="hl-1">from</span><span class="hl-9"> </span><span class="hl-3">&#39;https://unpkg.com/munum@latest&#39;</span><span class="hl-9">;</span><br/><span class="hl-9">  </span><span class="hl-4">const</span><span class="hl-9"> </span><span class="hl-5">v</span><span class="hl-9"> </span><span class="hl-0">=</span><span class="hl-9"> </span><span class="hl-2">vec4</span><span class="hl-9">.</span><span class="hl-6">create</span><span class="hl-9">();</span><br/><span class="hl-7">&lt;/</span><span class="hl-8">script</span><span class="hl-7">&gt;</span>
+</code></pre>
+<p>Sample usage to build a perspective camera view-projection matrix and frustum:</p>
+<p><a href="https://codepen.io/andykswong/pen/yLbPzGy?editors=0011">(Try it yourself here)</a></p>
+<pre><code class="language-javascript"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">frustum</span><span class="hl-0">, </span><span class="hl-2">lookAt</span><span class="hl-0">, </span><span class="hl-2">mat4</span><span class="hl-0">, </span><span class="hl-2">perspective</span><span class="hl-0">, </span><span class="hl-2">vec3</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;munum&#39;</span><span class="hl-0">; </span><span class="hl-12">// Or load from CDN</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">eye</span><span class="hl-0"> = </span><span class="hl-2">vec3</span><span class="hl-0">.</span><span class="hl-6">create</span><span class="hl-0">(</span><span class="hl-13">1</span><span class="hl-0">, </span><span class="hl-13">1</span><span class="hl-0">, </span><span class="hl-13">1</span><span class="hl-0">);</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">target</span><span class="hl-0"> = </span><span class="hl-2">vec3</span><span class="hl-0">.</span><span class="hl-6">create</span><span class="hl-0">(</span><span class="hl-13">0</span><span class="hl-0">, </span><span class="hl-13">0</span><span class="hl-0">, </span><span class="hl-13">0</span><span class="hl-0">);</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">view</span><span class="hl-0"> = </span><span class="hl-6">lookAt</span><span class="hl-0">(</span><span class="hl-2">eye</span><span class="hl-0">, </span><span class="hl-2">target</span><span class="hl-0">);</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">aspectRatio</span><span class="hl-0"> = </span><span class="hl-2">width</span><span class="hl-0"> / </span><span class="hl-2">height</span><span class="hl-0">;</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">yfov</span><span class="hl-0"> = </span><span class="hl-14">Math</span><span class="hl-0">.PI / </span><span class="hl-13">4</span><span class="hl-0">;</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">znear</span><span class="hl-0"> = </span><span class="hl-13">1</span><span class="hl-0">;</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">zfar</span><span class="hl-0"> = </span><span class="hl-13">100</span><span class="hl-0">;</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">proj</span><span class="hl-0"> = </span><span class="hl-6">perspective</span><span class="hl-0">(</span><span class="hl-2">aspectRatio</span><span class="hl-0">, </span><span class="hl-2">yfov</span><span class="hl-0">, </span><span class="hl-2">znear</span><span class="hl-0">, </span><span class="hl-2">zfar</span><span class="hl-0">);</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">vp</span><span class="hl-0"> = </span><span class="hl-2">mat4</span><span class="hl-0">.</span><span class="hl-6">mul</span><span class="hl-0">(</span><span class="hl-2">proj</span><span class="hl-0">, </span><span class="hl-2">view</span><span class="hl-0">);</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">f</span><span class="hl-0"> = </span><span class="hl-2">frustum</span><span class="hl-0">.</span><span class="hl-6">fromViewProj</span><span class="hl-0">(</span><span class="hl-2">vp</span><span class="hl-0">);</span>
+</code></pre>
+
+<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+  <h2>License</h2>
+</a>
+<p>This repository and the code inside it is licensed under the MIT License. Read <a href="./LICENSE">LICENSE</a> for more information.</p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li><li class=" tsd-kind-namespace"><a href="modules/aabb.html">aabb</a></li><li class=" tsd-kind-namespace"><a href="modules/frustum.html">frustum</a></li><li class=" tsd-kind-namespace"><a href="modules/mat.html">mat</a></li><li class=" tsd-kind-namespace"><a href="modules/mat2.html">mat2</a></li><li class=" tsd-kind-namespace"><a href="modules/mat3.html">mat3</a></li><li class=" tsd-kind-namespace"><a href="modules/mat4.html">mat4</a></li><li class=" tsd-kind-namespace"><a href="modules/plane.html">plane</a></li><li class=" tsd-kind-namespace"><a href="modules/quat.html">quat</a></li><li class=" tsd-kind-namespace"><a href="modules/vec2.html">vec2</a></li><li class=" tsd-kind-namespace"><a href="modules/vec3.html">vec3</a></li><li class=" tsd-kind-namespace"><a href="modules/vec4.html">vec4</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-class"><a href="classes/AABB.html" class="tsd-kind-icon">AABB</a></li><li class="tsd-kind-interface"><a href="interfaces/ReadonlyAABB.html" class="tsd-kind-icon">ReadonlyAABB</a></li><li class="tsd-kind-interface"><a href="interfaces/ReadonlyVec.html" class="tsd-kind-icon">Readonly<wbr/>Vec</a></li><li class="tsd-kind-interface"><a href="interfaces/Vec.html" class="tsd-kind-icon">Vec</a></li><li class="tsd-kind-type-alias"><a href="modules.html#Float" class="tsd-kind-icon">Float</a></li><li class="tsd-kind-type-alias"><a href="modules.html#Frustum" class="tsd-kind-icon">Frustum</a></li><li class="tsd-kind-type-alias"><a href="modules.html#Int" class="tsd-kind-icon">Int</a></li><li class="tsd-kind-type-alias"><a href="modules.html#Mat2" class="tsd-kind-icon">Mat2</a></li><li class="tsd-kind-type-alias"><a href="modules.html#Mat3" class="tsd-kind-icon">Mat3</a></li><li class="tsd-kind-type-alias"><a href="modules.html#Mat4" class="tsd-kind-icon">Mat4</a></li><li class="tsd-kind-type-alias"><a href="modules.html#Plane" class="tsd-kind-icon">Plane</a></li><li class="tsd-kind-type-alias"><a href="modules.html#Quat" class="tsd-kind-icon">Quat</a></li><li class="tsd-kind-type-alias"><a href="modules.html#ReadonlyFrustum" class="tsd-kind-icon">Readonly<wbr/>Frustum</a></li><li class="tsd-kind-type-alias"><a href="modules.html#ReadonlyMat2" class="tsd-kind-icon">Readonly<wbr/>Mat2</a></li><li class="tsd-kind-type-alias"><a href="modules.html#ReadonlyMat3" class="tsd-kind-icon">Readonly<wbr/>Mat3</a></li><li class="tsd-kind-type-alias"><a href="modules.html#ReadonlyMat4" class="tsd-kind-icon">Readonly<wbr/>Mat4</a></li><li class="tsd-kind-type-alias"><a href="modules.html#ReadonlyPlane" class="tsd-kind-icon">Readonly<wbr/>Plane</a></li><li class="tsd-kind-type-alias"><a href="modules.html#ReadonlyQuat" class="tsd-kind-icon">Readonly<wbr/>Quat</a></li><li class="tsd-kind-type-alias"><a href="modules.html#ReadonlyVec2" class="tsd-kind-icon">Readonly<wbr/>Vec2</a></li><li class="tsd-kind-type-alias"><a href="modules.html#ReadonlyVec3" class="tsd-kind-icon">Readonly<wbr/>Vec3</a></li><li class="tsd-kind-type-alias"><a href="modules.html#ReadonlyVec4" class="tsd-kind-icon">Readonly<wbr/>Vec4</a></li><li class="tsd-kind-type-alias"><a href="modules.html#Vec2" class="tsd-kind-icon">Vec2</a></li><li class="tsd-kind-type-alias"><a href="modules.html#Vec3" class="tsd-kind-icon">Vec3</a></li><li class="tsd-kind-type-alias"><a href="modules.html#Vec4" class="tsd-kind-icon">Vec4</a></li><li class="tsd-kind-variable"><a href="modules.html#EPSILON" class="tsd-kind-icon">EPSILON</a></li><li class="tsd-kind-function"><a href="modules.html#clamp" class="tsd-kind-icon">clamp</a></li><li class="tsd-kind-function"><a href="modules.html#copysign" class="tsd-kind-icon">copysign</a></li><li class="tsd-kind-function"><a href="modules.html#direction" class="tsd-kind-icon">direction</a></li><li class="tsd-kind-function"><a href="modules.html#fequal" class="tsd-kind-icon">fequal</a></li><li class="tsd-kind-function"><a href="modules.html#inverseTransform" class="tsd-kind-icon">inverse<wbr/>Transform</a></li><li class="tsd-kind-function"><a href="modules.html#lerp" class="tsd-kind-icon">lerp</a></li><li class="tsd-kind-function"><a href="modules.html#lookAt" class="tsd-kind-icon">look<wbr/>At</a></li><li class="tsd-kind-function"><a href="modules.html#ortho" class="tsd-kind-icon">ortho</a></li><li class="tsd-kind-function"><a href="modules.html#perspective" class="tsd-kind-icon">perspective</a></li><li class="tsd-kind-function"><a href="modules.html#rotate" class="tsd-kind-icon">rotate</a></li><li class="tsd-kind-function"><a href="modules.html#rotate2d" class="tsd-kind-icon">rotate2d</a></li><li class="tsd-kind-function"><a href="modules.html#rotateAxis" class="tsd-kind-icon">rotate<wbr/>Axis</a></li><li class="tsd-kind-function"><a href="modules.html#rotateX" class="tsd-kind-icon">rotateX</a></li><li class="tsd-kind-function"><a href="modules.html#rotateY" class="tsd-kind-icon">rotateY</a></li><li class="tsd-kind-function"><a href="modules.html#rotateZ" class="tsd-kind-icon">rotateZ</a></li><li class="tsd-kind-function"><a href="modules.html#rotationOf" class="tsd-kind-icon">rotation<wbr/>Of</a></li><li class="tsd-kind-function"><a href="modules.html#scale" class="tsd-kind-icon">scale</a></li><li class="tsd-kind-function"><a href="modules.html#scale2d" class="tsd-kind-icon">scale2d</a></li><li class="tsd-kind-function"><a href="modules.html#scaleOf" class="tsd-kind-icon">scale<wbr/>Of</a></li><li class="tsd-kind-function"><a href="modules.html#targetTo" class="tsd-kind-icon">target<wbr/>To</a></li><li class="tsd-kind-function"><a href="modules.html#transform" class="tsd-kind-icon">transform</a></li><li class="tsd-kind-function"><a href="modules.html#transform2d" class="tsd-kind-icon">transform2d</a></li><li class="tsd-kind-function"><a href="modules.html#translate" class="tsd-kind-icon">translate</a></li><li class="tsd-kind-function"><a href="modules.html#translate2d" class="tsd-kind-icon">translate2d</a></li><li class="tsd-kind-function"><a href="modules.html#translationOf" class="tsd-kind-icon">translation<wbr/>Of</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
