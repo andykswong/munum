@@ -28,7 +28,7 @@ Features:
 - `libm` - enables trigonometry related functions in `no_std` environment using `libm`.
 - `jsmath` - enables trigonometry related functions in `no_std` WebAssembly environment using JS Math binding.
 - `serde` - enables `serde` serialize/deserialize implementations
-- `wasm` - (WIP) enables WebAssembly export bindings
+- `wasm` - (WIP) produces standalone WebAssembly component
 
 ---
 

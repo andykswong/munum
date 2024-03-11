@@ -25,3 +25,9 @@ pub use quat::{quat, Quaternion};
 
 #[cfg(target_arch = "wasm32")]
 mod wasm;
+
+#[cfg(all(target_arch = "wasm32", feature = "wasm", not(test)))]
+#[panic_handler]
+fn panic(_panic: &core::panic::PanicInfo<'_>) -> ! {
+    core::arch::wasm32::unreachable()
+}

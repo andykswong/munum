@@ -1,14 +1,14 @@
 //! Float type helpers.
 
 use crate::{Matrix, Quaternion};
-use num::traits::{float::FloatCore, NumAssign, NumCast};
+use num::{traits::{float::FloatCore, NumAssign, NumCast}, Zero};
 
 /// Standard tolerance epsilon
 pub const EPSILON: f32 = 128. * f32::EPSILON;
 
 /// Returns a standard tolerance epsilon
-pub fn epsilon<T: NumCast>() -> T {
-    NumCast::from(EPSILON).expect("incompatible type")
+pub fn epsilon<T: NumCast + Zero>() -> T {
+    NumCast::from(EPSILON).unwrap_or(T::zero())
 }
 
 /// Trait for float operations
@@ -29,7 +29,7 @@ pub trait FloatOps: Copy {
     fn tan(self) -> Self;
 }
 
-#[cfg(any(feature = "std", feature = "libm"))]
+#[cfg(all(any(feature = "std", feature = "libm"), not(feature = "jsmath")))]
 impl<T: num::traits::Float> FloatOps for T {
     #[inline]
     fn acos(self) -> T {

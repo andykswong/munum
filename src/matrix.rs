@@ -136,7 +136,7 @@ impl<T: Copy + NumAssign, const R: usize, const C: usize> Index<(usize, usize)>
     /// Indexing into the `Matrix` by (row, column).
     #[inline]
     fn index(&self, (row, col): (usize, usize)) -> &Self::Output {
-        &self.0[col][row]
+        &self.0[col % C][row % R]
     }
 }
 
@@ -146,7 +146,7 @@ impl<T: Copy + NumAssign, const R: usize, const C: usize> IndexMut<(usize, usize
     /// Mutably indexing into the `Matrix` by (row, column).
     #[inline]
     fn index_mut(&mut self, (row, col): (usize, usize)) -> &mut Self::Output {
-        &mut self.0[col][row]
+        &mut self.0[col % C][row % R]
     }
 }
 

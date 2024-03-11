@@ -25,6 +25,8 @@
   "scripts": {
     "prepublishOnly": "npm run build && npm test && npm run docs",
     "clean": "rimraf coverage/ docs/ dist/ target/ **/__tests__/**/*.spec.map **/__tests__/**/*.spec.wat",
+    "build:rust": "cargo build --release --target wasm32-unknown-unknown --features jsmath,wasm --no-default-features",
+    "postbuild:rust": "wasm-opt -Oz -o dist/munum.wasm target/wasm32-unknown-unknown/release/munum.wasm",
     "prebuild": "npm run lint",
     "build": "npm run tsc",
     "lint": "eslint assembly --ext .ts,.tsx",
@@ -69,6 +71,7 @@
     "assemblyscript": "^0.27",
     "babel-jest": "^29.5",
     "babel-plugin-add-import-extension": "^1.6",
+    "binaryen": "^116.0",
     "copyfiles": "^2.4",
     "cross-env": "^7.0",
     "eslint": "^8.50",

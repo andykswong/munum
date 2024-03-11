@@ -131,6 +131,64 @@ impl<T: Copy + NumAssign, const R: usize> From<Vector<T, R>> for [T; R] {
     }
 }
 
+impl<T: Copy + NumAssign> From<Vec2<T>> for Vec3<T> {
+    /// Augments a `Vec2` into a `Vec3`
+    /// The resulting `Vec3` contains the given `Vec2` with z = 1.
+    ///
+    /// # Examples
+    /// ```
+    /// # use munum::{Vec2, Vec3};
+    /// let v = Vec3::from(Vec2::<i32>::from_slice(&[2, 3]));
+    /// assert_eq!(*v.as_ref(), [2, 3, 1]);
+    /// ```
+    fn from(v: Vec2<T>) -> Self {
+        Vec3::new([[v[0], v[1], T::one()]])
+    }
+}
+
+impl<T: Copy + NumAssign> From<Vec3<T>> for Vec2<T> {
+    /// Creates a `Vec2` from the (x, y) of a `Vec3`
+    ///
+    /// # Examples
+    /// ```
+    /// # use munum::{Vec2, Vec3};
+    /// let v = Vec2::from(Vec3::<i32>::from_slice(&[2, 3, 4]));
+    /// assert_eq!(*v.as_ref(), [2, 3]);
+    /// ```
+    fn from(v: Vec3<T>) -> Self {
+        Vec2::new([[v[0], v[1]]])
+    }
+}
+
+impl<T: Copy + NumAssign> From<Vec3<T>> for Vec4<T> {
+    /// Augments a `Vec3` into a `Vec4`
+    /// The resulting `Vec4` contains the given `Vec3` with w = 1.
+    ///
+    /// # Examples
+    /// ```
+    /// # use munum::{Vec3, Vec4};
+    /// let v = Vec4::from(Vec3::<i32>::from_slice(&[2, 3, 4]));
+    /// assert_eq!(*v.as_ref(), [2, 3, 4, 1]);
+    /// ```
+    fn from(v: Vec3<T>) -> Self {
+        Vec4::new([[v[0], v[1], v[2], T::one()]])
+    }
+}
+
+impl<T: Copy + NumAssign> From<Vec4<T>> for Vec3<T> {
+    /// Creates a `Vec3` from the (x, y, z) of a `Vec4`
+    ///
+    /// # Examples
+    /// ```
+    /// # use munum::{Vec3, Vec4};
+    /// let v = Vec3::from(Vec4::<i32>::from_slice(&[2, 3, 4, 1]));
+    /// assert_eq!(*v.as_ref(), [2, 3, 4]);
+    /// ```
+    fn from(v: Vec4<T>) -> Self {
+        Vec3::new([[v[0], v[1], v[2]]])
+    }
+}
+
 impl<T: Copy + NumAssign> From<Mat2<T>> for Mat3<T> {
     /// Augments a `Mat2` into a `Mat3`
     /// The resulting `Mat3` contains the given `Mat2` on upper-left with the lower-right element = 1.

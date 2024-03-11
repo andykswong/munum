@@ -1,9 +1,9 @@
 //! WebAssembly bindings.
 
+mod ptr;
+
 #[cfg(feature = "jsmath")]
 mod jsmath;
-#[cfg(feature = "jsmath")]
-mod float;
 
 #[cfg(feature = "wasm")]
-mod bindings;
+mod vec;
