@@ -1,21 +1,21 @@
 name: pages
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 jobs:
   build_gh_pages:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '16'
-    - run: npm ci --ignore-scripts
-    - run: npm run docs -- --excludeInternal
-    - name: Copy files to public
-      run: cp -r ./docs ./public
-    - name: Deploy public
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+      - run: npm ci --ignore-scripts
+      - run: npm run docs -- --excludeInternal
+      - name: Copy files to public
+        run: cp -r ./docs ./public
+      - name: Deploy public
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public

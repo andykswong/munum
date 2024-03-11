@@ -29,7 +29,7 @@ pub trait FloatOps: Copy {
     fn tan(self) -> Self;
 }
 
-#[cfg(all(any(feature = "std", feature = "libm"), not(feature = "jsmath")))]
+#[cfg(all(any(feature = "std", feature = "libm"), not(all(target_arch = "wasm32", feature = "jsmath"))))]
 impl<T: num::traits::Float> FloatOps for T {
     #[inline]
     fn acos(self) -> T {

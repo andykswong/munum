@@ -1,6 +1,6 @@
 //! Micro Library for 3D Math
 
-#![no_std]
+#![cfg_attr(not(test), no_std)]
 
 #[cfg(test)]
 extern crate alloc;
@@ -9,8 +9,8 @@ extern crate alloc;
 extern crate std;
 
 mod matrix;
-mod matrix_special;
 mod matrix_ops;
+mod matrix_special;
 mod quat;
 
 pub mod float;
