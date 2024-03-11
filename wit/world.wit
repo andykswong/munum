@@ -168,10 +168,6 @@ interface transform2d {
     translation: func(out: pmat3, v: pvec2) -> pmat3;
     scaling: func(out: pmat3, v: pvec2) -> pmat3;
     rotation: func(out: pmat3, theta: f64) -> pmat3;
-    translation-of: func(out: pvec2, m: pmat3) -> pvec2;
-    scaling-of: func(out: pvec2, m: pmat3) -> pvec2;
-    rotation-of: func(m: pmat3) -> f64;
-
     transformation: func(out: pmat3, translate: pvec2, rotate: f64, scale: pvec2) -> pmat3;
 }
 

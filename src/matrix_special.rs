@@ -131,6 +131,47 @@ impl<T: Copy + NumAssign, const R: usize> From<Vector<T, R>> for [T; R] {
     }
 }
 
+impl<T: Copy + NumAssign> From<Mat2<T>> for Mat3<T> {
+    /// Augments a `Mat2` into a `Mat3`
+    /// The resulting `Mat3` contains the given `Mat2` on upper-left with the lower-right element = 1.
+    ///
+    /// # Examples
+    /// ```
+    /// # use munum::{Mat2, Mat3};
+    /// let m = Mat3::from(Mat2::<i32>::from_slice(&[2, 3, 4, 5]));
+    /// assert_eq!(*m.as_ref(), [2, 3, 0, 4, 5, 0, 0, 0, 1]);
+    /// ```
+    fn from(m: Mat2<T>) -> Self {
+        let mut m3 = Self::identity();
+        for c in 0..2 {
+            for r in 0..2 {
+                m3[(r, c)] = m[(r, c)];
+            }
+        }
+        m3
+    }
+}
+
+impl<T: Copy + NumAssign> From<Mat3<T>> for Mat2<T> {
+    /// Creates a `Mat2` from the upper-left 2x2 of a `Mat3`
+    ///
+    /// # Examples
+    /// ```
+    /// # use munum::{Mat2, Mat3};
+    /// let m = Mat2::from(Mat3::<i32>::from_slice(&[2, 3, 4, 5, 6, 7, 8, 9, 1]));
+    /// assert_eq!(*m.as_ref(), [2, 3, 5, 6]);
+    /// ```
+    fn from(m: Mat3<T>) -> Self {
+        let mut m2 = Self::default();
+        for c in 0..2 {
+            for r in 0..2 {
+                m2[(r, c)] = m[(r, c)];
+            }
+        }
+        m2
+    }
+}
+
 impl<T: Copy + NumAssign> From<Mat3<T>> for Mat4<T> {
     /// Augments a `Mat3` into a `Mat4`
     /// The resulting `Mat4` contains the given `Mat3` on upper-left with the lower-right element = 1.

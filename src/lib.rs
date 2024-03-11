@@ -16,6 +16,7 @@ mod quat;
 pub mod float;
 pub mod scalar;
 pub mod transform;
+pub mod transform2d;
 
 pub use float::{FloatEq, FloatOps};
 pub use matrix::Matrix;
