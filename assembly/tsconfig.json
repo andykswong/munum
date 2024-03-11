@@ -3,6 +3,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
+    "preserveConstEnums": true,
     "strict": true,
     "module": "esnext",
     "target": "es2021",
@@ -12,7 +13,7 @@
     "skipLibCheck": true,
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true,
+    "inlineSourceMap": true,
     "outDir": "../dist"
   },
   "include": [

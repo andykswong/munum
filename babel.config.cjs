@@ -25,7 +25,8 @@ module.exports = api => {
     ],
     "ignore": ["node_modules"],
     "comments": false,
-    "minified": true
+    "minified": true,
+    "sourceMaps": "inline"
   };
 
   if (!isTest) {
