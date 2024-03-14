@@ -1,4 +1,4 @@
-use crate::Matrix;
+use crate::{Matrix, Quaternion};
 use num::traits::NumAssign;
 
 /// Trait for loading a value from a pointer.
@@ -15,7 +15,20 @@ impl<T: Copy + NumAssign, const R: usize, const C: usize> Load<Matrix<T, R, C>>
         if let Some(&m) = unsafe { self.as_ref() } {
             m
         } else {
-            Matrix::<T, R, C>::default()
+            Matrix::default()
+        }
+    }
+}
+
+impl<T: Copy + NumAssign> Load<Quaternion<T>>
+    for *const Quaternion<T>
+{
+    #[inline]
+    fn load(&self) -> Quaternion<T> {
+        if let Some(&q) = unsafe { self.as_ref() } {
+            q
+        } else {
+            Quaternion::default()
         }
     }
 }

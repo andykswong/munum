@@ -7,3 +7,12 @@ mod jsmath;
 
 #[cfg(feature = "wasm")]
 mod vec;
+
+#[cfg(feature = "wasm")]
+mod quat;
+
+#[cfg(all(feature = "wasm", not(any(feature = "std", test))))]
+#[panic_handler]
+fn panic(_panic: &core::panic::PanicInfo<'_>) -> ! {
+    core::arch::wasm32::unreachable()
+}

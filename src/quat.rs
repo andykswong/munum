@@ -377,14 +377,17 @@ impl<T: Copy + NumAssign> Quaternion<T> {
     /// ```
     /// # use munum::Quaternion;
     /// let mut q = <Quaternion>::from_slice(&[2., 5., 14., 8.]);
-    /// q.invert();
+    /// assert!(q.invert());
     /// assert_eq!(*q.as_ref(), [-2. / 289., -5. / 289., -14. / 289., 8. / 289.]);
     /// ```
-    pub fn invert(&mut self) {
+    pub fn invert(&mut self) -> bool {
         self.conj();
         let len2 = self.sqr_len();
         if len2 != T::zero() {
             *self /= len2;
+            true
+        } else {
+            false
         }
     }
 
@@ -432,6 +435,21 @@ impl<T: Copy + FloatOps + NumAssign + Signed> Quaternion<T> {
     #[inline]
     pub fn normalize(&mut self) {
         self.0.normalize()
+    }
+
+    /// Returns a normalized version of this vector.
+    ///
+    /// # Examples
+    /// ```
+    /// # use munum::{Quaternion, assert_float_eq};
+    /// let q = <Quaternion>::from_slice(&[2., 5., 14., 8.]).normalized();
+    /// assert_float_eq!(q.as_ref(), &[2./17., 5./17., 14./17., 8./17.]);
+    /// ```
+    #[inline]
+    pub fn normalized(&self) -> Self {
+        let mut q = *self;
+        q.normalize();
+        q
     }
 
     /// Linear interpolates between 2 unit `Quaternion`s.

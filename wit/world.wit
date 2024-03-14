@@ -1,4 +1,4 @@
-package munum/wasm;
+package munum:wasm;
 
 interface vec2 {
     type pvec2 = u32;
@@ -90,7 +90,7 @@ interface quat {
     sqr-len: func(a: pquat) -> f64;
     len: func(a: pquat) -> f64;
     conj: func(out: pquat, a: pquat) -> pquat;
-    invert: func(out: pquat, a: pquat) -> pquat;
+    invert: func(out: pquat, a: pquat) -> bool;
     lerp: func(out: pquat, a: pquat, b: pquat, t: f64) -> pquat;
     slerp: func(out: pquat, a: pquat, b: pquat, t: f64) -> pquat;
 }

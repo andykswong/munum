@@ -117,14 +117,14 @@ impl<T: Copy + NumAssign, const R: usize, const C: usize> Index<usize> for Matri
 
     #[inline]
     fn index(&self, index: usize) -> &Self::Output {
-        &self.0[index / R][index % R]
+        &self.0[(index / R)  % C][index % R]
     }
 }
 
 impl<T: Copy + NumAssign, const R: usize, const C: usize> IndexMut<usize> for Matrix<T, R, C> {
     #[inline]
     fn index_mut(&mut self, index: usize) -> &mut Self::Output {
-        &mut self.0[index / R][index % R]
+        &mut self.0[(index / R)  % C][index % R]
     }
 }
 

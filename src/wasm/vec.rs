@@ -1,12 +1,18 @@
 use super::ptr::Load;
 use crate::{Mat2, Mat3, Mat4, Vec2, Vec3, Vec4};
+use alloc::boxed::Box;
 use paste::paste;
 
 macro_rules! export_vec {
     ($name:ident, $vec_type:ty, $mat_type:ty, $t:ty) => {
         paste! {
+            #[export_name = concat!("munum:wasm/", stringify!($name), "#free")]
+            pub extern "C" fn [<$name _free>](ptr: *mut $vec_type) {
+                drop(unsafe { Box::from_raw(ptr) })
+            }
+
             #[export_name = concat!("munum:wasm/", stringify!($name), "#get")]
-            pub extern "C" fn [<$name _get>](ptr: *const $t) -> *const $t {
+            pub extern "C" fn [<$name _get>](ptr: *const $vec_type) -> *const $vec_type {
                 ptr
             }
 
@@ -105,6 +111,11 @@ export_vec!(vec2, Vec2<f64>, Mat2<f64>, f64);
 export_vec!(vec3, Vec3<f64>, Mat3<f64>, f64);
 export_vec!(vec4, Vec4<f64>, Mat4<f64>, f64);
 
+#[export_name = "munum:wasm/vec2#create"]
+pub extern "C" fn vec2_create(x: f64, y: f64) -> *const Vec2<f64> {
+    Box::into_raw(Box::new(Vec2::new([[x, y]])))
+}
+
 #[export_name = "munum:wasm/vec2#set"]
 pub extern "C" fn vec2_set(out: *mut Vec2<f64>, x: f64, y: f64) -> *const Vec2<f64> {
     if let Some(v) = unsafe { out.as_mut() } {
@@ -112,6 +123,11 @@ pub extern "C" fn vec2_set(out: *mut Vec2<f64>, x: f64, y: f64) -> *const Vec2<f
         v[(1, 0)] = y;
     }
     out
+}
+
+#[export_name = "munum:wasm/vec3#create"]
+pub extern "C" fn vec3_create(x: f64, y: f64, z: f64) -> *const Vec3<f64> {
+    Box::into_raw(Box::new(Vec3::new([[x, y, z]])))
 }
 
 #[export_name = "munum:wasm/vec3#set"]
@@ -122,6 +138,11 @@ pub extern "C" fn vec3_set(out: *mut Vec3<f64>, x: f64, y: f64, z: f64) -> *cons
         v[(2, 0)] = z;
     }
     out
+}
+
+#[export_name = "munum:wasm/vec4#create"]
+pub extern "C" fn vec4_create(x: f64, y: f64, z: f64, w: f64) -> *const Vec4<f64> {
+    Box::into_raw(Box::new(Vec4::new([[x, y, z, w]])))
 }
 
 #[export_name = "munum:wasm/vec4#set"]

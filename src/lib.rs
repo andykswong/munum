@@ -1,11 +1,10 @@
 //! Micro Library for 3D Math
 
-#![cfg_attr(not(test), no_std)]
+#![no_std]
 
-#[cfg(test)]
 extern crate alloc;
 
-#[cfg(feature = "std")]
+#[cfg(any(feature = "std", test))]
 extern crate std;
 
 mod matrix;
@@ -25,9 +24,3 @@ pub use quat::{quat, Quaternion};
 
 #[cfg(target_arch = "wasm32")]
 mod wasm;
-
-#[cfg(all(target_arch = "wasm32", feature = "wasm", not(test)))]
-#[panic_handler]
-fn panic(_panic: &core::panic::PanicInfo<'_>) -> ! {
-    core::arch::wasm32::unreachable()
-}
