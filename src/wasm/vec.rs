@@ -31,7 +31,8 @@ macro_rules! export_vec {
                 b: *const $vec_type,
             ) -> *const $vec_type {
                 if let Some(o) = unsafe { out.as_mut() } {
-                    *o = a.load() + b.load();
+                    *o = a.load();
+                    *o += b.load();
                 }
                 out
             }
@@ -43,7 +44,8 @@ macro_rules! export_vec {
                 b: *const $vec_type,
             ) -> *const $vec_type {
                 if let Some(o) = unsafe { out.as_mut() } {
-                    *o = a.load() - b.load();
+                    *o = a.load();
+                    *o -= b.load();
                 }
                 out
             }
@@ -63,7 +65,8 @@ macro_rules! export_vec {
             #[export_name = concat!("munum:wasm/", stringify!($name), "#scale")]
             pub extern "C" fn [<$name _scale>](out: *mut $vec_type, a: *const $vec_type, s: f64) -> *const $vec_type {
                 if let Some(o) = unsafe { out.as_mut() } {
-                    *o = a.load() * s;
+                    *o = a.load();
+                    *o *= s;
                 }
                 out
             }

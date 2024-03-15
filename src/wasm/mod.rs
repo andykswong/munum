@@ -6,6 +6,9 @@ mod ptr;
 mod jsmath;
 
 #[cfg(feature = "wasm")]
+mod mat;
+
+#[cfg(feature = "wasm")]
 mod vec;
 
 #[cfg(feature = "wasm")]
