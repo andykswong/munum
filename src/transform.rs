@@ -160,10 +160,10 @@ pub fn rotation_of<T: Copy + FloatOps + NumAssign + PartialOrd>(m: Mat4<T>) -> Q
 /// ```
 /// # use munum::{transform, Mat4, assert_float_eq};
 /// let mut m = <Mat4>::from_slice(&[2., 2., -1., 0., -2., 4., 4., 0., 6., -3., 6., 0., 1., 2., 3., 1.]);
-/// transform::invert_trs(&mut m);
+/// assert!(transform::invert_trs(&mut m));
 /// assert_float_eq!(m.as_ref(), &[2./9., -1./18., 2./27., 0., 2./9., 1./9., -1./27., 0., -1./9., 1./9., 2./27., 0., -1./3., -1./2., -2./9., 1.]);
 /// ```
-pub fn invert_trs<T: Copy + FloatOps + NumAssign>(m: &mut Mat4<T>) {
+pub fn invert_trs<T: Copy + FloatOps + NumAssign>(m: &mut Mat4<T>) -> bool {
     // Assume M is a TRS matrix:
     // M = T * R * S = [RS  t]
     //                 [0   1]
@@ -175,6 +175,10 @@ pub fn invert_trs<T: Copy + FloatOps + NumAssign>(m: &mut Mat4<T>) {
     let zero = T::zero();
     let one = T::one();
     let neg = scalar::neg();
+
+    if m[(3, 0)] != zero || m[(3, 1)] != zero || m[(3, 2)] != zero || m[(3, 3)] != one {
+        return false;
+    }
 
     // Extract S and t
     let scaling = scaling_of(*m);
@@ -189,7 +193,11 @@ pub fn invert_trs<T: Copy + FloatOps + NumAssign>(m: &mut Mat4<T>) {
     // Premultiply S^-2 = 1/(S*S) to m
     for c in 0..3 {
         for r in 0..3 {
-            m[(r, c)] *= one / (scaling[r] * scaling[r]);
+            let factor = scaling[r] * scaling[r];
+            if factor == zero {
+                return false;
+            }
+            m[(r, c)] *= one / factor;
         }
     }
 
@@ -202,6 +210,8 @@ pub fn invert_trs<T: Copy + FloatOps + NumAssign>(m: &mut Mat4<T>) {
     m[(0, 3)] = t[0];
     m[(1, 3)] = t[1];
     m[(2, 3)] = t[2];
+
+    true
 }
 
 // endregion: Affine transformations
@@ -397,6 +407,31 @@ pub fn look_at<T: Copy + FloatOps + NumAssign + Signed>(
     result[(1, 3)] = -u.dot(eye);
     result[(2, 3)] = v.dot(eye);
     result
+}
+
+/// Calculate the look-at direction {@link Vec3} vector from pitch (up/down) and yaw (left/right) angles in radians.
+/// It looks towards -Z axis when pitch = 0 and yaw = 0.
+/// This can be used with look_at method to build an FPS camera view matrix by:
+/// ```view_matrix = look_at(eye, eye + look_at_direction(yaw, pitch)), vec3(0, 1, 0))```
+///
+/// # Examples
+/// ```
+/// # use core::f64::consts::{FRAC_PI_4, PI};
+/// # use munum::{transform::look_at_direction, vec3, vec4, assert_float_eq};
+/// assert_float_eq!(look_at_direction(0., 0.).as_ref(), &[0., 0., -1.]);
+/// assert_float_eq!(look_at_direction(PI, 0.).as_ref(), &[0., 0., 1.]);
+/// assert_float_eq!(look_at_direction(0., PI).as_ref(), &[0., 0., 1.]);
+/// assert_float_eq!(look_at_direction(PI / 2., 0.).as_ref(), &[0., 1., 0.]);
+/// assert_float_eq!(look_at_direction(0., -PI / 2.).as_ref(), &[1., 0., 0.]);
+/// assert_float_eq!(look_at_direction(PI / 4., -PI / 2.).as_ref(), &[FRAC_PI_4.cos(), FRAC_PI_4.sin(), 0.]);
+/// ```
+pub fn look_at_direction<T: Copy + FloatOps + NumAssign + Signed>(pitch: T, yaw: T) -> Vec3<T> {
+    let neg_cos_pitch = -pitch.cos();
+    Vec3::new([[
+        neg_cos_pitch * yaw.sin(),
+        pitch.sin(),
+        neg_cos_pitch * yaw.cos(),
+    ]])
 }
 
 // endregion: Camera matrices

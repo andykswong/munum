@@ -429,11 +429,11 @@ impl<T: Copy + FloatOps + NumAssign + Signed> Quaternion<T> {
     /// ```
     /// # use munum::{Quaternion, assert_float_eq};
     /// let mut q = <Quaternion>::from_slice(&[2., 5., 14., 8.]);
-    /// q.normalize();
+    /// assert!(q.normalize());
     /// assert_float_eq!(q.as_ref(), &[2./17., 5./17., 14./17., 8./17.]);
     /// ```
     #[inline]
-    pub fn normalize(&mut self) {
+    pub fn normalize(&mut self) -> bool {
         self.0.normalize()
     }
 
@@ -442,14 +442,17 @@ impl<T: Copy + FloatOps + NumAssign + Signed> Quaternion<T> {
     /// # Examples
     /// ```
     /// # use munum::{Quaternion, assert_float_eq};
-    /// let q = <Quaternion>::from_slice(&[2., 5., 14., 8.]).normalized();
+    /// let q = <Quaternion>::from_slice(&[2., 5., 14., 8.]).normalized().unwrap();
     /// assert_float_eq!(q.as_ref(), &[2./17., 5./17., 14./17., 8./17.]);
     /// ```
     #[inline]
-    pub fn normalized(&self) -> Self {
+    pub fn normalized(&self) -> Option<Self> {
         let mut q = *self;
-        q.normalize();
-        q
+        if q.normalize() {
+            Some(q)
+        } else {
+            None
+        }
     }
 
     /// Linear interpolates between 2 unit `Quaternion`s.

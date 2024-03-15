@@ -36,6 +36,7 @@
     "babel": "cross-env-shell babel assembly -d dist --extensions '.ts' --out-file-extension .js",
     "types": "tsc -p ./assembly --emitDeclarationOnly && copyfiles -f assembly/types/index.d.ts dist/types",
     "test": "npm run asp && npm run jest",
+    "test:rust": "cargo test --all-features",
     "asp": "asp -c as-pect.config.cjs",
     "jest": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest",
     "jest:watch": "npm run jest -- --watch",

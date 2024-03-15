@@ -69,11 +69,13 @@ macro_rules! export_vec {
             }
 
             #[export_name = concat!("munum:wasm/", stringify!($name), "#norm")]
-            pub extern "C" fn [<$name _norm>](out: *mut $vec_type, a: *const $vec_type) -> *const $vec_type {
+            pub extern "C" fn [<$name _norm>](out: *mut $vec_type, a: *const $vec_type) -> bool {
                 if let Some(o) = unsafe { out.as_mut() } {
-                    *o = a.load().normalized();
+                    *o = a.load();
+                    o.normalize()
+                } else {
+                    false
                 }
-                out
             }
 
             #[export_name = concat!("munum:wasm/", stringify!($name), "#dot")]

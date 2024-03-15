@@ -104,12 +104,13 @@ pub extern "C" fn quat_rotate_vec3(
 pub extern "C" fn quat_norm(
     out: *mut Quaternion<f64>,
     q: *const Quaternion<f64>,
-) -> *const Quaternion<f64> {
+) -> bool {
     if let Some(o) = unsafe { out.as_mut() } {
         *o = q.load();
-        o.normalize();
+        o.normalize()
+    } else {
+        false
     }
-    out
 }
 
 #[export_name = concat!("munum:wasm/quat#dot")]

@@ -16,7 +16,7 @@ interface vec2 {
     mul: func(out: pvec2, m2: pmat2, a: pvec2) -> pvec2;
     mul3: func(out: pvec2, m3: pmat3, a: pvec2) -> pvec2;
     scale: func(out: pvec2, a: pvec2, s: f64) -> pvec2;
-    norm: func(out: pvec2, a: pvec2) -> pvec2;
+    norm: func(out: pvec2, a: pvec2) -> bool;
     dot: func(a: pvec2, b: pvec2) -> f64;
     sqr-len: func(a: pvec2) -> f64;
     len: func(a: pvec2) -> f64;
@@ -40,7 +40,7 @@ interface vec3 {
     mul4: func(out: pvec3, m4: pmat4, a: pvec3) -> pvec3;
     cross: func(out: pvec3, a: pvec3, b: pvec3) -> pvec3;
     scale: func(out: pvec3, a: pvec3, s: f64) -> pvec3;
-    norm: func(out: pvec3, a: pvec3) -> pvec3;
+    norm: func(out: pvec3, a: pvec3) -> bool;
     dot: func(a: pvec3, b: pvec3) -> f64;
     sqr-len: func(a: pvec3) -> f64;
     len: func(a: pvec3) -> f64;
@@ -61,7 +61,7 @@ interface vec4 {
     sub: func(out: pvec4, a: pvec4, b: pvec4) -> pvec4;
     mul: func(out: pvec4, m4: pmat4, a: pvec4) -> pvec4;
     scale: func(out: pvec4, a: pvec4, s: f64) -> pvec4;
-    norm: func(out: pvec4, a: pvec4) -> pvec4;
+    norm: func(out: pvec4, a: pvec4) -> bool;
     dot: func(a: pvec4, b: pvec4) -> f64;
     sqr-len: func(a: pvec4) -> f64;
     len: func(a: pvec4) -> f64;
@@ -85,7 +85,7 @@ interface quat {
 
     mul: func(out: pquat, a: pquat, b: pquat) -> pquat;
     rotate-vec3: func(out: pvec3, q: pquat, v: pvec3) -> pvec3;
-    norm: func(out: pquat, a: pquat) -> pquat;
+    norm: func(out: pquat, a: pquat) -> bool;
     dot: func(a: pquat, b: pquat) -> f64;
     sqr-len: func(a: pquat) -> f64;
     len: func(a: pquat) -> f64;
@@ -185,7 +185,7 @@ interface transform {
     rotation-of: func(out: pquat, m: pmat4) -> pquat;
 
     transformation: func(out: pmat4, translate: pvec3, rotate: pquat, scale: pvec3) -> pmat4;
-    invert-trs: func(out: pmat4, trs: pmat4) -> pmat4;
+    invert-trs: func(out: pmat4, trs: pmat4) -> bool;
 
     ortho: func(out: pmat4, left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64) -> pmat4;
     perspective: func(out: pmat4, aspect: f64, yfov: f64, znear: f64, zfar: f64) -> pmat4;

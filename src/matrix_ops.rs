@@ -294,13 +294,16 @@ impl<T: Copy + FloatOps + NumAssign, const N: usize> Matrix<T, N, 1> {
     /// ```
     /// # use munum::Matrix;
     /// let mut v = Matrix::<f32, 2, 1>::from_slice(&[3., 4.]);
-    /// v.normalize();
+    /// assert!(v.normalize());
     /// assert_eq!(*v.as_ref(), [0.6, 0.8]);
     /// ```
-    pub fn normalize(&mut self) {
+    pub fn normalize(&mut self) -> bool {
         let len = self.len();
         if len != T::zero() {
             *self /= len;
+            true
+        } else {
+            false
         }
     }
 
@@ -310,13 +313,16 @@ impl<T: Copy + FloatOps + NumAssign, const N: usize> Matrix<T, N, 1> {
     /// ```
     /// # use munum::Matrix;
     /// let mut v = Matrix::<f32, 2, 1>::from_slice(&[3., 4.]);
-    /// assert_eq!(*v.normalized().as_ref(), [0.6, 0.8]);
+    /// assert_eq!(v.normalized().unwrap().as_ref(), [0.6, 0.8]);
     /// ```
     #[inline]
-    pub fn normalized(&self) -> Self {
+    pub fn normalized(&self) -> Option<Self> {
         let mut v = *self;
-        v.normalize();
-        v
+        if v.normalize() {
+            Some(v)
+        } else {
+            None
+        }
     }
 }
 
