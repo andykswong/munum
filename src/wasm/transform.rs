@@ -1,8 +1,8 @@
 use super::ptr::Load;
 use crate::{transform, Mat4, Quaternion, Vec3};
 
-#[export_name = concat!("munum:wasm/transform#translation")]
-pub extern "C" fn transform_translation(
+#[no_mangle]
+pub extern "C" fn translation(
     out: *mut Mat4<f64>,
     v: *const Vec3<f64>,
 ) -> *const Mat4<f64> {
@@ -12,16 +12,16 @@ pub extern "C" fn transform_translation(
     out
 }
 
-#[export_name = concat!("munum:wasm/transform#scaling")]
-pub extern "C" fn transform_scaling(out: *mut Mat4<f64>, v: *const Vec3<f64>) -> *const Mat4<f64> {
+#[no_mangle]
+pub extern "C" fn scaling(out: *mut Mat4<f64>, v: *const Vec3<f64>) -> *const Mat4<f64> {
     if let Some(o) = unsafe { out.as_mut() } {
         *o = transform::scaling(v.load())
     }
     out
 }
 
-#[export_name = concat!("munum:wasm/transform#rotation")]
-pub extern "C" fn transform_rotation(
+#[no_mangle]
+pub extern "C" fn rotation(
     out: *mut Mat4<f64>,
     q: *const Quaternion<f64>,
 ) -> *const Mat4<f64> {
@@ -31,8 +31,8 @@ pub extern "C" fn transform_rotation(
     out
 }
 
-#[export_name = concat!("munum:wasm/transform#translation-of")]
-pub extern "C" fn transform_translation_of(
+#[export_name = concat!("translationof")]
+pub extern "C" fn translation_of(
     out: *mut Vec3<f64>,
     m: *const Mat4<f64>,
 ) -> *const Vec3<f64> {
@@ -42,8 +42,8 @@ pub extern "C" fn transform_translation_of(
     out
 }
 
-#[export_name = concat!("munum:wasm/transform#rotation-of")]
-pub extern "C" fn transform_rotation_of(
+#[export_name = concat!("rotationof")]
+pub extern "C" fn rotation_of(
     out: *mut Quaternion<f64>,
     m: *const Mat4<f64>,
 ) -> *const Quaternion<f64> {
@@ -53,8 +53,8 @@ pub extern "C" fn transform_rotation_of(
     out
 }
 
-#[export_name = concat!("munum:wasm/transform#scaling-of")]
-pub extern "C" fn transform_scaling_of(
+#[export_name = concat!("scalingof")]
+pub extern "C" fn scaling_of(
     out: *mut Vec3<f64>,
     m: *const Mat4<f64>,
 ) -> *const Vec3<f64> {
@@ -64,8 +64,8 @@ pub extern "C" fn transform_scaling_of(
     out
 }
 
-#[export_name = concat!("munum:wasm/transform#transformation")]
-pub extern "C" fn transform_transformation(
+#[no_mangle]
+pub extern "C" fn transformation(
     out: *mut Mat4<f64>,
     translation: *const Vec3<f64>,
     rotation: *const Quaternion<f64>,
@@ -77,8 +77,8 @@ pub extern "C" fn transform_transformation(
     out
 }
 
-#[export_name = concat!("munum:wasm/transform#invert-trs")]
-pub extern "C" fn transform_invert_trs(out: *mut Mat4<f64>, m: *const Mat4<f64>) -> bool {
+#[export_name = concat!("inverttrs")]
+pub extern "C" fn invert_trs(out: *mut Mat4<f64>, m: *const Mat4<f64>) -> bool {
     if let Some(o) = unsafe { out.as_mut() } {
         *o = m.load();
         transform::invert_trs(o)
@@ -87,8 +87,8 @@ pub extern "C" fn transform_invert_trs(out: *mut Mat4<f64>, m: *const Mat4<f64>)
     }
 }
 
-#[export_name = concat!("munum:wasm/transform#ortho")]
-pub extern "C" fn transform_ortho(
+#[no_mangle]
+pub extern "C" fn ortho(
     out: *mut Mat4<f64>,
     left: f64,
     right: f64,
@@ -103,8 +103,8 @@ pub extern "C" fn transform_ortho(
     out
 }
 
-#[export_name = concat!("munum:wasm/transform#perspective")]
-pub extern "C" fn transform_perspective(
+#[no_mangle]
+pub extern "C" fn perspective(
     out: *mut Mat4<f64>,
     aspect: f64,
     yfov: f64,
@@ -117,8 +117,8 @@ pub extern "C" fn transform_perspective(
     out
 }
 
-#[export_name = concat!("munum:wasm/transform#perspective-viewport")]
-pub extern "C" fn transform_perspective_viewport(
+#[export_name = concat!("perspectiveviewport")]
+pub extern "C" fn perspective_viewport(
     out: *mut Mat4<f64>,
     left: f64,
     right: f64,
@@ -133,8 +133,8 @@ pub extern "C" fn transform_perspective_viewport(
     out
 }
 
-#[export_name = concat!("munum:wasm/transform#target-to")]
-pub extern "C" fn transform_target_to(
+#[export_name = concat!("targetto")]
+pub extern "C" fn target_to(
     out: *mut Mat4<f64>,
     eye: *const Vec3<f64>,
     center: *const Vec3<f64>,
@@ -146,8 +146,8 @@ pub extern "C" fn transform_target_to(
     out
 }
 
-#[export_name = concat!("munum:wasm/transform#look-at")]
-pub extern "C" fn transform_look_at(
+#[export_name = concat!("lookat")]
+pub extern "C" fn look_at(
     out: *mut Mat4<f64>,
     eye: *const Vec3<f64>,
     center: *const Vec3<f64>,
@@ -159,8 +159,8 @@ pub extern "C" fn transform_look_at(
     out
 }
 
-#[export_name = concat!("munum:wasm/transform#look-at-dir")]
-pub extern "C" fn transform_look_at_dir(
+#[export_name = concat!("lookatdir")]
+pub extern "C" fn look_at_dir(
     out: *mut Vec3<f64>,
     pitch: f64,
     yaw: f64,

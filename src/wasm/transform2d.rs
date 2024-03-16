@@ -1,8 +1,8 @@
 use super::ptr::Load;
 use crate::{transform2d, Mat3, Vec2};
 
-#[export_name = concat!("munum:wasm/transform2d#translation")]
-pub extern "C" fn transform2d_translation(
+#[export_name = "translation2d"]
+pub extern "C" fn translation_2d(
     out: *mut Mat3<f64>,
     v: *const Vec2<f64>,
 ) -> *const Mat3<f64> {
@@ -12,8 +12,8 @@ pub extern "C" fn transform2d_translation(
     out
 }
 
-#[export_name = concat!("munum:wasm/transform2d#scaling")]
-pub extern "C" fn transform2d_scaling(
+#[export_name = "scaling2d"]
+pub extern "C" fn scaling_2d(
     out: *mut Mat3<f64>,
     v: *const Vec2<f64>,
 ) -> *const Mat3<f64> {
@@ -23,16 +23,16 @@ pub extern "C" fn transform2d_scaling(
     out
 }
 
-#[export_name = concat!("munum:wasm/transform2d#rotation")]
-pub extern "C" fn transform2d_rotation(out: *mut Mat3<f64>, angle: f64) -> *const Mat3<f64> {
+#[export_name = "rotation2d"]
+pub extern "C" fn rotation_2d(out: *mut Mat3<f64>, angle: f64) -> *const Mat3<f64> {
     if let Some(o) = unsafe { out.as_mut() } {
         *o = transform2d::rotation(angle)
     }
     out
 }
 
-#[export_name = concat!("munum:wasm/transform2d#transformation")]
-pub extern "C" fn transform2d_transformation(
+#[export_name = "transformation2d"]
+pub extern "C" fn transformation_2d(
     out: *mut Mat3<f64>,
     translation: *const Vec2<f64>,
     rotation: f64,

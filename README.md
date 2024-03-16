@@ -19,6 +19,14 @@ WIP v0.2: unification of Rust and JS source
 - TSDoc: http://andykswong.github.io/munum
 
 ## Install
+[JavaScript] Install via npm: 
+```shell
+npm install --save munum
+```
+
+---
+
+
 [Rust] Install as Cargo dependency:
 ```shell
 cargo add munum
@@ -28,15 +36,29 @@ Features:
 - `libm` - enables trigonometry related functions in `no_std` environment using `libm`.
 - `jsmath` - enables trigonometry related functions in `no_std` WebAssembly environment using JS Math binding.
 - `serde` - enables `serde` serialize/deserialize implementations
-- `wasm` - (WIP) produces standalone WebAssembly component
+- `wasm` - produces WebAssembly module and WebAssembly component (WIP)
 
----
+## Usage (JavaScript WebAssembly binding)
+Sample usage to build a perspective camera view-projection matrix below: 
 
-[JavaScript] Install via npm: 
+[(Try it yourself here)](https://codepen.io/andykswong/pen/yLbPzGy?editors=0011)
+```javascript
+import { lookAt, perspective, Mat4, Vec3 } from 'munum'; // Or load from CDN, e.g. 'https://unpkg.com/munum@latest'
 
-```shell
-npm install --save munum
+using eye = new Vec3(1, 1, 1);
+using target = new Vec3(0, 0, 0);
+using up = new Vec3(0, 1, 0);
+const view = lookAt(eye, target, up);
+
+const aspectRatio = width / height;
+const yfov = Math.PI / 4;
+const znear = 1;
+const zfar = 100;
+
+using viewProj = perspective(aspectRatio, yfov, znear, zfar).mul(view);
 ```
+
+Note the use of `using` (which automatically calls `.free()` when out of scope). When using JavaScript binding, `munum` resources are allocated on WebAssembly memory which need to be deallocated later. `munum` uses `FinalizationRegistry` for automatic memory management, so explicit memory management with `using` or `.free()` is not required through recommended.
 
 ## Usage (Rust)
 Sample usage to build a perspective camera view-projection matrix:
@@ -53,35 +75,6 @@ let view = transform::look_at(eye, target, up);
 let proj = transform::perspective(2., PI/2., 1., INFINITY);
 
 let view_proj = proj * view;
-```
-
-## Usage (JavaScript)
-Sample usage to build a perspective camera view-projection matrix and frustum:
-
-[(Try it yourself here)](https://codepen.io/andykswong/pen/yLbPzGy?editors=0011)
-```javascript
-import { frustum, lookAt, mat4, perspective, vec3 } from 'munum'; // Or load from CDN
-
-const eye = vec3.create(1, 1, 1);
-const target = vec3.create(0, 0, 0);
-const view = lookAt(eye, target);
-
-const aspectRatio = width / height;
-const yfov = Math.PI / 4;
-const znear = 1;
-const zfar = 100;
-const proj = perspective(aspectRatio, yfov, znear, zfar);
-
-const vp = mat4.mul(proj, view);
-const f = frustum.fromViewProj(vp);
-```
-
-You can also load directly from CDN without having to use any build system:
-```html
-<script type="module">
-  import { vec4 } from 'https://unpkg.com/munum@latest';
-  const v = vec4.create();
-</script>
 ```
 
 ## License

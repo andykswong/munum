@@ -4,14 +4,12 @@
   "description": "Micro 3D Math Library for JavaScript and WebAssembly",
   "type": "module",
   "sideEffects": false,
-  "main": "index.js",
-  "ascMain": "assembly/index.ts",
-  "types": "index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "import": "./index.js",
-      "types": "./index.d.ts"
-    },
+    ".": "./dist/index.js",
+    "./js": "./dist/js/index.js",
+    "./wasm": "./wasm/index.js",
     "./assembly": {
       "import": "./assembly"
     }
@@ -19,28 +17,23 @@
   "files": [
     "/assembly",
     "/dist",
-    "index.js",
-    "index.d.ts"
+    "/wasm",
+    "/wit"
   ],
   "scripts": {
     "prepublishOnly": "npm run build && npm test && npm run docs",
-    "clean": "rimraf coverage/ docs/ dist/ target/ **/__tests__/**/*.spec.map **/__tests__/**/*.spec.wat",
-    "build:wasm": "cargo rustc -r --target wasm32-unknown-unknown --crate-type cdylib -F jsmath,wasm,std --no-default-features",
-    "postbuild:wasm": "npm run build:wit && npm run build:wasm-opt",
-    "build:wit": "wasm-tools component embed -o dist/munum.wasm -w root wit/ target/wasm32-unknown-unknown/release/munum.wasm",
-    "build:wasm-opt": "wasm-opt -Oz -o dist/munum.wasm dist/munum.wasm",
-    "prebuild": "npm run lint",
-    "build": "npm run tsc",
-    "lint": "eslint assembly --ext .ts,.tsx",
-    "tsc": "npm run babel && npm run types",
-    "babel": "cross-env-shell babel assembly -d dist --extensions '.ts' --out-file-extension .js",
-    "types": "tsc -p ./assembly --emitDeclarationOnly && copyfiles -f assembly/types/index.d.ts dist/types",
-    "test": "npm run asp && npm run jest",
+    "clean": "rimraf coverage/ docs/ dist/ target/",
+    "build": "npm run build:wasm && npm run build:wit-com && npm run build:js",
+    "build:wasm": "cargo rustc -r --target wasm32-unknown-unknown --crate-type cdylib -F jsmath,wasm --no-default-features",
+    "postbuild:wasm": "wasm-opt -Oz -o wasm/munum.wasm target/wasm32-unknown-unknown/release/munum.wasm",
+    "build:wit-com": "jco embed -o wasm/munum.component.wasm --world root --wit wit/world.wit wasm/munum.wasm && jco new -o wasm/munum.component.wasm wasm/munum.component.wasm",
+    "prebuild:js": "eslint js --ext .ts",
+    "build:js": "tsc -p tsconfig.build.json && babel js -d dist -x .ts",
+    "pretest": "npm run test:rust",
+    "test": "npm run jest",
     "test:rust": "cargo test --all-features",
-    "asp": "asp -c as-pect.config.cjs",
-    "jest": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest",
-    "jest:watch": "npm run jest -- --watch",
-    "docs": "typedoc --tsconfig assembly/tsconfig.json --out docs assembly/index.ts"
+    "jest": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "docs": "typedoc --tsconfig tsconfig.build.json"
   },
   "repository": {
     "type": "git",
@@ -51,7 +44,7 @@
     "matrix",
     "math",
     "typescript",
-    "assemblyscript",
+    "vector",
     "webassembly",
     "wasm"
   ],
@@ -61,20 +54,24 @@
     "url": "https://github.com/andykswong/munum/issues"
   },
   "homepage": "https://github.com/andykswong/munum",
+  "dependencies": {
+    "libmath": "^0.1"
+  },
   "devDependencies": {
-    "@as-pect/cli": "^8.1",
     "@babel/cli": "^7.20",
     "@babel/core": "^7.20",
+    "@babel/plugin-proposal-explicit-resource-management": "^7.20",
     "@babel/preset-env": "^7.20",
     "@babel/preset-typescript": "^7.20",
+    "@bytecodealliance/jco": "^1.0",
     "@types/jest": "^29.5",
     "@types/node": "^20.0",
     "@typescript-eslint/eslint-plugin": "^7.0",
     "@typescript-eslint/parser": "^7.0",
-    "assemblyscript": "^0.27",
     "babel-jest": "^29.5",
     "babel-plugin-add-import-extension": "^1.6",
     "binaryen": "^116.0",
+    "core-js": "^3.30",
     "copyfiles": "^2.4",
     "cross-env": "^7.0",
     "eslint": "^8.50",
@@ -93,9 +90,13 @@
     ],
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "assembly/**/*.ts",
+      "js/**/*.ts",
       "!**/__tests__/**"
     ],
-    "coverageDirectory": "coverage"
-  }
+    "coverageDirectory": "coverage",
+    "setupFiles": ["core-js"]
+  },
+  "workspaces": [
+    "packages/libmath"
+  ]
 }

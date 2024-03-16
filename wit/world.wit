@@ -1,203 +1,16 @@
-package munum:wasm;
-
-interface vec2 {
-    type pvec2 = u32;
-    type pmat2 = u32;
-    type pmat3 = u32;
-
-    create: func(x: f64, y: f64) -> pvec2;
-    free: func(src: pvec2);
-    set: func(dst: pvec2, x: f64, y: f64) -> pvec2;
-    copy: func(dst: pvec2, src: pvec2) -> pvec2;
-    get: func(src: pvec2) -> tuple<f64, f64>;
-
-    add: func(out: pvec2, a: pvec2, b: pvec2) -> pvec2;
-    sub: func(out: pvec2, a: pvec2, b: pvec2) -> pvec2;
-    mul: func(out: pvec2, m2: pmat2, a: pvec2) -> pvec2;
-    mul3: func(out: pvec2, m3: pmat3, a: pvec2) -> pvec2;
-    scale: func(out: pvec2, a: pvec2, s: f64) -> pvec2;
-    norm: func(out: pvec2, a: pvec2) -> bool;
-    dot: func(a: pvec2, b: pvec2) -> f64;
-    sqr-len: func(a: pvec2) -> f64;
-    len: func(a: pvec2) -> f64;
-    lerp: func(out: pvec2, a: pvec2, b: pvec2, t: f64) -> pvec2;
-}
-
-interface vec3 {
-    type pvec3 = u32;
-    type pmat3 = u32;
-    type pmat4 = u32;
-
-    create: func(x: f64, y: f64, z: f64) -> pvec3;
-    free: func(src: pvec3);
-    set: func(dst: pvec3, x: f64, y: f64, z: f64) -> pvec3;
-    copy: func(dst: pvec3, src: pvec3) -> pvec3;
-    get: func(src: pvec3) -> tuple<f64, f64, f64>;
-
-    add: func(out: pvec3, a: pvec3, b: pvec3) -> pvec3;
-    sub: func(out: pvec3, a: pvec3, b: pvec3) -> pvec3;
-    mul: func(out: pvec3, m3: pmat3, a: pvec3) -> pvec3;
-    mul4: func(out: pvec3, m4: pmat4, a: pvec3) -> pvec3;
-    cross: func(out: pvec3, a: pvec3, b: pvec3) -> pvec3;
-    scale: func(out: pvec3, a: pvec3, s: f64) -> pvec3;
-    norm: func(out: pvec3, a: pvec3) -> bool;
-    dot: func(a: pvec3, b: pvec3) -> f64;
-    sqr-len: func(a: pvec3) -> f64;
-    len: func(a: pvec3) -> f64;
-    lerp: func(out: pvec3, a: pvec3, b: pvec3, t: f64) -> pvec3;
-}
-
-interface vec4 {
-    type pvec4 = u32;
-    type pmat4 = u32;
-
-    create: func(x: f64, y: f64, z: f64, w: f64) -> pvec4;
-    free: func(src: pvec4);
-    set: func(dst: pvec4, x: f64, y: f64, z: f64, w: f64) -> pvec4;
-    copy: func(dst: pvec4, src: pvec4) -> pvec4;
-    get: func(src: pvec4) -> tuple<f64, f64, f64, f64>;
-
-    add: func(out: pvec4, a: pvec4, b: pvec4) -> pvec4;
-    sub: func(out: pvec4, a: pvec4, b: pvec4) -> pvec4;
-    mul: func(out: pvec4, m4: pmat4, a: pvec4) -> pvec4;
-    scale: func(out: pvec4, a: pvec4, s: f64) -> pvec4;
-    norm: func(out: pvec4, a: pvec4) -> bool;
-    dot: func(a: pvec4, b: pvec4) -> f64;
-    sqr-len: func(a: pvec4) -> f64;
-    len: func(a: pvec4) -> f64;
-    lerp: func(out: pvec4, a: pvec4, b: pvec4, t: f64) -> pvec4;
-}
-
-interface quat {
-    type pquat = u32;
-    type pvec3 = u32;
-
-    create: func(x: f64, y: f64, z: f64, w: f64) -> pquat;
-    from-unit-vecs: func(from-vec: pvec3, to-vec: pvec3) -> pquat;
-    from-axis-angle: func(axis: pvec3, angle: f64) -> pquat;
-    from-angle-x: func(angle: f64) -> pquat;
-    from-angle-y: func(angle: f64) -> pquat;
-    from-angle-z: func(angle: f64) -> pquat;
-    free: func(src: pquat);
-    set: func(dst: pquat, x: f64, y: f64, z: f64, w: f64) -> pquat;
-    copy: func(dst: pquat, src: pquat) -> pquat;
-    get: func(src: pquat) -> tuple<f64, f64, f64, f64>;
-
-    mul: func(out: pquat, a: pquat, b: pquat) -> pquat;
-    rotate-vec3: func(out: pvec3, q: pquat, v: pvec3) -> pvec3;
-    norm: func(out: pquat, a: pquat) -> bool;
-    dot: func(a: pquat, b: pquat) -> f64;
-    sqr-len: func(a: pquat) -> f64;
-    len: func(a: pquat) -> f64;
-    conj: func(out: pquat, a: pquat) -> pquat;
-    invert: func(out: pquat, a: pquat) -> bool;
-    lerp: func(out: pquat, a: pquat, b: pquat, t: f64) -> pquat;
-    slerp: func(out: pquat, a: pquat, b: pquat, t: f64) -> pquat;
-}
-
-interface mat2 {
-    type pmat2 = u32;
-    type pmat3 = u32;
-
-    create: func() -> pmat2;
-    identity: func(dst: pmat2) -> pmat2;
-    from-mat3: func(src: pmat3) -> pmat2;
-    free: func(src: pmat2);
-    set: func(dst: pmat2, m00: f64, m10: f64, m01: f64, m11: f64) -> pmat2;
-    copy: func(dst: pmat2, src: pmat2) -> pmat2;
-    get: func(src: pmat2) -> tuple<f64, f64, f64, f64>;
-
-    add: func(out: pmat2, a: pmat2, b: pmat2) -> pmat2;
-    sub: func(out: pmat2, a: pmat2, b: pmat2) -> pmat2;
-    mul: func(out: pmat2, m2: pmat2, a: pmat2) -> pmat2;
-    scale: func(out: pmat2, a: pmat2, s: f64) -> pmat2;
-    transpose: func(out: pmat2, a: pmat2) -> pmat2;
-    invert: func(out: pmat2, a: pmat2) -> bool;
-    det: func(a: pmat2) -> f64;
-}
-
-interface mat3 {
-    type pmat2 = u32;
-    type pmat3 = u32;
-    type pmat4 = u32;
-
-    create: func() -> pmat3;
-    identity: func(dst: pmat3) -> pmat3;
-    from-mat2: func(src: pmat2) -> pmat3;
-    from-mat4: func(src: pmat4) -> pmat3;
-    free: func(src: pmat3);
-    set: func(dst: pmat3, m00: f64, m10: f64, m20: f64, m01: f64, m11: f64, m21: f64, m02: f64, m12: f64, m22: f64) -> pmat3;
-    copy: func(dst: pmat3, src: pmat3) -> pmat3;
-    get: func(src: pmat3) -> tuple<f64, f64, f64, f64, f64, f64, f64, f64, f64>;
-
-    add: func(out: pmat3, a: pmat3, b: pmat3) -> pmat3;
-    sub: func(out: pmat3, a: pmat3, b: pmat3) -> pmat3;
-    mul: func(out: pmat3, m2: pmat3, a: pmat3) -> pmat3;
-    scale: func(out: pmat3, a: pmat3, s: f64) -> pmat3;
-    transpose: func(out: pmat3, a: pmat3) -> pmat3;
-    invert: func(out: pmat3, a: pmat3) -> bool;
-    normal-mat: func(out: pmat3, a: pmat3) -> bool;
-    det: func(a: pmat3) -> f64;
-}
-
-interface mat4 {
-    type pmat3 = u32;
-    type pmat4 = u32;
-
-    create: func() -> pmat4;
-    identity: func(dst: pmat4) -> pmat4;
-    from-mat3: func(src: pmat3) -> pmat4;
-    free: func(src: pmat4);
-    set: func(dst: pmat4, m00: f64, m10: f64, m20: f64, m30: f64, m01: f64, m11: f64, m21: f64, m31: f64, m02: f64, m12: f64, m22: f64, m32: f64, m03: f64, m13: f64, m23: f64, m33: f64) -> pmat4;
-    copy: func(dst: pmat4, src: pmat4) -> pmat4;
-    get: func(src: pmat4) -> tuple<f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64, f64>;
-
-    add: func(out: pmat4, a: pmat4, b: pmat4) -> pmat4;
-    sub: func(out: pmat4, a: pmat4, b: pmat4) -> pmat4;
-    mul: func(out: pmat4, m2: pmat4, a: pmat4) -> pmat4;
-    scale: func(out: pmat4, a: pmat4, s: f64) -> pmat4;
-    transpose: func(out: pmat4, a: pmat4) -> pmat4;
-    invert: func(out: pmat4, a: pmat4) -> bool;
-    det: func(a: pmat4) -> f64;
-}
-
-interface transform2d {
-    type pvec2 = u32;
-    type pmat3 = u32;
-
-    translation: func(out: pmat3, v: pvec2) -> pmat3;
-    scaling: func(out: pmat3, v: pvec2) -> pmat3;
-    rotation: func(out: pmat3, theta: f64) -> pmat3;
-    transformation: func(out: pmat3, translate: pvec2, rotate: f64, scale: pvec2) -> pmat3;
-}
-
-interface transform {
-    type pvec3 = u32;
-    type pmat3 = u32;
-    type pmat4 = u32;
-    type pquat = u32;
-
-    translation: func(out: pmat4, v: pvec3) -> pmat4;
-    scaling: func(out: pmat4, v: pvec3) -> pmat4;
-    rotation: func(out: pmat4, q: pquat) -> pmat4;
-    translation-of: func(out: pvec3, m: pmat4) -> pvec3;
-    scaling-of: func(out: pvec3, m: pmat4) -> pvec3;
-    rotation-of: func(out: pquat, m: pmat4) -> pquat;
-
-    transformation: func(out: pmat4, translate: pvec3, rotate: pquat, scale: pvec3) -> pmat4;
-    invert-trs: func(out: pmat4, trs: pmat4) -> bool;
-
-    ortho: func(out: pmat4, left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64) -> pmat4;
-    perspective: func(out: pmat4, aspect: f64, yfov: f64, znear: f64, zfar: f64) -> pmat4;
-    perspective-viewport: func(out: pmat4, left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64) -> pmat4;
-
-    target-to: func(out: pmat4, eye: pvec3, center: pvec3, up: pvec3) -> pmat4;
-    look-at: func(out: pmat4, eye: pvec3, center: pvec3, up: pvec3) -> pmat4;
-    look-at-dir: func(out: pvec3, pitch: f64, yaw: f64) -> pvec3;
-}
+package munum:core;
 
 world root {
-    import jsmath: interface {
+    type parray = u32;
+    type pvec2 = u32;
+    type pvec3 = u32;
+    type pvec4 = u32;
+    type pquat = u32;
+    type pmat2 = u32;
+    type pmat3 = u32;
+    type pmat4 = u32;
+
+    import libmath: interface {
         acos: func(theta: f64) -> f64;
         cos: func(theta: f64) -> f64;
         sin: func(theta: f64) -> f64;
@@ -205,13 +18,102 @@ world root {
         tan: func(theta: f64) -> f64;
     }
 
-    export vec2;
-    export vec3;
-    export vec4;
-    export quat;
-    export mat2;
-    export mat3;
-    export mat4;
-    export transform2d;
-    export transform;
+    export create: func(size: u32) -> parray;
+    export free: func(src: parray, size: u32);
+
+    export vec2add: func(out: pvec2, a: pvec2, b: pvec2) -> pvec2;
+    export vec2sub: func(out: pvec2, a: pvec2, b: pvec2) -> pvec2;
+    export vec2mul: func(out: pvec2, m2: pmat2, a: pvec2) -> pvec2;
+    export vec2scale: func(out: pvec2, a: pvec2, s: f64) -> pvec2;
+    export vec2norm: func(out: pvec2, a: pvec2) -> bool;
+    export vec2dot: func(a: pvec2, b: pvec2) -> f64;
+    export vec2lerp: func(out: pvec2, a: pvec2, b: pvec2, t: f64) -> pvec2;
+    export mat3vec2mul: func(out: pvec2, m3: pmat3, a: pvec2) -> pvec2;
+
+    export vec3add: func(out: pvec3, a: pvec3, b: pvec3) -> pvec3;
+    export vec3sub: func(out: pvec3, a: pvec3, b: pvec3) -> pvec3;
+    export vec3mul: func(out: pvec3, m3: pmat3, a: pvec3) -> pvec3;
+    export vec3scale: func(out: pvec3, a: pvec3, s: f64) -> pvec3;
+    export vec3norm: func(out: pvec3, a: pvec3) -> bool;
+    export vec3dot: func(a: pvec3, b: pvec3) -> f64;
+    export vec3lerp: func(out: pvec3, a: pvec3, b: pvec3, t: f64) -> pvec3;
+    export vec3cross: func(out: pvec3, a: pvec3, b: pvec3) -> pvec3;
+    export mat4vec3mul: func(out: pvec3, m4: pmat4, a: pvec3) -> pvec3;
+
+    export vec4add: func(out: pvec4, a: pvec4, b: pvec4) -> pvec4;
+    export vec4sub: func(out: pvec4, a: pvec4, b: pvec4) -> pvec4;
+    export vec4mul: func(out: pvec4, m4: pmat4, a: pvec4) -> pvec4;
+    export vec4scale: func(out: pvec4, a: pvec4, s: f64) -> pvec4;
+    export vec4norm: func(out: pvec4, a: pvec4) -> bool;
+    export vec4dot: func(a: pvec4, b: pvec4) -> f64;
+    export vec4lerp: func(out: pvec4, a: pvec4, b: pvec4, t: f64) -> pvec4;
+
+    export quatfromunitvecs: func(fromvec: pvec3, tovec: pvec3) -> pquat;
+    export quatfromaxisangle: func(axis: pvec3, angle: f64) -> pquat;
+    export quatfromanglex: func(angle: f64) -> pquat;
+    export quatfromangley: func(angle: f64) -> pquat;
+    export quatfromanglez: func(angle: f64) -> pquat;
+    export quatidentity: func() -> pquat;
+    export quatmul: func(out: pquat, a: pquat, b: pquat) -> pquat;
+    export quatvec3rotate: func(out: pvec3, q: pquat, v: pvec3) -> pvec3;
+    export quatnorm: func(out: pquat, a: pquat) -> bool;
+    export quatdot: func(a: pquat, b: pquat) -> f64;
+    export quatinvert: func(out: pquat, a: pquat) -> bool;
+    export quatlerp: func(out: pquat, a: pquat, b: pquat, t: f64) -> pquat;
+    export quatslerp: func(out: pquat, a: pquat, b: pquat, t: f64) -> pquat;
+
+    export mat2frommat3: func(src: pmat3) -> pmat2;
+    export mat2identity: func() -> pmat2;
+    export mat2add: func(out: pmat2, a: pmat2, b: pmat2) -> pmat2;
+    export mat2sub: func(out: pmat2, a: pmat2, b: pmat2) -> pmat2;
+    export mat2mul: func(out: pmat2, m2: pmat2, a: pmat2) -> pmat2;
+    export mat2scale: func(out: pmat2, a: pmat2, s: f64) -> pmat2;
+    export mat2transpose: func(out: pmat2, a: pmat2) -> pmat2;
+    export mat2invert: func(out: pmat2, a: pmat2) -> bool;
+    export mat2det: func(a: pmat2) -> f64;
+
+    export normalmat3: func(out: pmat3, a: pmat3) -> bool;
+    export mat3frommat2: func(src: pmat2) -> pmat3;
+    export mat3frommat4: func(src: pmat4) -> pmat3;
+    export mat3identity: func() -> pmat3;
+    export mat3add: func(out: pmat3, a: pmat3, b: pmat3) -> pmat3;
+    export mat3sub: func(out: pmat3, a: pmat3, b: pmat3) -> pmat3;
+    export mat3mul: func(out: pmat3, m2: pmat3, a: pmat3) -> pmat3;
+    export mat3scale: func(out: pmat3, a: pmat3, s: f64) -> pmat3;
+    export mat3transpose: func(out: pmat3, a: pmat3) -> pmat3;
+    export mat3invert: func(out: pmat3, a: pmat3) -> bool;
+    export mat3det: func(a: pmat3) -> f64;
+
+    export mat4frommat3: func(src: pmat3) -> pmat4;
+    export mat4identity: func() -> pmat4;
+    export mat4add: func(out: pmat4, a: pmat4, b: pmat4) -> pmat4;
+    export mat4sub: func(out: pmat4, a: pmat4, b: pmat4) -> pmat4;
+    export mat4mul: func(out: pmat4, m2: pmat4, a: pmat4) -> pmat4;
+    export mat4scale: func(out: pmat4, a: pmat4, s: f64) -> pmat4;
+    export mat4transpose: func(out: pmat4, a: pmat4) -> pmat4;
+    export mat4invert: func(out: pmat4, a: pmat4) -> bool;
+    export mat4det: func(a: pmat4) -> f64;
+
+    export translation2d: func(out: pmat3, v: pvec2) -> pmat3;
+    export scaling2d: func(out: pmat3, v: pvec2) -> pmat3;
+    export rotation2d: func(out: pmat3, theta: f64) -> pmat3;
+    export transformation2d: func(out: pmat3, translate: pvec2, rotate: f64, scale: pvec2) -> pmat3;
+
+    export translation: func(out: pmat4, v: pvec3) -> pmat4;
+    export scaling: func(out: pmat4, v: pvec3) -> pmat4;
+    export rotation: func(out: pmat4, q: pquat) -> pmat4;
+    export translationof: func(out: pvec3, m: pmat4) -> pvec3;
+    export scalingof: func(out: pvec3, m: pmat4) -> pvec3;
+    export rotationof: func(out: pquat, m: pmat4) -> pquat;
+
+    export transformation: func(out: pmat4, translate: pvec3, rotate: pquat, scale: pvec3) -> pmat4;
+    export inverttrs: func(out: pmat4, trs: pmat4) -> bool;
+
+    export ortho: func(out: pmat4, left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64) -> pmat4;
+    export perspective: func(out: pmat4, aspect: f64, yfov: f64, znear: f64, zfar: f64) -> pmat4;
+    export perspectiveviewport: func(out: pmat4, left: f64, right: f64, bottom: f64, top: f64, znear: f64, zfar: f64) -> pmat4;
+
+    export targetto: func(out: pmat4, eye: pvec3, center: pvec3, up: pvec3) -> pmat4;
+    export lookat: func(out: pmat4, eye: pvec3, center: pvec3, up: pvec3) -> pmat4;
+    export lookatdir: func(out: pvec3, pitch: f64, yaw: f64) -> pvec3;
 }

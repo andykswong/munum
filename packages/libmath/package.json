@@ -1,0 +1,30 @@
+{
+  "name": "libmath",
+  "version": "0.1.0",
+  "description": "Package that re-exports JS Math constants and functions",
+  "type": "module",
+  "sideEffects": false,
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andykswong/munum.git"
+  },
+  "keywords": [
+    "numeric",
+    "math"
+  ],
+  "author": "Andy K.S. Wong <andykswong@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andykswong/munum/issues"
+  },
+  "homepage": "https://github.com/andykswong/munum",
+  "devDependencies": {
+  }
+}

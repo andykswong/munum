@@ -1,0 +1,2 @@
+export*from"./mat.js";export*from"./memory.js";export*from"./quat.js";export*from"./transform.js";export*from"./vec.js";
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiLi4vLi4vanMvd2FzbS9pbmRleC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgKiBmcm9tICcuL21hdC50cyc7XG5leHBvcnQgKiBmcm9tICcuL21lbW9yeS50cyc7XG5leHBvcnQgKiBmcm9tICcuL3F1YXQudHMnO1xuZXhwb3J0ICogZnJvbSAnLi90cmFuc2Zvcm0udHMnO1xuZXhwb3J0ICogZnJvbSAnLi92ZWMudHMnO1xuIl0sIm1hcHBpbmdzIjoiIiwiaWdub3JlTGlzdCI6W119

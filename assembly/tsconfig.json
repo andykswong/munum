@@ -1,7 +1,9 @@
 {
   "extends": "assemblyscript/std/portable.json",
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "allowSyntheticDefaultImports": true,
+    "emitDeclarationOnly": true,
     "isolatedModules": true,
     "preserveConstEnums": true,
     "strict": true,

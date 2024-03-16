@@ -1,0 +1,11 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "munum",
+  "includeVersion": true,
+  "out": "./docs",
+  "entryPoints": [
+    "./js",
+    "./js/js"
+  ],
+  "readme": "./README.md"
+}

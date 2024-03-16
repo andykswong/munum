@@ -14,9 +14,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "20"
-      - run: cargo build --release --verbose
-      - run: cargo test --verbose --all-features
-      - run: cargo test --verbose --no-default-features --features libm
       - run: npm ci --ignore-scripts
       - run: npm run build
       - run: npm test

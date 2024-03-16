@@ -1,6 +1,6 @@
 use crate::FloatOps;
 
-#[link(wasm_import_module = "jsmath")]
+#[link(wasm_import_module = "libmath")]
 extern "C" {
     pub fn acos(x: f64) -> f64;
     pub fn cos(x: f64) -> f64;

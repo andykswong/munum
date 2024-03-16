@@ -1,7 +1,7 @@
 {
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "assembly/tsconfig.json",
+    "project": "tsconfig.json",
     "sourceType": "module"
   },
   "plugins": [
@@ -13,12 +13,10 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "env": {
-    "es2020": true,
-    "jest": true
+    "es2022": true,
+    "jest": true,
+    "node": true
   },
-  "ignorePatterns": [
-    "assembly/types/*.ts"
-  ],
   "rules": {
     "@typescript-eslint/ban-ts-comment": [
       "error",

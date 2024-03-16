@@ -13,7 +13,7 @@ categories = ["mathematics", "no-std", "wasm"]
 keywords = ["math", "matrix", "3d", "munum"]
 
 [package.metadata.component]
-package = "munum:wasm"
+package = "munum:core"
 
 [package.metadata.docs.rs]
 features = ["jsmath", "libm", "std", "serde", "wasm"]
