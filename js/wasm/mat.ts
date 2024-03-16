@@ -1,7 +1,7 @@
 import {
   mat2identity, mat2add, mat2det, mat2frommat3, mat2invert, mat2mul, mat2scale, mat2sub, mat2transpose,
   mat3identity, mat3add, mat3det, mat3frommat2, mat3frommat4, mat3invert, mat3mul, mat3scale, mat3sub, mat3transpose,
-  mat4identity, mat4add, mat4det, mat4frommat3, mat4invert, mat4mul, mat4scale, mat4sub, mat4transpose,
+  mat4identity, mat4add, mat4det, mat4frommat3, mat4invert, mat4mul, mat4scale, mat4sub, mat4transpose, normalmat3,
 } from '../../wasm/index.js';
 import { Indexable, Mat } from '../types.ts';
 import { ManagedFloat64Array } from './memory.ts';
@@ -37,8 +37,8 @@ export class Mat2 extends ManagedFloat64Array<4> implements Mat<2>, Indexable<4>
     return this;
   }
 
-  public mul(m: Mat2): this {
-    mat2mul(this.byteOffset, m.byteOffset, this.byteOffset);
+  public mul(rhs: Mat2): this {
+    mat2mul(this.byteOffset, this.byteOffset, rhs.byteOffset);
     return this;
   }
 
@@ -101,8 +101,8 @@ export class Mat3 extends ManagedFloat64Array<9> implements Mat<3>, Indexable<9>
     return this;
   }
 
-  public mul(m: Mat3): this {
-    mat3mul(this.byteOffset, m.byteOffset, this.byteOffset);
+  public mul(rhs: Mat3): this {
+    mat3mul(this.byteOffset, this.byteOffset, rhs.byteOffset);
     return this;
   }
 
@@ -121,6 +121,11 @@ export class Mat3 extends ManagedFloat64Array<9> implements Mat<3>, Indexable<9>
 
   public det(): number {
     return mat3det(this.byteOffset);
+  }
+
+  /** Coverts this to a normal matrix, which is the inverse transpose matrix. */
+  public normalMat(): boolean {
+    return !!normalmat3(this.byteOffset, this.byteOffset);
   }
 }
 
@@ -167,8 +172,8 @@ export class Mat4 extends ManagedFloat64Array<16> implements Mat<4>, Indexable<1
     return this;
   }
 
-  public mul(m: Mat4): this {
-    mat4mul(this.byteOffset, m.byteOffset, this.byteOffset);
+  public mul(rhs: Mat4): this {
+    mat4mul(this.byteOffset, this.byteOffset, rhs.byteOffset);
     return this;
   }
 
