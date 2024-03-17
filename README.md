@@ -12,8 +12,6 @@
 ## Overview
 `munum` is a minimalistic numerical library for high-performance 3D math with Rust, WebAssembly and JavaScript bindings.
 
-WIP v0.2: unification of Rust and JS source
-
 ## Documentation
 - Docs.rs: https://docs.rs/munum
 - TSDoc: http://andykswong.github.io/munum
@@ -59,6 +57,9 @@ using viewProj = perspective(aspectRatio, yfov, znear, zfar).mul(view);
 ```
 
 Note the use of `using` (which automatically calls `.free()` when out of scope). When using JavaScript binding, `munum` resources are allocated on WebAssembly memory which need to be deallocated later. `munum` uses `FinalizationRegistry` for automatic memory management, so explicit memory management with `using` or `.free()` is not required through recommended.
+
+## Usage (Pure JavaScript)
+Import from `munum/js` for pure JavaScript implementation.
 
 ## Usage (Rust)
 Sample usage to build a perspective camera view-projection matrix:

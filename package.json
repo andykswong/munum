@@ -9,13 +9,9 @@
   "exports": {
     ".": "./dist/index.js",
     "./js": "./dist/js/index.js",
-    "./wasm": "./wasm/index.js",
-    "./assembly": {
-      "import": "./assembly"
-    }
+    "./wasm": "./wasm/index.js"
   },
   "files": [
-    "/assembly",
     "/dist",
     "/wasm",
     "/wit"

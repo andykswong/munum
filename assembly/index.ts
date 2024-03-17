@@ -1,3 +1,9 @@
+/**
+ * Deprecated - This will be removed once the new code base reaches feature parity.
+ *
+ * @packageDocumentation
+ */
+
 import * as aabb from './aabb';
 import * as frustum from './frustum';
 import * as mat from './mat';

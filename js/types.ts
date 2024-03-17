@@ -13,7 +13,7 @@ export interface Mat<N extends 2 | 3 | 4> {
   scale(factor: number): this;
 
   /** Transposes this matrix. */
-  transpose(): void;
+  transpose(): this;
 
   /** Inverts this matrix. */
   invert(): boolean;

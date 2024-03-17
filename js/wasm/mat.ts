@@ -46,8 +46,9 @@ export class Mat2 extends ManagedFloat64Array<4> implements Mat<2> {
     return this;
   }
 
-  public transpose(): void {
+  public transpose(): this {
     mat2transpose(this.byteOffset, this.byteOffset);
+    return this;
   }
 
   public invert(): boolean {
@@ -104,8 +105,9 @@ export class Mat3 extends ManagedFloat64Array<9> implements Mat<3> {
     return this;
   }
 
-  public transpose(): void {
+  public transpose(): this {
     mat3transpose(this.byteOffset, this.byteOffset);
+    return this;
   }
 
   public invert(): boolean {
@@ -162,8 +164,9 @@ export class Mat4 extends ManagedFloat64Array<16> implements Mat<4> {
     return this;
   }
 
-  public transpose(): void {
+  public transpose(): this {
     mat4transpose(this.byteOffset, this.byteOffset);
+    return this;
   }
 
   public invert(): boolean {
