@@ -37,11 +37,12 @@ export interface ManagedBufferView<N extends number = number> extends ArrayBuffe
 export abstract class ManagedFloat64Array<N extends number = number>
   implements ManagedBufferView<N>, Iterable<number> {
 
-  public constructor( public byteOffset: number) {
+  public constructor(public byteOffset: number) {
     register(this);
   }
 
   public *[Symbol.iterator](): Iterator<number> {
+    if (!this.valid) { return; }
     const view = getMemoryView();
     const offset = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
     for (let i = 0; i < this.length && offset + i < view.length; i++) {
@@ -55,6 +56,7 @@ export abstract class ManagedFloat64Array<N extends number = number>
 
   /** Gets the value at given index. */
   public at(index: number): number | undefined {
+    if (index < 0 || index >= this.length) { return; }
     return getMemoryView().at((this.byteOffset / BYTES_PER_FLOAT64 + index) | 0);
   }
 
@@ -86,7 +88,7 @@ export abstract class ManagedFloat64Array<N extends number = number>
   }
 
   public get valid(): boolean {
-    return this.byteOffset > 0;
+    return this.byteOffset >= 0;
   }
 
   public abstract readonly length: N;

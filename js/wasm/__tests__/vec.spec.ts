@@ -1,13 +1,40 @@
 import { expectArrayEqual } from '../../__tests__/test-utils.ts';
 import { Mat2, Mat3, Mat4 } from '../mat.ts';
+import { getMemoryView } from '../memory.ts';
 import { Vec2, Vec3, Vec4 } from '../vec.ts';
 
 describe('Vec2', () => {
   test('constructor', () => {
     using v = new Vec2();
-    using v2 = new Vec2(1, 2);
     expectArrayEqual(v, [0, 0]);
+  });
+
+  test('free', () => {
+    const v2 = new Vec2(1, 2);
     expectArrayEqual(v2, [1, 2]);
+    v2.free();
+    expect(v2.valid).toBe(false);
+    expectArrayEqual(v2, []);
+  });
+
+  test('ArrayBufferView', () => {
+    const v = new Vec2(1, 2);
+    expect(v.byteLength).toBe(16);
+    expect(v.buffer).toBe(getMemoryView().buffer);
+  });
+
+  test('copy', () => {
+    const v = new Vec2(3, 5);
+    const v2 = new Vec2(7, 9);
+    v.copy(v2);
+    expectArrayEqual(v, v2);
+  });
+
+  test('at', () => {
+    const v = new Vec2(3, 5);
+    expect(v.at(0)).toBe(3);
+    expect(v.at(1)).toBe(5);
+    expect(v.at(2)).toBeUndefined();
   });
 
   test('set', () => {
