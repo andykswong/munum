@@ -4,5 +4,6 @@
  */
 
 export * from './wasm/index.ts';
+export * from './memory.ts';
 export * from './scalar.ts';
 export * from './types.ts';

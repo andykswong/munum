@@ -1,6 +1,6 @@
 import { expectArrayEqual } from '../../__tests__/test-utils.ts';
 import { Mat2, Mat3, Mat4 } from '../mat.ts';
-import { getMemoryView } from '../memory.ts';
+import { memoryManager } from '../memory.ts';
 import { Vec2, Vec3, Vec4 } from '../vec.ts';
 
 describe('Vec2', () => {
@@ -20,7 +20,7 @@ describe('Vec2', () => {
   test('ArrayBufferView', () => {
     const v = new Vec2(1, 2);
     expect(v.byteLength).toBe(16);
-    expect(v.buffer).toBe(getMemoryView().buffer);
+    expect(v.buffer).toBe(memoryManager.buffer);
   });
 
   test('copy', () => {

@@ -1,5 +1,5 @@
 /**
- * Pure JS implementation of munum.
+ * WIP: Pure JS implementation of munum.
  * @packageDocumentation
  */
 
