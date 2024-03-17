@@ -1,6 +1,6 @@
 {
   "name": "munum",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Micro 3D Math Library for JavaScript and WebAssembly",
   "type": "module",
   "sideEffects": false,
@@ -90,7 +90,9 @@
       "!**/__tests__/**"
     ],
     "coverageDirectory": "coverage",
-    "setupFiles": ["core-js"]
+    "setupFiles": [
+      "core-js"
+    ]
   },
   "workspaces": [
     "packages/libmath"

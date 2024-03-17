@@ -30,7 +30,7 @@ export function useFinalizationRegistry(use: boolean): void {
   usingFinalizationRegistry = use;
 }
 
-const registry = global.FinalizationRegistry &&
+const registry = globalThis.FinalizationRegistry &&
   new FinalizationRegistry(([ptr, size]: [number, number]) => memoryManager.free(ptr, size));
 
 function register(arr: ManagedBufferView): void {
