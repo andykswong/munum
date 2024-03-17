@@ -1,22 +1,22 @@
 import {
-  mat3vec2mul, mat4vec3mul,
+  create, mat3vec2mul, mat4vec3mul,
   vec2add, vec2dot, vec2lerp, vec2mul, vec2norm, vec2scale, vec2sub,
   vec3add, vec3cross, vec3dot, vec3lerp, vec3mul, vec3norm, vec3scale, vec3sub,
   vec4add, vec4dot, vec4lerp, vec4mul, vec4norm, vec4scale, vec4sub,
 } from '../../wasm/index.js';
-import { Indexable, Vec } from '../types.ts';
+import { Vec } from '../types.ts';
 import { Mat2, Mat3, Mat4 } from './mat.ts';
 import { ManagedFloat64Array } from './memory.ts';
 
 /** A 2D vector. */
-export class Vec2 extends ManagedFloat64Array<2> implements Vec<2>, Indexable<2> {
-  public 0: number;
-  public 1: number;
-
+export class Vec2 extends ManagedFloat64Array<2> implements Vec<2> {
   public constructor(x = 0, y = 0) {
-    super(2);
-    this[0] = x;
-    this[1] = y;
+    super(create(2));
+    this.set([x, y]);
+  }
+
+  public override get length(): 2 {
+    return 2;
   }
 
   public add(rhs: Vec2): this {
@@ -60,16 +60,14 @@ export class Vec2 extends ManagedFloat64Array<2> implements Vec<2>, Indexable<2>
 }
 
 /** A 3D vector. */
-export class Vec3 extends ManagedFloat64Array<3> implements Vec<3>, Indexable<3> {
-  public 0: number;
-  public 1: number;
-  public 2: number;
-
+export class Vec3 extends ManagedFloat64Array<3> implements Vec<3> {
   public constructor(x = 0, y = 0, z = 0) {
-    super(3);
-    this[0] = x;
-    this[1] = y;
-    this[2] = z;
+    super(create(3));
+    this.set([x, y, z]);
+  }
+
+  public override get length(): 3 {
+    return 3;
   }
 
   public add(rhs: Vec3): this {
@@ -119,18 +117,14 @@ export class Vec3 extends ManagedFloat64Array<3> implements Vec<3>, Indexable<3>
 }
 
 /** A 4D vector. */
-export class Vec4 extends ManagedFloat64Array<4> implements Vec<4>, Indexable<4> {
-  public 0: number;
-  public 1: number;
-  public 2: number;
-  public 3: number;
-
+export class Vec4 extends ManagedFloat64Array<4> implements Vec<4> {
   public constructor(x = 0, y = 0, z = 0, w = 0) {
-    super(4);
-    this[0] = x;
-    this[1] = y;
-    this[2] = z;
-    this[3] = w;
+    super(create(4));
+    this.set([x, y, z, w]);
+  }
+
+  public override get length(): 4 {
+    return 4;
   }
 
   public add(rhs: Vec4): this {

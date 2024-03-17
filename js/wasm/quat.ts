@@ -2,17 +2,12 @@ import {
   quatdot, quatfromanglex, quatfromangley, quatfromanglez, quatfromaxisangle, quatfromunitvecs, quatidentity,
   quatinvert, quatlerp, quatmul, quatnorm, quatslerp, quatvec3rotate
 } from '../../wasm/index.js';
-import { IQuat, Indexable } from '../types.ts';
+import { IQuat } from '../types.ts';
 import { ManagedFloat64Array } from './memory.ts';
 import { Vec3 } from './vec.ts';
 
 /** A quaternion. */
-export class Quat extends ManagedFloat64Array<4> implements IQuat, Indexable<4> {
-  public 0: number;
-  public 1: number;
-  public 2: number;
-  public 3: number;
-
+export class Quat extends ManagedFloat64Array<4> implements IQuat {
   /** Return an identity Quat. */
   public static identity(): Quat {
     return new Quat(quatidentity());
@@ -44,7 +39,11 @@ export class Quat extends ManagedFloat64Array<4> implements IQuat, Indexable<4> 
   }
 
   private constructor(ptr: number) {
-    super(4, ptr);
+    super(ptr);
+  }
+
+  public override get length(): 4 {
+    return 4;
   }
 
   public mul(rhs: Quat): this {

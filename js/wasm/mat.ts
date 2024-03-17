@@ -3,16 +3,11 @@ import {
   mat3identity, mat3add, mat3det, mat3frommat2, mat3frommat4, mat3invert, mat3mul, mat3scale, mat3sub, mat3transpose,
   mat4identity, mat4add, mat4det, mat4frommat3, mat4invert, mat4mul, mat4scale, mat4sub, mat4transpose, normalmat3,
 } from '../../wasm/index.js';
-import { Indexable, Mat } from '../types.ts';
+import { Mat } from '../types.ts';
 import { ManagedFloat64Array } from './memory.ts';
 
 /** A 2x2 matrix. */
-export class Mat2 extends ManagedFloat64Array<4> implements Mat<2>, Indexable<4> {
-  public 0: number;
-  public 1: number;
-  public 2: number;
-  public 3: number;
-
+export class Mat2 extends ManagedFloat64Array<4> implements Mat<2> {
   /** Return an identity Mat2. */
   public static identity(): Mat2 {
     return new Mat2(mat2identity());
@@ -24,7 +19,11 @@ export class Mat2 extends ManagedFloat64Array<4> implements Mat<2>, Indexable<4>
   }
 
   private constructor(ptr: number) {
-    super(4, ptr);
+    super(ptr);
+  }
+
+  public override get length(): 4 {
+    return 4;
   }
 
   public add(rhs: Mat2): this {
@@ -61,17 +60,7 @@ export class Mat2 extends ManagedFloat64Array<4> implements Mat<2>, Indexable<4>
 }
 
 /** A 3x3 matrix. */
-export class Mat3 extends ManagedFloat64Array<9> implements Mat<3>, Indexable<9> {
-  public 0: number;
-  public 1: number;
-  public 2: number;
-  public 3: number;
-  public 4: number;
-  public 5: number;
-  public 6: number;
-  public 7: number;
-  public 8: number;
-
+export class Mat3 extends ManagedFloat64Array<9> implements Mat<3> {
   /** Return an identity Mat3. */
   public static identity(): Mat3 {
     return new Mat3(mat3identity());
@@ -88,7 +77,11 @@ export class Mat3 extends ManagedFloat64Array<9> implements Mat<3>, Indexable<9>
   }
 
   private constructor(ptr: number) {
-    super(9, ptr);
+    super(ptr);
+  }
+
+  public override get length(): 9 {
+    return 9;
   }
 
   public add(rhs: Mat3): this {
@@ -130,24 +123,7 @@ export class Mat3 extends ManagedFloat64Array<9> implements Mat<3>, Indexable<9>
 }
 
 /** A 4x4 matrix. */
-export class Mat4 extends ManagedFloat64Array<16> implements Mat<4>, Indexable<16> {
-  public 0: number;
-  public 1: number;
-  public 2: number;
-  public 3: number;
-  public 4: number;
-  public 5: number;
-  public 6: number;
-  public 7: number;
-  public 8: number;
-  public 9: number;
-  public 10: number;
-  public 11: number;
-  public 12: number;
-  public 13: number;
-  public 14: number;
-  public 15: number;
-
+export class Mat4 extends ManagedFloat64Array<16> implements Mat<4> {
   /** Return an identity Mat4. */
   public static identity(): Mat4 {
     return new Mat4(mat4identity());
@@ -159,7 +135,11 @@ export class Mat4 extends ManagedFloat64Array<16> implements Mat<4>, Indexable<1
   }
 
   private constructor(ptr: number) {
-    super(16, ptr);
+    super(ptr);
+  }
+
+  public override get length(): 16 {
+    return 16;
   }
 
   public add(rhs: Mat4): this {

@@ -1,12 +1,3 @@
-/** Index range. */
-export type IndexRange<N extends number, Result extends number[] = []> =
-  Result['length'] extends N ? Result[number] : IndexRange<N, [...Result, Result['length']]>;
-
-/** Indexable object. */
-export type Indexable<N extends number> = {
-  [index in IndexRange<N>]: number;
-};
-
 /** A N x N matrix. */
 export interface Mat<N extends 2 | 3 | 4> {
   /** Adds RHS to this matrix. */
