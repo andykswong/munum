@@ -77,13 +77,22 @@ export abstract class ManagedFloat64Array<N extends number = number>
   /** Gets the value at given index. */
   public at(index: number): number | undefined {
     if (index < 0 || index >= this.length) { return; }
-    return memoryManager.view.at((this.byteOffset / BYTES_PER_FLOAT64 + index) | 0);
+    return memoryManager.view[(this.byteOffset / BYTES_PER_FLOAT64 + index) | 0];
+  }
+
+  /** Sets the value at given index. */
+  public setAt(index: number, value: number) {
+    if (index < 0 || index >= this.length) { return; }
+    memoryManager.view[(this.byteOffset / BYTES_PER_FLOAT64 + index) | 0] = value;
   }
 
   /** Copies a managed array to this. */
-  public copy(from: ManagedFloat64Array, offset = 0, length = Math.min(from.length, this.length - offset)) {
-    const start = (from.byteOffset / BYTES_PER_FLOAT64) | 0;
-    memoryManager.view.copyWithin((this.byteOffset / BYTES_PER_FLOAT64 + offset) | 0, start, start + length);
+  public copy(
+    from: ManagedFloat64Array, dstOffset = 0, srcOffset = 0,
+    length = Math.min(from.length - srcOffset, this.length - dstOffset)
+  ) {
+    const start = (from.byteOffset / BYTES_PER_FLOAT64 + srcOffset) | 0;
+    memoryManager.view.copyWithin((this.byteOffset / BYTES_PER_FLOAT64 + dstOffset) | 0, start, start + length);
   }
 
   /** Copies an array to this. */

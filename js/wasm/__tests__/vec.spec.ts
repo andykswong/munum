@@ -94,7 +94,7 @@ describe('Vec2', () => {
     expect(v.dot(v2)).toBe(43);
   });
 
-  test('norm', () => {
+  test('normalize', () => {
     const v = new Vec2(5, 12);
     expect(v.normalize()).toBe(true);
     expectArrayEqual(v, [5 / 13, 12 / 13]);
@@ -169,7 +169,7 @@ describe('Vec3', () => {
     expect(v.dot(v2)).toBe(627);
   });
 
-  test('norm', () => {
+  test('normalize', () => {
     const v = new Vec3(3, 4, 12);
     expect(v.normalize()).toBe(true);
     expectArrayEqual(v, [3 / 13, 4 / 13, 12 / 13]);
@@ -243,7 +243,7 @@ describe('Vec4', () => {
     expect(v.dot(v2)).toBe(7084);
   });
 
-  test('norm', () => {
+  test('normalize', () => {
     const v = new Vec4(2, 5, 14, 8);
     expect(v.normalize()).toBe(true);
     expectArrayEqual(v, [2 / 17, 5 / 17, 14 / 17, 8 / 17]);

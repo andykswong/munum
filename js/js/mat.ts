@@ -71,10 +71,10 @@ export class Mat2 extends ManagedFloat64Array<4> implements Mat<2> {
 
     const ptr = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
     const view = memoryManager.view;
-    TEMP[0] = view[ptr + 3] / detA,
-      TEMP[1] = -view[ptr + 1] / detA,
-      TEMP[2] = -view[ptr + 2] / detA,
-      TEMP[3] = view[ptr + 0] / detA;
+    TEMP[0] = view[ptr + 3] / detA;
+    TEMP[1] = -view[ptr + 1] / detA;
+    TEMP[2] = -view[ptr + 2] / detA;
+    TEMP[3] = view[ptr + 0] / detA;
 
     for (let i = 0; i < 4; ++i) {
       view[ptr + i] = TEMP[i];

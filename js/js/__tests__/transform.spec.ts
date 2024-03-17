@@ -3,8 +3,8 @@ import { Mat3, Mat4 } from '../mat.ts';
 import { Quat } from '../quat.ts';
 import {
   translation2d, rotation2d, scaling2d, transformation2d,
-  translation, scaling, rotation, inverseTRS, transformation, translationOf, scalingOf, rotationOf,
-  ortho, perspective, targetTo, lookAtDir, lookAt, perspectiveViewport
+  translation, scaling, rotation, translationOf, scalingOf, rotationOf, transformation, inverseTRS,
+  lookAt, lookAtDir, ortho, perspective, perspectiveViewport, targetTo
 } from '../transform.ts';
 import { Vec2, Vec3 } from '../vec.ts';
 

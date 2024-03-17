@@ -24,7 +24,6 @@ module.exports = api => {
     ],
     plugins: [
       '@babel/plugin-proposal-explicit-resource-management',
-      './babel.transform.cjs'
     ],
     ignore: ['node_modules'],
     comments: false,
