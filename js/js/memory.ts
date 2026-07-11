@@ -1,46 +1,55 @@
-import { ManagedFloat64Array, MemoryManager, setMemoryManager, useFinalizationRegistry } from '../memory.ts';
+import {
+  AbstractMemoryManager,
+  BYTES_PER_FLOAT64,
+  ManagedFloat64Array,
+  externalPointer,
+  float64View,
+} from '../memory.ts';
+import type { Float64ArrayPointer, Float64ArrayViewProvider, MemoryManager } from '../memory.ts';
 
-export const BYTES_PER_FLOAT64 = 8;
-const memory = new WebAssembly.Memory({ initial: 0 });
-const freeList: Record<number, number> = {};
-let view = new Float64Array(memory.buffer);
-let next = 0;
+/** Free-list allocator over a growable WebAssembly linear memory. */
+class JsMemoryManager extends AbstractMemoryManager {
+  private readonly memory = new WebAssembly.Memory({ initial: 0 });
+  private readonly freeList: Record<number, number> = {};
+  private cachedView = new Float64Array(this.memory.buffer);
+  private next = 0;
 
-/** Free-list allocator using WASM growable memory. */
-export const memoryManager: MemoryManager = {
-  get buffer() {
-    return memory.buffer;
-  },
-  get view() {
-    return view;
-  },
-  create: function (size: number): number {
-    if (freeList[size]) {
-      const offset = freeList[size] - 1;
-      freeList[size] = view[offset];
+  public override get view(): Float64Array {
+    if (this.cachedView.buffer !== this.memory.buffer) {
+      this.cachedView = new Float64Array(this.memory.buffer);
+    }
+    return this.cachedView;
+  }
+
+  protected override createRaw(size: number): number {
+    if (this.freeList[size]) {
+      const offset = this.freeList[size] - 1;
+      this.freeList[size] = this.view[offset];
       return offset * BYTES_PER_FLOAT64;
     }
 
-    if (next + size > view.length) {
-      memory.grow(1);
-      view = new Float64Array(memory.buffer);
+    if (this.next + size > this.view.length) {
+      this.memory.grow(1);
+      this.cachedView = new Float64Array(this.memory.buffer);
     }
 
-    const offset = next;
-    next += size;
+    const offset = this.next;
+    this.next += size;
     return offset * BYTES_PER_FLOAT64;
-  },
-  free: function (byteOffset: number, size: number): void {
+  }
+
+  protected override freeRaw(byteOffset: number, size: number): void {
     const offset = Math.ceil(byteOffset / BYTES_PER_FLOAT64);
-    if (offset + size > view.length) {
+    if (offset + size > this.view.length) {
       return;
     }
-    view[offset] = freeList[size] || 0;
-    freeList[size] = offset + 1;
+    this.view[offset] = this.freeList[size] || 0;
+    this.freeList[size] = offset + 1;
   }
-};
+}
 
-setMemoryManager(memoryManager);
+/** The default {@link MemoryManager} for the pure-JS implementation. */
+export const memoryManager = new JsMemoryManager();
 
-export type { MemoryManager };
-export { ManagedFloat64Array, setMemoryManager, useFinalizationRegistry };
+export type { Float64ArrayPointer, Float64ArrayViewProvider, MemoryManager };
+export { AbstractMemoryManager, BYTES_PER_FLOAT64, ManagedFloat64Array, externalPointer, float64View };

@@ -103,44 +103,49 @@ impl<G: MemoryGrower> FreeListAllocator<G> {
 unsafe impl<T: MemoryGrower> GlobalAlloc for FreeListAllocator<T> {
     unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
         let size = layout.size();
-        match size {
-            16 => {
-                let ptr = (*self.free_vec2.get()).next;
-                if let Some(next) = ptr.as_ref() {
-                    (*self.free_vec2.get()).next = next.next;
-                    return ptr as *mut u8;
+        // SAFETY: the free-list heads and their nodes are only ever accessed
+        // through this non-thread-safe allocator; each `.next` link is either
+        // null or points to a node previously handed back by `dealloc`.
+        unsafe {
+            match size {
+                16 => {
+                    let ptr = (*self.free_vec2.get()).next;
+                    if let Some(next) = ptr.as_ref() {
+                        (*self.free_vec2.get()).next = next.next;
+                        return ptr as *mut u8;
+                    }
                 }
-            }
-            24 => {
-                let ptr = (*self.free_vec3.get()).next;
-                if let Some(next) = ptr.as_ref() {
-                    (*self.free_vec3.get()).next = next.next;
-                    return ptr as *mut u8;
+                24 => {
+                    let ptr = (*self.free_vec3.get()).next;
+                    if let Some(next) = ptr.as_ref() {
+                        (*self.free_vec3.get()).next = next.next;
+                        return ptr as *mut u8;
+                    }
                 }
-            }
-            32 => {
-                let ptr = (*self.free_vec4.get()).next;
-                if let Some(next) = ptr.as_ref() {
-                    (*self.free_vec4.get()).next = next.next;
-                    return ptr as *mut u8;
+                32 => {
+                    let ptr = (*self.free_vec4.get()).next;
+                    if let Some(next) = ptr.as_ref() {
+                        (*self.free_vec4.get()).next = next.next;
+                        return ptr as *mut u8;
+                    }
                 }
-            }
-            72 => {
-                let ptr = (*self.free_vec9.get()).next;
-                if let Some(next) = ptr.as_ref() {
-                    (*self.free_vec9.get()).next = next.next;
-                    return ptr as *mut u8;
+                72 => {
+                    let ptr = (*self.free_vec9.get()).next;
+                    if let Some(next) = ptr.as_ref() {
+                        (*self.free_vec9.get()).next = next.next;
+                        return ptr as *mut u8;
+                    }
                 }
-            }
-            128 => {
-                let ptr = (*self.free_vec16.get()).next;
-                if let Some(next) = ptr.as_ref() {
-                    (*self.free_vec16.get()).next = next.next;
-                    return ptr as *mut u8;
+                128 => {
+                    let ptr = (*self.free_vec16.get()).next;
+                    if let Some(next) = ptr.as_ref() {
+                        (*self.free_vec16.get()).next = next.next;
+                        return ptr as *mut u8;
+                    }
                 }
+                // Other sizes are not supported
+                _ => return ptr::null_mut(),
             }
-            // Other sizes are not supported
-            _ => return ptr::null_mut(),
         }
 
         self.grow_alloc(size)
@@ -150,28 +155,33 @@ unsafe impl<T: MemoryGrower> GlobalAlloc for FreeListAllocator<T> {
         let ptr = ptr as *mut FreeListNode;
         let size = layout.size();
 
-        match size {
-            16 => {
-                (*ptr).next = (*self.free_vec2.get()).next;
-                (*self.free_vec2.get()).next = ptr;
+        // SAFETY: `ptr` was produced by a matching `alloc` call for `layout`,
+        // so it is valid to write its `next` link and push it onto the head of
+        // the size-matched free list.
+        unsafe {
+            match size {
+                16 => {
+                    (*ptr).next = (*self.free_vec2.get()).next;
+                    (*self.free_vec2.get()).next = ptr;
+                }
+                24 => {
+                    (*ptr).next = (*self.free_vec3.get()).next;
+                    (*self.free_vec3.get()).next = ptr;
+                }
+                32 => {
+                    (*ptr).next = (*self.free_vec4.get()).next;
+                    (*self.free_vec4.get()).next = ptr;
+                }
+                72 => {
+                    (*ptr).next = (*self.free_vec9.get()).next;
+                    (*self.free_vec9.get()).next = ptr;
+                }
+                128 => {
+                    (*ptr).next = (*self.free_vec16.get()).next;
+                    (*self.free_vec16.get()).next = ptr;
+                }
+                _ => (), // Other sizes are not supported
             }
-            24 => {
-                (*ptr).next = (*self.free_vec3.get()).next;
-                (*self.free_vec3.get()).next = ptr;
-            }
-            32 => {
-                (*ptr).next = (*self.free_vec4.get()).next;
-                (*self.free_vec4.get()).next = ptr;
-            }
-            72 => {
-                (*ptr).next = (*self.free_vec9.get()).next;
-                (*self.free_vec9.get()).next = ptr;
-            }
-            128 => {
-                (*ptr).next = (*self.free_vec16.get()).next;
-                (*self.free_vec16.get()).next = ptr;
-            }
-            _ => return, // Other sizes are not supported
         }
     }
 }

@@ -3,9 +3,11 @@
   "name": "munum",
   "includeVersion": true,
   "out": "./docs",
+  "tsconfig": "./tsconfig.json",
+  "highlightLanguages": ["javascript", "typescript", "rust", "shell", "json"],
   "entryPoints": [
-    "./js",
-    "./js/js"
+    "./js/index.ts",
+    "./js/js/index.ts"
   ],
   "readme": "./README.md"
 }

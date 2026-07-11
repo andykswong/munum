@@ -184,7 +184,7 @@ impl<T: Copy + NumAssign, const N: usize> One for Matrix<T, N, N> {
 impl<T: Copy + NumAssign, const N: usize> MulAssign for Matrix<T, N, N> {
     #[inline]
     fn mul_assign(&mut self, rhs: Matrix<T, N, N>) {
-        self.mul_assign(self.clone(), rhs);
+        self.mul_assign(*self, rhs);
     }
 }
 

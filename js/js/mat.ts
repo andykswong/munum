@@ -1,6 +1,7 @@
-import { Mat } from '../types.ts';
+import type { Mat } from '../types.ts';
 import { add, sub, scale, mul, transpose } from './helpers.ts';
 import { BYTES_PER_FLOAT64, ManagedFloat64Array, memoryManager } from './memory.ts';
+import type { Float64ArrayPointer, Float64ArrayViewProvider, MemoryManager } from './memory.ts';
 
 const TEMP = Array(16);
 const MAT2_ID = [1, 0, 0, 1];
@@ -10,27 +11,33 @@ const MAT4_ID = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
 /** A 2x2 matrix. */
 export class Mat2 extends ManagedFloat64Array<4> implements Mat<2> {
   /** Return an identity Mat2. */
-  public static identity(): Mat2 {
-    const m = new Mat2(memoryManager.create(4));
+  public static identity(manager: MemoryManager = memoryManager): Mat2 {
+    const m = new Mat2(manager.allocate(4));
     m.set(MAT2_ID);
     return m;
   }
 
   /** Return a Mat2 from Mat3. */
-  public static fromMat3(m: Mat3): Mat2 {
-    const ptr = memoryManager.create(4);
-    const left = (ptr / BYTES_PER_FLOAT64) | 0;
+  public static fromMat3(m: Mat3, manager: MemoryManager = memoryManager): Mat2 {
+    const ptr = manager.allocate(4);
+    const left = (ptr.byteOffset / BYTES_PER_FLOAT64) | 0;
     const right = (m.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const dst = ptr.view;
+    const src = m.view;
     for (let c = 0; c < 2; ++c) {
       for (let r = 0; r < 2; ++r) {
-        view[left + c * 2 + r] = view[right + c * 3 + r];
+        dst[left + c * 2 + r] = src[right + c * 3 + r];
       }
     }
     return new Mat2(ptr);
   }
 
-  private constructor(ptr: number) {
+  /** Wraps an existing memory region as a borrowed (non-owning) Mat2. */
+  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Mat2 {
+    return ManagedFloat64Array.viewAs(Mat2, 4, source, byteOffset);
+  }
+
+  private constructor(ptr: Float64ArrayPointer) {
     super(ptr);
   }
 
@@ -70,7 +77,7 @@ export class Mat2 extends ManagedFloat64Array<4> implements Mat<2> {
     }
 
     const ptr = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const view = this.view;
     TEMP[0] = view[ptr + 3] / detA;
     TEMP[1] = -view[ptr + 1] / detA;
     TEMP[2] = -view[ptr + 2] / detA;
@@ -85,7 +92,7 @@ export class Mat2 extends ManagedFloat64Array<4> implements Mat<2> {
 
   public det(): number {
     const ptr = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const view = this.view;
 
     return view[ptr + 0] * view[ptr + 3] - view[ptr + 2] * view[ptr + 1];
   }
@@ -94,45 +101,52 @@ export class Mat2 extends ManagedFloat64Array<4> implements Mat<2> {
 /** A 3x3 matrix. */
 export class Mat3 extends ManagedFloat64Array<9> implements Mat<3> {
   /** Return an identity Mat3. */
-  public static identity(): Mat3 {
-    const m = new Mat3(memoryManager.create(9));
+  public static identity(manager: MemoryManager = memoryManager): Mat3 {
+    const m = new Mat3(manager.allocate(9));
     m.set(MAT3_ID);
     return m;
   }
 
   /** Return a Mat3 from Mat2. */
-  public static fromMat2(m: Mat2): Mat3 {
-    const ptr = memoryManager.create(9);
-    const left = (ptr / BYTES_PER_FLOAT64) | 0;
+  public static fromMat2(m: Mat2, manager: MemoryManager = memoryManager): Mat3 {
+    const ptr = manager.allocate(9);
+    const left = (ptr.byteOffset / BYTES_PER_FLOAT64) | 0;
     const right = (m.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const dst = ptr.view;
+    const src = m.view;
     for (let c = 0; c < 2; ++c) {
       for (let r = 0; r < 2; ++r) {
-        view[left + c * 3 + r] = view[right + c * 2 + r];
+        dst[left + c * 3 + r] = src[right + c * 2 + r];
       }
-      view[left + c * 3 + 2] = 0;
+      dst[left + c * 3 + 2] = 0;
     }
-    view[left + 6] = 0;
-    view[left + 7] = 0;
-    view[left + 8] = 1;
+    dst[left + 6] = 0;
+    dst[left + 7] = 0;
+    dst[left + 8] = 1;
     return new Mat3(ptr);
   }
 
   /** Return a Mat3 from Mat4. */
-  public static fromMat4(m: Mat4): Mat3 {
-    const ptr = memoryManager.create(9);
-    const left = (ptr / BYTES_PER_FLOAT64) | 0;
+  public static fromMat4(m: Mat4, manager: MemoryManager = memoryManager): Mat3 {
+    const ptr = manager.allocate(9);
+    const left = (ptr.byteOffset / BYTES_PER_FLOAT64) | 0;
     const right = (m.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const dst = ptr.view;
+    const src = m.view;
     for (let c = 0; c < 3; ++c) {
       for (let r = 0; r < 3; ++r) {
-        view[left + c * 3 + r] = view[right + c * 4 + r];
+        dst[left + c * 3 + r] = src[right + c * 4 + r];
       }
     }
     return new Mat3(ptr);
   }
 
-  private constructor(ptr: number) {
+  /** Wraps an existing memory region as a borrowed (non-owning) Mat3. */
+  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Mat3 {
+    return ManagedFloat64Array.viewAs(Mat3, 9, source, byteOffset);
+  }
+
+  private constructor(ptr: Float64ArrayPointer) {
     super(ptr);
   }
 
@@ -176,7 +190,7 @@ export class Mat3 extends ManagedFloat64Array<9> implements Mat<3> {
     }
 
     const ptr = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const view = this.view;
     TEMP[0] = +(view[ptr + 4] * view[ptr + 8] - view[ptr + 7] * view[ptr + 5]);
     TEMP[1] = -(view[ptr + 1] * view[ptr + 8] - view[ptr + 7] * view[ptr + 2]);
     TEMP[2] = +(view[ptr + 1] * view[ptr + 5] - view[ptr + 4] * view[ptr + 2]);
@@ -196,12 +210,12 @@ export class Mat3 extends ManagedFloat64Array<9> implements Mat<3> {
 
   public det(): number {
     const ptr = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const view = this.view;
     return (
       view[ptr + 0] * +(view[ptr + 4] * view[ptr + 8] - view[ptr + 7] * view[ptr + 5]) +
       view[ptr + 3] * -(view[ptr + 1] * view[ptr + 8] - view[ptr + 7] * view[ptr + 2]) +
       view[ptr + 6] * +(view[ptr + 1] * view[ptr + 5] - view[ptr + 4] * view[ptr + 2])
-    )
+    );
   }
 
   /** Coverts this to a normal matrix, which is the inverse transpose matrix. */
@@ -217,32 +231,38 @@ export class Mat3 extends ManagedFloat64Array<9> implements Mat<3> {
 /** A 4x4 matrix. */
 export class Mat4 extends ManagedFloat64Array<16> implements Mat<4> {
   /** Return an identity Mat4. */
-  public static identity(): Mat4 {
-    const m = new Mat4(memoryManager.create(16));
+  public static identity(manager: MemoryManager = memoryManager): Mat4 {
+    const m = new Mat4(manager.allocate(16));
     m.set(MAT4_ID);
     return m;
   }
 
   /** Return a Mat4 from Mat3. */
-  public static fromMat3(m: Mat3): Mat4 {
-    const ptr = memoryManager.create(16);
-    const left = (ptr / BYTES_PER_FLOAT64) | 0;
+  public static fromMat3(m: Mat3, manager: MemoryManager = memoryManager): Mat4 {
+    const ptr = manager.allocate(16);
+    const left = (ptr.byteOffset / BYTES_PER_FLOAT64) | 0;
     const right = (m.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const dst = ptr.view;
+    const src = m.view;
     for (let c = 0; c < 3; ++c) {
       for (let r = 0; r < 3; ++r) {
-        view[left + c * 4 + r] = view[right + c * 3 + r];
+        dst[left + c * 4 + r] = src[right + c * 3 + r];
       }
-      view[left + c * 4 + 3] = 0;
+      dst[left + c * 4 + 3] = 0;
     }
-    view[left + 12] = 0;
-    view[left + 13] = 0;
-    view[left + 14] = 0;
-    view[left + 15] = 1;
+    dst[left + 12] = 0;
+    dst[left + 13] = 0;
+    dst[left + 14] = 0;
+    dst[left + 15] = 1;
     return new Mat4(ptr);
   }
 
-  private constructor(ptr: number) {
+  /** Wraps an existing memory region as a borrowed (non-owning) Mat4. */
+  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Mat4 {
+    return ManagedFloat64Array.viewAs(Mat4, 16, source, byteOffset);
+  }
+
+  private constructor(ptr: Float64ArrayPointer) {
     super(ptr);
   }
 
@@ -277,7 +297,7 @@ export class Mat4 extends ManagedFloat64Array<16> implements Mat<4> {
 
   public invert(): boolean {
     const ptr = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const view = this.view;
     const fA0 = (view[ptr + 0] * view[ptr + 5] - view[ptr + 4] * view[ptr + 1]);
     const fA1 = (view[ptr + 0] * view[ptr + 9] - view[ptr + 8] * view[ptr + 1]);
     const fA2 = (view[ptr + 0] * view[ptr + 13] - view[ptr + 12] * view[ptr + 1]);
@@ -322,7 +342,7 @@ export class Mat4 extends ManagedFloat64Array<16> implements Mat<4> {
 
   public det(): number {
     const ptr = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const view = this.view;
     const fA0 = (view[ptr + 0] * view[ptr + 5] - view[ptr + 4] * view[ptr + 1]);
     const fA1 = (view[ptr + 0] * view[ptr + 9] - view[ptr + 8] * view[ptr + 1]);
     const fA2 = (view[ptr + 0] * view[ptr + 13] - view[ptr + 12] * view[ptr + 1]);

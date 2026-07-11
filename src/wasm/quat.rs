@@ -2,12 +2,12 @@ use super::ptr::Load;
 use crate::{Quaternion, Vec3};
 use alloc::boxed::Box;
 
-#[export_name = concat!("quatidentity")]
+#[unsafe(export_name = concat!("quatidentity"))]
 pub extern "C" fn quat_identity() -> *const Quaternion<f64> {
     Box::into_raw(Box::new(Quaternion::identity()))
 }
 
-#[export_name = concat!("quatfromunitvecs")]
+#[unsafe(export_name = concat!("quatfromunitvecs"))]
 pub extern "C" fn quat_from_unit_vecs(
     from: *const Vec3<f64>,
     to: *const Vec3<f64>,
@@ -15,7 +15,7 @@ pub extern "C" fn quat_from_unit_vecs(
     Box::into_raw(Box::new(Quaternion::from_unit_vecs(from.load(), to.load())))
 }
 
-#[export_name = concat!("quatfromaxisangle")]
+#[unsafe(export_name = concat!("quatfromaxisangle"))]
 pub extern "C" fn quat_from_axis_angle(
     axis: *const Vec3<f64>,
     angle: f64,
@@ -23,22 +23,22 @@ pub extern "C" fn quat_from_axis_angle(
     Box::into_raw(Box::new(Quaternion::from_axis_angle(axis.load(), angle)))
 }
 
-#[export_name = concat!("quatfromanglex")]
+#[unsafe(export_name = concat!("quatfromanglex"))]
 pub extern "C" fn quat_from_angle_x(angle: f64) -> *const Quaternion<f64> {
     Box::into_raw(Box::new(Quaternion::from_angle_x(angle)))
 }
 
-#[export_name = concat!("quatfromangley")]
+#[unsafe(export_name = concat!("quatfromangley"))]
 pub extern "C" fn quat_from_angle_y(angle: f64) -> *const Quaternion<f64> {
     Box::into_raw(Box::new(Quaternion::from_angle_y(angle)))
 }
 
-#[export_name = concat!("quatfromanglez")]
+#[unsafe(export_name = concat!("quatfromanglez"))]
 pub extern "C" fn quat_from_angle_z(angle: f64) -> *const Quaternion<f64> {
     Box::into_raw(Box::new(Quaternion::from_angle_z(angle)))
 }
 
-#[export_name = concat!("quatmul")]
+#[unsafe(export_name = concat!("quatmul"))]
 pub extern "C" fn quat_mul(
     out: *mut Quaternion<f64>,
     a: *const Quaternion<f64>,
@@ -51,7 +51,7 @@ pub extern "C" fn quat_mul(
     out
 }
 
-#[export_name = concat!("quatvec3rotate")]
+#[unsafe(export_name = concat!("quatvec3rotate"))]
 pub extern "C" fn quat_rotate_vec3(
     out: *mut Vec3<f64>,
     q: *const Quaternion<f64>,
@@ -63,7 +63,7 @@ pub extern "C" fn quat_rotate_vec3(
     out
 }
 
-#[export_name = concat!("quatnorm")]
+#[unsafe(export_name = concat!("quatnorm"))]
 pub extern "C" fn quat_norm(out: *mut Quaternion<f64>, q: *const Quaternion<f64>) -> bool {
     if let Some(o) = unsafe { out.as_mut() } {
         *o = q.load();
@@ -73,12 +73,12 @@ pub extern "C" fn quat_norm(out: *mut Quaternion<f64>, q: *const Quaternion<f64>
     }
 }
 
-#[export_name = concat!("quatdot")]
+#[unsafe(export_name = concat!("quatdot"))]
 pub extern "C" fn quat_dot(a: *const Quaternion<f64>, b: *const Quaternion<f64>) -> f64 {
     a.load().dot(b.load())
 }
 
-#[export_name = concat!("quatinvert")]
+#[unsafe(export_name = concat!("quatinvert"))]
 pub extern "C" fn quat_invert(out: *mut Quaternion<f64>, q: *const Quaternion<f64>) -> bool {
     if let Some(o) = unsafe { out.as_mut() } {
         *o = q.load();
@@ -88,7 +88,7 @@ pub extern "C" fn quat_invert(out: *mut Quaternion<f64>, q: *const Quaternion<f6
     }
 }
 
-#[export_name = concat!("quatlerp")]
+#[unsafe(export_name = concat!("quatlerp"))]
 pub extern "C" fn quat_lerp(
     out: *mut Quaternion<f64>,
     a: *const Quaternion<f64>,
@@ -101,7 +101,7 @@ pub extern "C" fn quat_lerp(
     out
 }
 
-#[export_name = concat!("quatslerp")]
+#[unsafe(export_name = concat!("quatslerp"))]
 pub extern "C" fn quat_slerp(
     out: *mut Quaternion<f64>,
     a: *const Quaternion<f64>,

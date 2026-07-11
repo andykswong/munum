@@ -634,7 +634,6 @@ impl<T: Copy + NumAssign> Mul for Quaternion<T> {
 #[cfg(feature = "serde")]
 #[cfg(test)]
 mod tests {
-    use alloc::vec;
     use serde_json::{json, Value};
 
     use super::Quaternion;

@@ -1,7 +1,7 @@
 use super::ptr::Load;
 use crate::{transform, Mat4, Quaternion, Vec3};
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn translation(
     out: *mut Mat4<f64>,
     v: *const Vec3<f64>,
@@ -12,7 +12,7 @@ pub extern "C" fn translation(
     out
 }
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn scaling(out: *mut Mat4<f64>, v: *const Vec3<f64>) -> *const Mat4<f64> {
     if let Some(o) = unsafe { out.as_mut() } {
         *o = transform::scaling(v.load())
@@ -20,7 +20,7 @@ pub extern "C" fn scaling(out: *mut Mat4<f64>, v: *const Vec3<f64>) -> *const Ma
     out
 }
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn rotation(
     out: *mut Mat4<f64>,
     q: *const Quaternion<f64>,
@@ -31,7 +31,7 @@ pub extern "C" fn rotation(
     out
 }
 
-#[export_name = concat!("translationof")]
+#[unsafe(export_name = concat!("translationof"))]
 pub extern "C" fn translation_of(
     out: *mut Vec3<f64>,
     m: *const Mat4<f64>,
@@ -42,7 +42,7 @@ pub extern "C" fn translation_of(
     out
 }
 
-#[export_name = concat!("rotationof")]
+#[unsafe(export_name = concat!("rotationof"))]
 pub extern "C" fn rotation_of(
     out: *mut Quaternion<f64>,
     m: *const Mat4<f64>,
@@ -53,7 +53,7 @@ pub extern "C" fn rotation_of(
     out
 }
 
-#[export_name = concat!("scalingof")]
+#[unsafe(export_name = concat!("scalingof"))]
 pub extern "C" fn scaling_of(
     out: *mut Vec3<f64>,
     m: *const Mat4<f64>,
@@ -64,7 +64,7 @@ pub extern "C" fn scaling_of(
     out
 }
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn transformation(
     out: *mut Mat4<f64>,
     translation: *const Vec3<f64>,
@@ -77,7 +77,7 @@ pub extern "C" fn transformation(
     out
 }
 
-#[export_name = concat!("inverttrs")]
+#[unsafe(export_name = concat!("inverttrs"))]
 pub extern "C" fn invert_trs(out: *mut Mat4<f64>, m: *const Mat4<f64>) -> bool {
     if let Some(o) = unsafe { out.as_mut() } {
         *o = m.load();
@@ -87,7 +87,7 @@ pub extern "C" fn invert_trs(out: *mut Mat4<f64>, m: *const Mat4<f64>) -> bool {
     }
 }
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn ortho(
     out: *mut Mat4<f64>,
     left: f64,
@@ -103,7 +103,7 @@ pub extern "C" fn ortho(
     out
 }
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn perspective(
     out: *mut Mat4<f64>,
     aspect: f64,
@@ -117,7 +117,7 @@ pub extern "C" fn perspective(
     out
 }
 
-#[export_name = concat!("perspectiveviewport")]
+#[unsafe(export_name = concat!("perspectiveviewport"))]
 pub extern "C" fn perspective_viewport(
     out: *mut Mat4<f64>,
     left: f64,
@@ -133,7 +133,7 @@ pub extern "C" fn perspective_viewport(
     out
 }
 
-#[export_name = concat!("targetto")]
+#[unsafe(export_name = concat!("targetto"))]
 pub extern "C" fn target_to(
     out: *mut Mat4<f64>,
     eye: *const Vec3<f64>,
@@ -146,7 +146,7 @@ pub extern "C" fn target_to(
     out
 }
 
-#[export_name = concat!("lookat")]
+#[unsafe(export_name = concat!("lookat"))]
 pub extern "C" fn look_at(
     out: *mut Mat4<f64>,
     eye: *const Vec3<f64>,
@@ -159,7 +159,7 @@ pub extern "C" fn look_at(
     out
 }
 
-#[export_name = concat!("lookatdir")]
+#[unsafe(export_name = concat!("lookatdir"))]
 pub extern "C" fn look_at_dir(
     out: *mut Vec3<f64>,
     pitch: f64,

@@ -172,6 +172,18 @@ describe('transform', () => {
         0., 0., -2., 0.
       ]
     );
+
+    // Finite zfar exercises the depth-range branch: rangeInv = 1/(1-9) = -0.125,
+    // so m[10] = (1+9)*-0.125 = -1.25 and m[14] = 2*1*9*-0.125 = -2.25.
+    expectArrayEqual(
+      perspectiveViewport(-1.0, 3.0, -0.5, 1.5, 1., 9.),
+      [
+        0.5, 0., 0., 0.,
+        0., 1., 0., 0.,
+        0.5, 0.5, -1.25, -1.,
+        0., 0., -2.25, 0.
+      ]
+    );
   });
 
   test('targetTo', () => {

@@ -1,15 +1,21 @@
-import { Vec } from '../types.ts';
+import type { Vec } from '../types.ts';
 import { add, dot, lerp, mul, normalize, scale, sub } from './helpers.ts';
-import { Mat2, Mat3, Mat4 } from './mat.ts';
+import type { Mat2, Mat3, Mat4 } from './mat.ts';
 import { BYTES_PER_FLOAT64, ManagedFloat64Array, memoryManager } from './memory.ts';
+import type { Float64ArrayPointer, Float64ArrayViewProvider, MemoryManager } from './memory.ts';
 
 const TEMP = Array(4);
 
 /** A 2D vector. */
 export class Vec2 extends ManagedFloat64Array<2> implements Vec<2> {
-  public constructor(x = 0, y = 0) {
-    super(memoryManager.create(2));
+  public constructor(x = 0, y = 0, manager: MemoryManager = memoryManager) {
+    super(manager.allocate(2));
     this.set([x, y]);
+  }
+
+  /** Wraps an existing memory region as a borrowed (non-owning) Vec2. */
+  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Vec2 {
+    return ManagedFloat64Array.viewAs(Vec2, 2, source, byteOffset);
   }
 
   public override get length(): 2 {
@@ -35,7 +41,7 @@ export class Vec2 extends ManagedFloat64Array<2> implements Vec<2> {
   public mulMat3(m: Mat3): this {
     const left = (m.byteOffset / BYTES_PER_FLOAT64) | 0;
     const right = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const view = this.view;
 
     for (let i = 0; i < 2; ++i) {
       let f = 0;
@@ -72,9 +78,14 @@ export class Vec2 extends ManagedFloat64Array<2> implements Vec<2> {
 
 /** A 3D vector. */
 export class Vec3 extends ManagedFloat64Array<3> implements Vec<3> {
-  public constructor(x = 0, y = 0, z = 0) {
-    super(memoryManager.create(3));
+  public constructor(x = 0, y = 0, z = 0, manager: MemoryManager = memoryManager) {
+    super(manager.allocate(3));
     this.set([x, y, z]);
+  }
+
+  /** Wraps an existing memory region as a borrowed (non-owning) Vec3. */
+  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Vec3 {
+    return ManagedFloat64Array.viewAs(Vec3, 3, source, byteOffset);
   }
 
   public override get length(): 3 {
@@ -100,7 +111,7 @@ export class Vec3 extends ManagedFloat64Array<3> implements Vec<3> {
   public mulMat4(m: Mat4): this {
     const left = (m.byteOffset / BYTES_PER_FLOAT64) | 0;
     const right = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const view = this.view;
 
     for (let i = 0; i < 3; ++i) {
       let f = 0;
@@ -121,7 +132,7 @@ export class Vec3 extends ManagedFloat64Array<3> implements Vec<3> {
   public cross(rhs: Vec3): this {
     const left = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
     const right = (rhs.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const view = this.view;
     const y = view[left + 2] * view[right + 0] - view[right + 2] * view[left + 0];
     const z = view[left + 0] * view[right + 1] - view[right + 0] * view[left + 1];
     view[left + 0] = view[left + 1] * view[right + 2] - view[right + 1] * view[left + 2];
@@ -151,9 +162,14 @@ export class Vec3 extends ManagedFloat64Array<3> implements Vec<3> {
 
 /** A 4D vector. */
 export class Vec4 extends ManagedFloat64Array<4> implements Vec<4> {
-  public constructor(x = 0, y = 0, z = 0, w = 0) {
-    super(memoryManager.create(4));
+  public constructor(x = 0, y = 0, z = 0, w = 0, manager: MemoryManager = memoryManager) {
+    super(manager.allocate(4));
     this.set([x, y, z, w]);
+  }
+
+  /** Wraps an existing memory region as a borrowed (non-owning) Vec4. */
+  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Vec4 {
+    return ManagedFloat64Array.viewAs(Vec4, 4, source, byteOffset);
   }
 
   public override get length(): 4 {

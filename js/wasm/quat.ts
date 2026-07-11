@@ -2,43 +2,49 @@ import {
   quatdot, quatfromanglex, quatfromangley, quatfromanglez, quatfromaxisangle, quatfromunitvecs, quatidentity,
   quatinvert, quatlerp, quatmul, quatnorm, quatslerp, quatvec3rotate
 } from '../../wasm/index.js';
-import { IQuat } from '../types.ts';
-import { ManagedFloat64Array } from './memory.ts';
-import { Vec3 } from './vec.ts';
+import type { IQuat } from '../types.ts';
+import { ManagedFloat64Array, memoryManager } from './memory.ts';
+import type { Float64ArrayPointer, Float64ArrayViewProvider } from '../memory.ts';
+import type { Vec3 } from './vec.ts';
 
 /** A quaternion. */
 export class Quat extends ManagedFloat64Array<4> implements IQuat {
   /** Return an identity Quat. */
   public static identity(): Quat {
-    return new Quat(quatidentity());
+    return new Quat(memoryManager.wrap(quatidentity(), 4));
+  }
+
+  /** Wraps an existing wasm-memory region as a borrowed (non-owning) Quat. */
+  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Quat {
+    return ManagedFloat64Array.viewAs(Quat, 4, source, byteOffset);
   }
 
   /** Return a Quat from unit vectors. */
   public static fromUnitVecs(from: Vec3, to: Vec3): Quat {
-    return new Quat(quatfromunitvecs(from.byteOffset, to.byteOffset));
+    return new Quat(memoryManager.wrap(quatfromunitvecs(from.byteOffset, to.byteOffset), 4));
   }
 
   /** Return a Quat from axis and angle */
   public static fromAxisAngle(axis: Vec3, angle: number): Quat {
-    return new Quat(quatfromaxisangle(axis.byteOffset, angle));
+    return new Quat(memoryManager.wrap(quatfromaxisangle(axis.byteOffset, angle), 4));
   }
 
   /** Return a Quat from rotation around x-axis. */
   public static fromAngleX(angle: number): Quat {
-    return new Quat(quatfromanglex(angle));
+    return new Quat(memoryManager.wrap(quatfromanglex(angle), 4));
   }
 
   /** Return a Quat from rotation around y-axis. */
   public static fromAngleY(angle: number): Quat {
-    return new Quat(quatfromangley(angle));
+    return new Quat(memoryManager.wrap(quatfromangley(angle), 4));
   }
 
   /** Return a Quat from rotation around z-axis. */
   public static fromAngleZ(angle: number): Quat {
-    return new Quat(quatfromanglez(angle));
+    return new Quat(memoryManager.wrap(quatfromanglez(angle), 4));
   }
 
-  private constructor(ptr: number) {
+  private constructor(ptr: Float64ArrayPointer) {
     super(ptr);
   }
 

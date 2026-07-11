@@ -1,8 +1,9 @@
 import { copysign } from '../scalar.ts';
 import { Mat3, Mat4 } from './mat.ts';
-import { BYTES_PER_FLOAT64, memoryManager } from './memory.ts';
+import { BYTES_PER_FLOAT64 } from './memory.ts';
 import { Quat } from './quat.ts';
-import { Vec2, Vec3 } from './vec.ts';
+import type { Vec2} from './vec.ts';
+import { Vec3 } from './vec.ts';
 
 const TEMP_VEC3 = new Float64Array(3);
 const TEMP_MAT3 = new Float64Array(9);
@@ -116,7 +117,7 @@ export function translationOf(m: Mat4, out = new Vec3()): Vec3 {
 }
 
 function _scalingOf(m: Mat4): Float64Array {
-  const view = memoryManager.view;
+  const view = m.view;
   const start = (m.byteOffset / BYTES_PER_FLOAT64) | 0;
   for (let i = 0; i < 3; ++i) {
     TEMP_VEC3[i] = 0;

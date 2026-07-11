@@ -82,6 +82,15 @@ describe('Quat', () => {
     expectArrayEqual(q.lerp(q2, 0.5), [1, 0, 0, 0]);
   });
 
+  test('lerp takes the shortest path for a negative dot product', () => {
+    // dot(q, q2) = -1 < 0, so the second operand is negated before blending.
+    // Halfway between identity and -identity (shortest path) is identity.
+    const q = Quat.identity();
+    const q2 = Quat.identity();
+    q2.set([0, 0, 0, -1]);
+    expectArrayEqual(q.lerp(q2, 0.5), [0, 0, 0, 1]);
+  });
+
   test('slerp', () => {
     const q = Quat.identity();
     q.set([SIN_PI_OVER_2, 0, 0, SIN_PI_OVER_2]);
@@ -93,6 +102,29 @@ describe('Quat', () => {
     q.set([SIN_PI_OVER_6, 0, 0, COS_PI_OVER_6]);
     q2.set([-COS_PI_OVER_6, 0, 0, -SIN_PI_OVER_6]);
     expectArrayEqual(q.slerp(q2, 0.5), [SIN_PI_OVER_2, 0, 0, SIN_PI_OVER_2]);
+  });
+
+  test('slerp falls back to linear blend for nearly-identical quaternions', () => {
+    // When 1 - cosTheta <= EPSILON the spherical path is skipped and the result
+    // is a plain (normalized-in-place) linear interpolation of the endpoints.
+    const q = Quat.identity();
+    const q2 = Quat.identity();
+    expectArrayEqual(q.slerp(q2, 0.5), [0, 0, 0, 1]);
+  });
+
+  test('slerp interpolates a known angle', () => {
+    // Identity and a 90 deg-about-X rotation are PI/4 apart as unit quaternions
+    // (their dot is cos(PI/4)); slerp at t=0.5 lands halfway, i.e. PI/8 from each.
+    const q = Quat.identity();
+    const q2 = Quat.identity();
+    q2.set([SIN_PI_OVER_2, 0, 0, SIN_PI_OVER_2]); // 90 deg about X
+    expectArrayEqual(q.slerp(q2, 0.5), [Math.sin(Math.PI / 8), 0, 0, Math.cos(Math.PI / 8)]);
+    // Endpoints are returned exactly at t = 0.
+    const a = Quat.identity();
+    a.set([SIN_PI_OVER_2, 0, 0, SIN_PI_OVER_2]);
+    const b = Quat.identity();
+    b.set([0, SIN_PI_OVER_2, 0, SIN_PI_OVER_2]);
+    expectArrayEqual(a.slerp(b, 0), [SIN_PI_OVER_2, 0, 0, SIN_PI_OVER_2]);
   });
 
   test('normalize', () => {

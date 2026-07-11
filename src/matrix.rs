@@ -218,10 +218,10 @@ mod serde_impl {
             A: SeqAccess<'de>,
         {
             let mut arr = [[T::zero(); R]; C];
-            for c in 0..C {
-                for r in 0..R {
+            for col in arr.iter_mut() {
+                for cell in col.iter_mut() {
                     if let Some(value) = seq.next_element()? {
-                        arr[c][r] = value;
+                        *cell = value;
                     }
                 }
             }
@@ -243,7 +243,6 @@ mod serde_impl {
 #[cfg(feature = "serde")]
 #[cfg(test)]
 mod tests {
-    use alloc::vec;
     use serde_json::{json, Value};
 
     use super::Matrix;

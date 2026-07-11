@@ -1,7 +1,8 @@
 import { EPSILON, fequal } from '../scalar.ts';
-import { IQuat } from '../types.ts';
+import type { IQuat } from '../types.ts';
 import { dot, normalize } from './helpers.ts';
 import { BYTES_PER_FLOAT64, ManagedFloat64Array, memoryManager } from './memory.ts';
+import type { Float64ArrayPointer, Float64ArrayViewProvider, MemoryManager } from './memory.ts';
 import { Vec3 } from './vec.ts';
 
 const ID = [0, 0, 0, 1];
@@ -9,67 +10,73 @@ const ID = [0, 0, 0, 1];
 /** A quaternion. */
 export class Quat extends ManagedFloat64Array<4> implements IQuat {
   /** Return an identity Quat. */
-  public static identity(): Quat {
-    const q = new Quat(memoryManager.create(4));
+  public static identity(manager: MemoryManager = memoryManager): Quat {
+    const q = new Quat(manager.allocate(4));
     q.set(ID);
     return q;
   }
 
+  /** Wraps an existing memory region as a borrowed (non-owning) Quat. */
+  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Quat {
+    return ManagedFloat64Array.viewAs(Quat, 4, source, byteOffset);
+  }
+
   /** Return a Quat from unit vectors. */
-  public static fromUnitVecs(from: Vec3, to: Vec3): Quat {
+  public static fromUnitVecs(from: Vec3, to: Vec3, manager: MemoryManager = memoryManager): Quat {
     const dot = from.dot(to);
 
     if (fequal(dot, -1)) { // vectors are in parallel but opposite direction
       // use arbitrary perpendicular vector = (0, z, -y)
       const [, y, z] = from;
       using v = new Vec3(0, z, -y);
-      return Quat.fromAxisAngle(v, Math.PI);
+      return Quat.fromAxisAngle(v, Math.PI, manager);
     } else if (fequal(dot, 1)) { // vectors are in same direction
-      return Quat.identity();
+      return Quat.identity(manager);
     }
 
     using v = new Vec3();
     v.copy(from, 0, 0, 3);
     v.cross(to);
 
-    const q = new Quat(memoryManager.create(4));
+    const q = new Quat(manager.allocate(4));
     q.set([...v, 1 + dot]);
     q.normalize();
     return q;
   }
 
   /** Return a Quat from axis and angle */
-  public static fromAxisAngle(axis: Vec3, angle: number): Quat {
-    const view = memoryManager.view;
-    const ptr = axis.byteOffset / BYTES_PER_FLOAT64;
+  public static fromAxisAngle(axis: Vec3, angle: number, manager: MemoryManager = memoryManager): Quat {
     const sinHalf = Math.sin(angle / 2);
-    const q = new Quat(memoryManager.create(4));
+    // Read axis after allocating, in case allocation grows and detaches the view.
+    const q = new Quat(manager.allocate(4));
+    const view = axis.view;
+    const ptr = axis.byteOffset / BYTES_PER_FLOAT64;
     q.set([view[ptr + 0] * sinHalf, view[ptr + 1] * sinHalf, view[ptr + 2] * sinHalf, Math.cos(angle / 2)]);
     return q;
   }
 
   /** Return a Quat from rotation around x-axis. */
-  public static fromAngleX(angle: number): Quat {
-    const q = new Quat(memoryManager.create(4));
+  public static fromAngleX(angle: number, manager: MemoryManager = memoryManager): Quat {
+    const q = new Quat(manager.allocate(4));
     q.set([Math.sin(angle / 2), 0, 0, Math.cos(angle / 2)]);
     return q;
   }
 
   /** Return a Quat from rotation around y-axis. */
-  public static fromAngleY(angle: number): Quat {
-    const q = new Quat(memoryManager.create(4));
+  public static fromAngleY(angle: number, manager: MemoryManager = memoryManager): Quat {
+    const q = new Quat(manager.allocate(4));
     q.set([0, Math.sin(angle / 2), 0, Math.cos(angle / 2)]);
     return q;
   }
 
   /** Return a Quat from rotation around z-axis. */
-  public static fromAngleZ(angle: number): Quat {
-    const q = new Quat(memoryManager.create(4));
+  public static fromAngleZ(angle: number, manager: MemoryManager = memoryManager): Quat {
+    const q = new Quat(manager.allocate(4));
     q.set([0, 0, Math.sin(angle / 2), Math.cos(angle / 2)]);
     return q;
   }
 
-  private constructor(ptr: number) {
+  private constructor(ptr: Float64ArrayPointer) {
     super(ptr);
   }
 
@@ -80,7 +87,7 @@ export class Quat extends ManagedFloat64Array<4> implements IQuat {
   public mul(rhs: Quat): this {
     const left = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
     const right = (rhs.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const view = this.view;
     const x = view[left + 3] * view[right + 0] + view[left + 0] * view[right + 3]
       + view[left + 1] * view[right + 2] - view[left + 2] * view[right + 1];
     const y = view[left + 3] * view[right + 1] + view[left + 1] * view[right + 3]
@@ -99,9 +106,9 @@ export class Quat extends ManagedFloat64Array<4> implements IQuat {
   }
 
   public rotate(v: Vec3): Vec3 {
-    const view = memoryManager.view;
-    using q1 = new Quat(memoryManager.create(4));
-    using q2 = new Quat(memoryManager.create(4));
+    const view = this.view;
+    using q1 = new Quat(memoryManager.allocate(4));
+    using q2 = new Quat(memoryManager.allocate(4));
 
     // formula v' = q * v * q^-1
     q1.copy(this, 0, 0, 4);
@@ -123,7 +130,7 @@ export class Quat extends ManagedFloat64Array<4> implements IQuat {
   public lerp(rhs: Quat, t: number): this {
     const left = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
     const right = (rhs.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const view = this.view;
     const cosTheta = dot(this, rhs); // calculate cosine from dot product
     const magB = (cosTheta < 0) ? -1 : 1;
 
@@ -137,7 +144,7 @@ export class Quat extends ManagedFloat64Array<4> implements IQuat {
   public slerp(rhs: Quat, t: number): this {
     const left = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
     const right = (rhs.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const view = this.view;
     let cosTheta = dot(this, rhs); // calculate cosine from dot product
     let magB = 1;
     // use the shortest path
@@ -174,7 +181,7 @@ export class Quat extends ManagedFloat64Array<4> implements IQuat {
     if (sqrLen === 0) { return false; }
 
     const left = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = memoryManager.view;
+    const view = this.view;
 
     for (let i = 0; i < 3; ++i) {
       view[left + i] = -view[left + i] / sqrLen;

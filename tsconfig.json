@@ -1,22 +1,24 @@
 {
   "compilerOptions": {
-    "module": "nodenext",
     "target": "esnext",
-    "moduleResolution": "nodenext",
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "allowJs": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
     "allowImportingTsExtensions": true,
-    "allowSyntheticDefaultImports": true,
-    "emitDeclarationOnly": true,
-    "forceConsistentCasingInFileNames": true,
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "strict": true,
     "noImplicitOverride": true,
+    "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true,
+    "allowJs": true,
     "skipLibCheck": true,
     "declaration": true,
     "declarationMap": true,
-    "inlineSourceMap": true,
-    "inlineSources": true
-  }
+    "sourceMap": true,
+    "emitDeclarationOnly": true,
+    "incremental": true,
+    "types": ["vitest/globals"]
+  },
+  "include": ["js", "*.ts", "scripts/*.mjs"],
+  "exclude": ["node_modules", "dist", "wasm", "target", "packages"]
 }

@@ -1,7 +1,8 @@
 import * as wasm from '../../wasm/index.js';
 import { Mat3, Mat4 } from './mat.ts';
 import { Quat } from './quat.ts';
-import { Vec2, Vec3 } from './vec.ts';
+import type { Vec2} from './vec.ts';
+import { Vec3 } from './vec.ts';
 
 /** Returns a {@link Mat3} for a 2D point translated by (x, y). */
 export function translation2d(v: Vec2, out = Mat3.identity()): Mat3 {

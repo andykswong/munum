@@ -1,15 +1,20 @@
 {
   "name": "munum",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Micro 3D Math Library for JavaScript and WebAssembly",
   "type": "module",
   "sideEffects": false,
+  "engines": {
+    "node": ">=26.0"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
     "./js": "./dist/js/index.js",
-    "./wasm": "./wasm/index.js"
+    "./wasm": "./wasm/index.js",
+    "./wasm/module": "./wasm/munum.wasm",
+    "./wasm/component": "./wasm/munum.component.wasm"
   },
   "files": [
     "/dist",
@@ -17,19 +22,22 @@
     "/wit"
   ],
   "scripts": {
-    "prepublishOnly": "npm run build && npm test && npm run docs",
-    "clean": "rimraf coverage/ docs/ dist/ target/",
-    "build": "npm run build:wasm && npm run build:wit-com && npm run build:js",
+    "prepublishOnly": "npm run clean && npm run build && npm test && npm run doc",
+    "clean": "rimraf coverage docs dist *.tsbuildinfo target",
+    "build": "npm run build:wasm && npm run build:wasm-opt && npm run build:wasm-loader && npm run build:component && npm run build:js",
     "build:wasm": "cargo rustc -r --target wasm32-unknown-unknown --crate-type cdylib -F jsmath,wasm --no-default-features",
-    "postbuild:wasm": "wasm-opt -Oz -o wasm/munum.wasm target/wasm32-unknown-unknown/release/munum.wasm",
-    "build:wit-com": "jco embed -o wasm/munum.component.wasm --world root --wit wit/world.wit wasm/munum.wasm && jco new -o wasm/munum.component.wasm wasm/munum.component.wasm",
-    "prebuild:js": "eslint js --ext .ts",
-    "build:js": "tsc -p tsconfig.build.json && babel js -d dist -x .ts",
-    "pretest": "npm run test:rust",
-    "test": "npm run jest",
+    "build:wasm-opt": "wasm-opt -Oz -o wasm/munum.wasm target/wasm32-unknown-unknown/release/munum.wasm",
+    "build:wasm-loader": "node scripts/gen-wasm-loader.mjs",
+    "build:component": "jco embed -o wasm/munum.component.wasm --world-name root --wit wit/world.wit wasm/munum.wasm && jco new -o wasm/munum.component.wasm wasm/munum.component.wasm",
+    "build:js": "vite build",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:node": "vitest run --project node",
+    "test:browser": "vitest run --project browser",
+    "test:watch": "vitest",
     "test:rust": "cargo test --all-features",
-    "jest": "NODE_OPTIONS=--experimental-vm-modules jest",
-    "docs": "typedoc --tsconfig tsconfig.build.json"
+    "doc": "typedoc"
   },
   "repository": {
     "type": "git",
@@ -54,45 +62,23 @@
     "libmath": "^0.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.20",
-    "@babel/core": "^7.20",
-    "@babel/plugin-proposal-explicit-resource-management": "^7.20",
-    "@babel/preset-env": "^7.20",
-    "@babel/preset-typescript": "^7.20",
-    "@bytecodealliance/jco": "^1.0",
-    "@types/jest": "^29.5",
-    "@types/node": "^20.0",
-    "@typescript-eslint/eslint-plugin": "^7.0",
-    "@typescript-eslint/parser": "^7.0",
-    "babel-jest": "^29.5",
-    "babel-plugin-add-import-extension": "^1.6",
-    "binaryen": "^116.0",
-    "core-js": "^3.30",
-    "copyfiles": "^2.4",
-    "cross-env": "^7.0",
-    "eslint": "^8.50",
-    "jest": "^29.5",
-    "rimraf": "^5.0",
-    "typedoc": "^0.25",
-    "typescript": "^5.4"
-  },
-  "jest": {
-    "extensionsToTreatAsEsm": [
-      ".ts"
-    ],
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/__tests__/**/*.spec.ts"
-    ],
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "js/**/*.ts",
-      "!**/__tests__/**"
-    ],
-    "coverageDirectory": "coverage",
-    "setupFiles": [
-      "core-js"
-    ]
+    "@bytecodealliance/jco": "^1.25",
+    "@eslint/js": "^10.0",
+    "@stylistic/eslint-plugin": "^5.0",
+    "@types/node": "^26.0",
+    "@vitest/browser-playwright": "^4.1",
+    "@vitest/coverage-v8": "^4.1.10",
+    "binaryen": "^130.0",
+    "eslint": "^10.0",
+    "globals": "^17.0",
+    "playwright": "^1.61",
+    "rimraf": "^6.0",
+    "typedoc": "^0.28",
+    "typescript": "^6.0",
+    "typescript-eslint": "^8.50",
+    "vite": "^8.1",
+    "vite-plugin-dts": "^5.0",
+    "vitest": "^4.1"
   },
   "workspaces": [
     "packages/libmath"

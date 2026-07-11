@@ -4,15 +4,21 @@ import {
   vec3add, vec3cross, vec3dot, vec3lerp, vec3mul, vec3norm, vec3scale, vec3sub,
   vec4add, vec4dot, vec4lerp, vec4mul, vec4norm, vec4scale, vec4sub,
 } from '../../wasm/index.js';
-import { Vec } from '../types.ts';
-import { Mat2, Mat3, Mat4 } from './mat.ts';
-import { ManagedFloat64Array } from './memory.ts';
+import type { Vec } from '../types.ts';
+import type { Mat2, Mat3, Mat4 } from './mat.ts';
+import { ManagedFloat64Array, memoryManager } from './memory.ts';
+import type { Float64ArrayPointer, Float64ArrayViewProvider } from '../memory.ts';
 
 /** A 2D vector. */
 export class Vec2 extends ManagedFloat64Array<2> implements Vec<2> {
   public constructor(x = 0, y = 0) {
-    super(create(2));
+    super(memoryManager.wrap(create(2), 2));
     this.set([x, y]);
+  }
+
+  /** Wraps an existing wasm-memory region as a borrowed (non-owning) Vec2. */
+  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Vec2 {
+    return ManagedFloat64Array.viewAs(Vec2, 2, source, byteOffset);
   }
 
   public override get length(): 2 {
@@ -62,8 +68,13 @@ export class Vec2 extends ManagedFloat64Array<2> implements Vec<2> {
 /** A 3D vector. */
 export class Vec3 extends ManagedFloat64Array<3> implements Vec<3> {
   public constructor(x = 0, y = 0, z = 0) {
-    super(create(3));
+    super(memoryManager.wrap(create(3), 3));
     this.set([x, y, z]);
+  }
+
+  /** Wraps an existing wasm-memory region as a borrowed (non-owning) Vec3. */
+  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Vec3 {
+    return ManagedFloat64Array.viewAs(Vec3, 3, source, byteOffset);
   }
 
   public override get length(): 3 {
@@ -119,8 +130,13 @@ export class Vec3 extends ManagedFloat64Array<3> implements Vec<3> {
 /** A 4D vector. */
 export class Vec4 extends ManagedFloat64Array<4> implements Vec<4> {
   public constructor(x = 0, y = 0, z = 0, w = 0) {
-    super(create(4));
+    super(memoryManager.wrap(create(4), 4));
     this.set([x, y, z, w]);
+  }
+
+  /** Wraps an existing wasm-memory region as a borrowed (non-owning) Vec4. */
+  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Vec4 {
+    return ManagedFloat64Array.viewAs(Vec4, 4, source, byteOffset);
   }
 
   public override get length(): 4 {

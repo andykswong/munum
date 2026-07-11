@@ -1,26 +1,39 @@
 import { create, free, memory } from '../../wasm/index.js';
-import { ManagedFloat64Array, MemoryManager, setMemoryManager } from '../memory.ts';
+import {
+  AbstractMemoryManager,
+  BYTES_PER_FLOAT64,
+  ManagedFloat64Array,
+  externalPointer,
+  float64View,
+} from '../memory.ts';
+import type { Float64ArrayPointer, Float64ArrayViewProvider, MemoryManager } from '../memory.ts';
 
-let view = new Float64Array(memory.buffer);
+/** Memory manager backed by the munum wasm module's linear memory. */
+class WasmMemoryManager extends AbstractMemoryManager {
+  private cachedView = new Float64Array(memory.buffer);
 
-export const memoryManager: MemoryManager = {
-  get buffer() {
-    return memory.buffer;
-  },
-  get view() {
-    if (view.buffer !== memory.buffer) {
-      view = new Float64Array(memory.buffer);
+  public override get view(): Float64Array {
+    if (this.cachedView.buffer !== memory.buffer) {
+      this.cachedView = new Float64Array(memory.buffer);
     }
-    return view;
-  },
-  create: function (size: number): number {
+    return this.cachedView;
+  }
+
+  protected override createRaw(size: number): number {
     return create(size);
-  },
-  free: function (byteOffset: number, size: number): void {
+  }
+
+  protected override freeRaw(byteOffset: number, size: number): void {
     free(byteOffset, size);
   }
-};
+}
 
-setMemoryManager(memoryManager);
+/**
+ * The default {@link MemoryManager} for the WebAssembly binding. Exported as the
+ * concrete type (not annotated `MemoryManager`) so the binding classes can call
+ * {@link AbstractMemoryManager.wrap} on wasm-op-returned raw offsets.
+ */
+export const memoryManager = new WasmMemoryManager();
 
-export { ManagedFloat64Array };
+export type { Float64ArrayPointer, Float64ArrayViewProvider, MemoryManager };
+export { AbstractMemoryManager, BYTES_PER_FLOAT64, ManagedFloat64Array, externalPointer, float64View };

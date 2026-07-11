@@ -1,21 +1,39 @@
 name: pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 on:
   push:
     branches: [main]
+concurrency:
+  group: pages
+  cancel-in-progress: false
 jobs:
-  build_gh_pages:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: "20"
-      - run: npm ci --ignore-scripts
-      - run: npm run docs -- --excludeInternal
-      - name: Copy files to public
+          node-version: "26"
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - run: npm ci
+      - run: npm run build
+      - run: npm run doc -- --excludeInternal
+      - name: Assemble public/
         run: cp -r ./docs ./public
-      - name: Deploy public
-        uses: peaceiris/actions-gh-pages@v3
+      - uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          path: ./public
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

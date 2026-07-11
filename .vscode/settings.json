@@ -1,17 +1,15 @@
 {
-	"editor.tabSize": 2,
-	"javascript.preferences.quoteStyle": "single",
-	"javascript.preferences.importModuleSpecifierEnding": "js",
-	"typescript.preferences.quoteStyle": "single",
-	"typescript.preferences.importModuleSpecifierEnding": "js",
-	"jest.jestCommandLine": "npm run jest --",
-	"jest.coverageFormatter": "GutterFormatter",
-	"jest.runMode": "on-demand",
-	"typescript.tsdk": "node_modules/typescript/lib",
-	"rust-analyzer.cargo.target": "wasm32-unknown-unknown",
-	"rust-analyzer.cargo.features": [
-		"wasm",
-		"jsmath"
-	],
-	"rust-analyzer.cargo.noDefaultFeatures": true,
+  "editor.tabSize": 2,
+  "javascript.preferences.quoteStyle": "single",
+  "javascript.preferences.importModuleSpecifierEnding": "js",
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.preferences.importModuleSpecifierEnding": "js",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "vitest.commandLine": "npm run test --",
+  "rust-analyzer.cargo.target": "wasm32-unknown-unknown",
+  "rust-analyzer.cargo.features": [
+    "wasm",
+    "jsmath"
+  ],
+  "rust-analyzer.cargo.noDefaultFeatures": true
 }

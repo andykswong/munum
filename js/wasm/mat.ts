@@ -3,22 +3,28 @@ import {
   mat3identity, mat3add, mat3det, mat3frommat2, mat3frommat4, mat3invert, mat3mul, mat3scale, mat3sub, mat3transpose,
   mat4identity, mat4add, mat4det, mat4frommat3, mat4invert, mat4mul, mat4scale, mat4sub, mat4transpose, normalmat3,
 } from '../../wasm/index.js';
-import { Mat } from '../types.ts';
-import { ManagedFloat64Array } from './memory.ts';
+import type { Mat } from '../types.ts';
+import { ManagedFloat64Array, memoryManager } from './memory.ts';
+import type { Float64ArrayPointer, Float64ArrayViewProvider } from '../memory.ts';
 
 /** A 2x2 matrix. */
 export class Mat2 extends ManagedFloat64Array<4> implements Mat<2> {
   /** Return an identity Mat2. */
   public static identity(): Mat2 {
-    return new Mat2(mat2identity());
+    return new Mat2(memoryManager.wrap(mat2identity(), 4));
   }
 
   /** Return a Mat2 from Mat3. */
   public static fromMat3(m: Mat3): Mat2 {
-    return new Mat2(mat2frommat3(m.byteOffset));
+    return new Mat2(memoryManager.wrap(mat2frommat3(m.byteOffset), 4));
   }
 
-  private constructor(ptr: number) {
+  /** Wraps an existing wasm-memory region as a borrowed (non-owning) Mat2. */
+  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Mat2 {
+    return ManagedFloat64Array.viewAs(Mat2, 4, source, byteOffset);
+  }
+
+  private constructor(ptr: Float64ArrayPointer) {
     super(ptr);
   }
 
@@ -64,20 +70,25 @@ export class Mat2 extends ManagedFloat64Array<4> implements Mat<2> {
 export class Mat3 extends ManagedFloat64Array<9> implements Mat<3> {
   /** Return an identity Mat3. */
   public static identity(): Mat3 {
-    return new Mat3(mat3identity());
+    return new Mat3(memoryManager.wrap(mat3identity(), 9));
   }
 
   /** Return a Mat3 from Mat2. */
   public static fromMat2(m: Mat2): Mat3 {
-    return new Mat3(mat3frommat2(m.byteOffset));
+    return new Mat3(memoryManager.wrap(mat3frommat2(m.byteOffset), 9));
   }
 
   /** Return a Mat3 from Mat4. */
   public static fromMat4(m: Mat4): Mat3 {
-    return new Mat3(mat3frommat4(m.byteOffset));
+    return new Mat3(memoryManager.wrap(mat3frommat4(m.byteOffset), 9));
   }
 
-  private constructor(ptr: number) {
+  /** Wraps an existing wasm-memory region as a borrowed (non-owning) Mat3. */
+  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Mat3 {
+    return ManagedFloat64Array.viewAs(Mat3, 9, source, byteOffset);
+  }
+
+  private constructor(ptr: Float64ArrayPointer) {
     super(ptr);
   }
 
@@ -128,15 +139,20 @@ export class Mat3 extends ManagedFloat64Array<9> implements Mat<3> {
 export class Mat4 extends ManagedFloat64Array<16> implements Mat<4> {
   /** Return an identity Mat4. */
   public static identity(): Mat4 {
-    return new Mat4(mat4identity());
+    return new Mat4(memoryManager.wrap(mat4identity(), 16));
   }
 
   /** Return a Mat4 from Mat3. */
   public static fromMat3(m: Mat3): Mat4 {
-    return new Mat4(mat4frommat3(m.byteOffset));
+    return new Mat4(memoryManager.wrap(mat4frommat3(m.byteOffset), 16));
   }
 
-  private constructor(ptr: number) {
+  /** Wraps an existing wasm-memory region as a borrowed (non-owning) Mat4. */
+  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Mat4 {
+    return ManagedFloat64Array.viewAs(Mat4, 16, source, byteOffset);
+  }
+
+  private constructor(ptr: Float64ArrayPointer) {
     super(ptr);
   }
 
