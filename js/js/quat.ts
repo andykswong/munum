@@ -1,36 +1,43 @@
 import { EPSILON, fequal } from '../scalar.ts';
 import type { IQuat } from '../types.ts';
 import { dot, normalize } from './helpers.ts';
-import { BYTES_PER_FLOAT64, ManagedFloat64Array, memoryManager } from './memory.ts';
-import type { Float64ArrayPointer, Float64ArrayViewProvider, MemoryManager } from './memory.ts';
+import { ManagedTypedArray, memoryManager } from './memory.ts';
+import type { MemoryManager, TypedArray, TypedArrayPointer, TypedArrayViewProvider } from './memory.ts';
 import { Vec3 } from './vec.ts';
 
 const ID = [0, 0, 0, 1];
 
 /** A quaternion. */
-export class Quat extends ManagedFloat64Array<4> implements IQuat {
+export class Quat<V extends TypedArray = Float64Array> extends ManagedTypedArray<4, V> implements IQuat {
   /** Return an identity Quat. */
-  public static identity(manager: MemoryManager = memoryManager): Quat {
+  public static identity<W extends TypedArray = Float64Array>(
+    manager: MemoryManager<W> = memoryManager as MemoryManager<W>,
+  ): Quat<W> {
     const q = new Quat(manager.allocate(4));
     q.set(ID);
     return q;
   }
 
   /** Wraps an existing memory region as a borrowed (non-owning) Quat. */
-  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Quat {
-    return ManagedFloat64Array.viewAs(Quat, 4, source, byteOffset);
+  public static view<W extends TypedArray = Float64Array>(
+    source: TypedArrayPointer<W> | TypedArrayViewProvider<W>, byteOffset?: number,
+  ): Quat<W> {
+    return ManagedTypedArray.viewAs(Quat, 4, source, byteOffset);
   }
 
   /** Return a Quat from unit vectors. */
-  public static fromUnitVecs(from: Vec3, to: Vec3, manager: MemoryManager = memoryManager): Quat {
-    const dot = from.dot(to);
+  public static fromUnitVecs<W extends TypedArray = Float64Array>(
+    from: Vec3<TypedArray>, to: Vec3<TypedArray>,
+    manager: MemoryManager<W> = memoryManager as MemoryManager<W>,
+  ): Quat<W> {
+    const dotFT = from.dot(to);
 
-    if (fequal(dot, -1)) { // vectors are in parallel but opposite direction
+    if (fequal(dotFT, -1)) { // vectors are in parallel but opposite direction
       // use arbitrary perpendicular vector = (0, z, -y)
       const [, y, z] = from;
       using v = new Vec3(0, z, -y);
       return Quat.fromAxisAngle(v, Math.PI, manager);
-    } else if (fequal(dot, 1)) { // vectors are in same direction
+    } else if (fequal(dotFT, 1)) { // vectors are in same direction
       return Quat.identity(manager);
     }
 
@@ -39,44 +46,53 @@ export class Quat extends ManagedFloat64Array<4> implements IQuat {
     v.cross(to);
 
     const q = new Quat(manager.allocate(4));
-    q.set([...v, 1 + dot]);
+    q.set([...v, 1 + dotFT]);
     q.normalize();
     return q;
   }
 
   /** Return a Quat from axis and angle */
-  public static fromAxisAngle(axis: Vec3, angle: number, manager: MemoryManager = memoryManager): Quat {
+  public static fromAxisAngle<W extends TypedArray = Float64Array>(
+    axis: Vec3<TypedArray>, angle: number,
+    manager: MemoryManager<W> = memoryManager as MemoryManager<W>,
+  ): Quat<W> {
     const sinHalf = Math.sin(angle / 2);
     // Read axis after allocating, in case allocation grows and detaches the view.
     const q = new Quat(manager.allocate(4));
     const view = axis.view;
-    const ptr = axis.byteOffset / BYTES_PER_FLOAT64;
-    q.set([view[ptr + 0] * sinHalf, view[ptr + 1] * sinHalf, view[ptr + 2] * sinHalf, Math.cos(angle / 2)]);
+    const p = axis.index;
+    q.set([view[p + 0] * sinHalf, view[p + 1] * sinHalf, view[p + 2] * sinHalf, Math.cos(angle / 2)]);
     return q;
   }
 
   /** Return a Quat from rotation around x-axis. */
-  public static fromAngleX(angle: number, manager: MemoryManager = memoryManager): Quat {
+  public static fromAngleX<W extends TypedArray = Float64Array>(
+    angle: number, manager: MemoryManager<W> = memoryManager as MemoryManager<W>,
+  ): Quat<W> {
     const q = new Quat(manager.allocate(4));
     q.set([Math.sin(angle / 2), 0, 0, Math.cos(angle / 2)]);
     return q;
   }
 
   /** Return a Quat from rotation around y-axis. */
-  public static fromAngleY(angle: number, manager: MemoryManager = memoryManager): Quat {
+  public static fromAngleY<W extends TypedArray = Float64Array>(
+    angle: number, manager: MemoryManager<W> = memoryManager as MemoryManager<W>,
+  ): Quat<W> {
     const q = new Quat(manager.allocate(4));
     q.set([0, Math.sin(angle / 2), 0, Math.cos(angle / 2)]);
     return q;
   }
 
   /** Return a Quat from rotation around z-axis. */
-  public static fromAngleZ(angle: number, manager: MemoryManager = memoryManager): Quat {
+  public static fromAngleZ<W extends TypedArray = Float64Array>(
+    angle: number, manager: MemoryManager<W> = memoryManager as MemoryManager<W>,
+  ): Quat<W> {
     const q = new Quat(manager.allocate(4));
     q.set([0, 0, Math.sin(angle / 2), Math.cos(angle / 2)]);
     return q;
   }
 
-  private constructor(ptr: Float64ArrayPointer) {
+  private constructor(ptr: TypedArrayPointer<V>) {
     super(ptr);
   }
 
@@ -84,36 +100,35 @@ export class Quat extends ManagedFloat64Array<4> implements IQuat {
     return 4;
   }
 
-  public mul(rhs: Quat): this {
-    const left = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const right = (rhs.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = this.view;
-    const x = view[left + 3] * view[right + 0] + view[left + 0] * view[right + 3]
-      + view[left + 1] * view[right + 2] - view[left + 2] * view[right + 1];
-    const y = view[left + 3] * view[right + 1] + view[left + 1] * view[right + 3]
-      + view[left + 2] * view[right + 0] - view[left + 0] * view[right + 2];
-    const z = view[left + 3] * view[right + 2] + view[left + 2] * view[right + 3]
-      + view[left + 0] * view[right + 1] - view[left + 1] * view[right + 0];
-    const w = view[left + 3] * view[right + 3] - view[left + 0] * view[right + 0]
-      - view[left + 1] * view[right + 1] - view[left + 2] * view[right + 2];
+  public mul(rhs: Quat<TypedArray>): this {
+    const lv = this.view, rv = rhs.view;
+    const left = this.index;
+    const right = rhs.index;
+    const x = lv[left + 3] * rv[right + 0] + lv[left + 0] * rv[right + 3]
+      + lv[left + 1] * rv[right + 2] - lv[left + 2] * rv[right + 1];
+    const y = lv[left + 3] * rv[right + 1] + lv[left + 1] * rv[right + 3]
+      + lv[left + 2] * rv[right + 0] - lv[left + 0] * rv[right + 2];
+    const z = lv[left + 3] * rv[right + 2] + lv[left + 2] * rv[right + 3]
+      + lv[left + 0] * rv[right + 1] - lv[left + 1] * rv[right + 0];
+    const w = lv[left + 3] * rv[right + 3] - lv[left + 0] * rv[right + 0]
+      - lv[left + 1] * rv[right + 1] - lv[left + 2] * rv[right + 2];
 
-    view[left + 0] = x;
-    view[left + 1] = y;
-    view[left + 2] = z;
-    view[left + 3] = w;
+    lv[left + 0] = x;
+    lv[left + 1] = y;
+    lv[left + 2] = z;
+    lv[left + 3] = w;
 
     return this;
   }
 
-  public rotate(v: Vec3): Vec3 {
-    const view = this.view;
+  public rotate(v: Vec3<TypedArray>): Vec3<TypedArray> {
     using q1 = new Quat(memoryManager.allocate(4));
     using q2 = new Quat(memoryManager.allocate(4));
 
     // formula v' = q * v * q^-1
     q1.copy(this, 0, 0, 4);
     q2.copy(v, 0, 0, 3);
-    view[(q2.byteOffset / BYTES_PER_FLOAT64 + 3) | 0] = 0;
+    q2.setAt(3, 0);
     q1.mul(q2);
     q2.copy(this, 0, 0, 4);
     q2.invert();
@@ -123,28 +138,28 @@ export class Quat extends ManagedFloat64Array<4> implements IQuat {
     return v;
   }
 
-  public dot(rhs: Quat): number {
+  public dot(rhs: Quat<TypedArray>): number {
     return dot(this, rhs);
   }
 
-  public lerp(rhs: Quat, t: number): this {
-    const left = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const right = (rhs.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = this.view;
+  public lerp(rhs: Quat<TypedArray>, t: number): this {
+    const lv = this.view, rv = rhs.view;
+    const left = this.index;
+    const right = rhs.index;
     const cosTheta = dot(this, rhs); // calculate cosine from dot product
     const magB = (cosTheta < 0) ? -1 : 1;
 
     for (let i = 0; i < this.length; ++i) {
-      view[left + i] = view[left + i] * (1 - t) + view[right + i] * magB * t;
+      lv[left + i] = lv[left + i] * (1 - t) + rv[right + i] * magB * t;
     }
     normalize(this);
     return this;
   }
 
-  public slerp(rhs: Quat, t: number): this {
-    const left = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const right = (rhs.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const view = this.view;
+  public slerp(rhs: Quat<TypedArray>, t: number): this {
+    const lv = this.view, rv = rhs.view;
+    const left = this.index;
+    const right = rhs.index;
     let cosTheta = dot(this, rhs); // calculate cosine from dot product
     let magB = 1;
     // use the shortest path
@@ -167,7 +182,7 @@ export class Quat extends ManagedFloat64Array<4> implements IQuat {
     scale1 *= magB;
 
     for (let i = 0; i < this.length; ++i) {
-      view[left + i] = view[left + i] * scale0 + view[right + i] * scale1;
+      lv[left + i] = lv[left + i] * scale0 + rv[right + i] * scale1;
     }
     return this;
   }
@@ -180,7 +195,7 @@ export class Quat extends ManagedFloat64Array<4> implements IQuat {
     const sqrLen = dot(this, this);
     if (sqrLen === 0) { return false; }
 
-    const left = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
+    const left = this.index;
     const view = this.view;
 
     for (let i = 0; i < 3; ++i) {

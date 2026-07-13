@@ -1,47 +1,49 @@
 import { lerp as lerpNum } from '../scalar.ts';
-import { BYTES_PER_FLOAT64 } from './memory.ts';
-import type { ManagedFloat64Array } from './memory.ts';
+import type { ManagedTypedArray, TypedArray } from './memory.ts';
 
 const TEMP = Array(16);
 
-export function add<N extends number>(lhs: ManagedFloat64Array<N>, rhs: ManagedFloat64Array<N>) {
-  const view = lhs.view;
-  const left = (lhs.byteOffset / BYTES_PER_FLOAT64) | 0;
-  const right = (rhs.byteOffset / BYTES_PER_FLOAT64) | 0;
+export function add<N extends number>(
+  lhs: ManagedTypedArray<N, TypedArray>, rhs: ManagedTypedArray<N, TypedArray>,
+) {
+  const lv = lhs.view, rv = rhs.view;
+  const l = lhs.index, r = rhs.index;
   for (let i = 0; i < lhs.length; ++i) {
-    view[left + i] += view[right + i];
+    lv[l + i] += rv[r + i];
   }
 }
 
-export function sub<N extends number>(lhs: ManagedFloat64Array<N>, rhs: ManagedFloat64Array<N>) {
-  const view = lhs.view;
-  const left = (lhs.byteOffset / BYTES_PER_FLOAT64) | 0;
-  const right = (rhs.byteOffset / BYTES_PER_FLOAT64) | 0;
+export function sub<N extends number>(
+  lhs: ManagedTypedArray<N, TypedArray>, rhs: ManagedTypedArray<N, TypedArray>,
+) {
+  const lv = lhs.view, rv = rhs.view;
+  const l = lhs.index, r = rhs.index;
   for (let i = 0; i < lhs.length; ++i) {
-    view[left + i] -= view[right + i];
+    lv[l + i] -= rv[r + i];
   }
 }
 
-export function scale<N extends number>(lhs: ManagedFloat64Array<N>, factor: number) {
+export function scale<N extends number>(lhs: ManagedTypedArray<N, TypedArray>, factor: number) {
   const view = lhs.view;
-  const left = (lhs.byteOffset / BYTES_PER_FLOAT64) | 0;
+  const l = lhs.index;
   for (let i = 0; i < lhs.length; ++i) {
-    view[left + i] *= factor;
+    view[l + i] *= factor;
   }
 }
 
-export function dot<N extends number>(lhs: ManagedFloat64Array<N>, rhs: ManagedFloat64Array<N>): number {
-  const view = lhs.view;
-  const left = (lhs.byteOffset / BYTES_PER_FLOAT64) | 0;
-  const right = (rhs.byteOffset / BYTES_PER_FLOAT64) | 0;
+export function dot<N extends number>(
+  lhs: ManagedTypedArray<N, TypedArray>, rhs: ManagedTypedArray<N, TypedArray>,
+): number {
+  const lv = lhs.view, rv = rhs.view;
+  const l = lhs.index, r = rhs.index;
   let result = 0;
   for (let i = 0; i < lhs.length; ++i) {
-    result += view[left + i] * view[right + i];
+    result += lv[l + i] * rv[r + i];
   }
   return result;
 }
 
-export function normalize<N extends number>(v: ManagedFloat64Array<N>): boolean {
+export function normalize<N extends number>(v: ManagedTypedArray<N, TypedArray>): boolean {
   const sqrLen = dot(v, v);
   if (sqrLen === 0) {
     return false;
@@ -49,57 +51,59 @@ export function normalize<N extends number>(v: ManagedFloat64Array<N>): boolean 
   const len = Math.sqrt(sqrLen);
 
   const view = v.view;
-  const ptr = (v.byteOffset / BYTES_PER_FLOAT64) | 0;
+  const p = v.index;
   for (let i = 0; i < v.length; ++i) {
-    view[ptr + i] /= len;
+    view[p + i] /= len;
   }
   return true;
 }
 
-export function lerp<N extends number>(lhs: ManagedFloat64Array<N>, rhs: ManagedFloat64Array<N>, t: number) {
-  const view = lhs.view;
-  const left = (lhs.byteOffset / BYTES_PER_FLOAT64) | 0;
-  const right = (rhs.byteOffset / BYTES_PER_FLOAT64) | 0;
+export function lerp<N extends number>(
+  lhs: ManagedTypedArray<N, TypedArray>, rhs: ManagedTypedArray<N, TypedArray>, t: number,
+) {
+  const lv = lhs.view, rv = rhs.view;
+  const l = lhs.index, r = rhs.index;
   for (let i = 0; i < lhs.length; ++i) {
-    view[left + i] = lerpNum(view[left + i], view[right + i], t);
+    lv[l + i] = lerpNum(lv[l + i], rv[r + i], t);
   }
 }
 
 export function mul<M extends number, R extends number>(
-  lhs: ManagedFloat64Array<M>, rhs: ManagedFloat64Array<R>, n: number, assignRight = false
+  lhs: ManagedTypedArray<M, TypedArray>, rhs: ManagedTypedArray<R, TypedArray>,
+  n: number, assignRight = false,
 ) {
   const rr = (lhs.length / n);
   const rc = (rhs.length / n);
-  const view = lhs.view;
-  const left = (lhs.byteOffset / BYTES_PER_FLOAT64) | 0;
-  const right = (rhs.byteOffset / BYTES_PER_FLOAT64) | 0;
+  const lv = lhs.view, rv = rhs.view;
+  const l = lhs.index, r = rhs.index;
 
   for (let i = 0; i < rc; ++i) {
     for (let j = 0; j < rr; ++j) {
       let f = 0;
       for (let k = 0; k < n; ++k) {
-        f += view[left + k * rr + j] * view[right + i * n + k];
+        f += lv[l + k * rr + j] * rv[r + i * n + k];
       }
       TEMP[i * rr + j] = f;
     }
   }
 
   const target = assignRight ? rhs : lhs;
-  const targetPtr = assignRight ? right : left;
+  const tv = target.view;
+  const t = target.index;
   for (let i = 0; i < target.length; ++i) {
-    view[targetPtr + i] = TEMP[i];
+    tv[t + i] = TEMP[i];
   }
 }
 
-export function transpose<N extends number>(m: ManagedFloat64Array<N>, n: number) {
+export function transpose<N extends number>(m: ManagedTypedArray<N, TypedArray>, n: number) {
   const view = m.view;
-  const ptr = (m.byteOffset / BYTES_PER_FLOAT64) | 0;
+  const p = m.index;
 
   for (let i = 0; i < n; ++i) {
     for (let j = i; j < n; ++j) {
-      const f = view[ptr + j * n + i];
-      view[ptr + j * n + i] = view[ptr + i * n + j];
-      view[ptr + i * n + j] = f;
+      const f = view[p + j * n + i];
+      view[p + j * n + i] = view[p + i * n + j];
+      view[p + i * n + j] = f;
     }
   }
 }

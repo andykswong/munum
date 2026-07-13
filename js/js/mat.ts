@@ -1,7 +1,7 @@
 import type { Mat } from '../types.ts';
 import { add, sub, scale, mul, transpose } from './helpers.ts';
-import { BYTES_PER_FLOAT64, ManagedFloat64Array, memoryManager } from './memory.ts';
-import type { Float64ArrayPointer, Float64ArrayViewProvider, MemoryManager } from './memory.ts';
+import { ManagedTypedArray, memoryManager } from './memory.ts';
+import type { MemoryManager, TypedArray, TypedArrayPointer, TypedArrayViewProvider } from './memory.ts';
 
 const TEMP = Array(16);
 const MAT2_ID = [1, 0, 0, 1];
@@ -9,21 +9,25 @@ const MAT3_ID = [1, 0, 0, 0, 1, 0, 0, 0, 1];
 const MAT4_ID = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
 
 /** A 2x2 matrix. */
-export class Mat2 extends ManagedFloat64Array<4> implements Mat<2> {
+export class Mat2<V extends TypedArray = Float64Array> extends ManagedTypedArray<4, V> implements Mat<2> {
   /** Return an identity Mat2. */
-  public static identity(manager: MemoryManager = memoryManager): Mat2 {
+  public static identity<W extends TypedArray = Float64Array>(
+    manager: MemoryManager<W> = memoryManager as MemoryManager<W>,
+  ): Mat2<W> {
     const m = new Mat2(manager.allocate(4));
     m.set(MAT2_ID);
     return m;
   }
 
   /** Return a Mat2 from Mat3. */
-  public static fromMat3(m: Mat3, manager: MemoryManager = memoryManager): Mat2 {
+  public static fromMat3<W extends TypedArray = Float64Array>(
+    m: Mat3<TypedArray>, manager: MemoryManager<W> = memoryManager as MemoryManager<W>,
+  ): Mat2<W> {
     const ptr = manager.allocate(4);
-    const left = (ptr.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const right = (m.byteOffset / BYTES_PER_FLOAT64) | 0;
     const dst = ptr.view;
     const src = m.view;
+    const left = (ptr.byteOffset / dst.BYTES_PER_ELEMENT) | 0;
+    const right = m.index;
     for (let c = 0; c < 2; ++c) {
       for (let r = 0; r < 2; ++r) {
         dst[left + c * 2 + r] = src[right + c * 3 + r];
@@ -33,11 +37,13 @@ export class Mat2 extends ManagedFloat64Array<4> implements Mat<2> {
   }
 
   /** Wraps an existing memory region as a borrowed (non-owning) Mat2. */
-  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Mat2 {
-    return ManagedFloat64Array.viewAs(Mat2, 4, source, byteOffset);
+  public static view<W extends TypedArray = Float64Array>(
+    source: TypedArrayPointer<W> | TypedArrayViewProvider<W>, byteOffset?: number,
+  ): Mat2<W> {
+    return ManagedTypedArray.viewAs(Mat2, 4, source, byteOffset);
   }
 
-  private constructor(ptr: Float64ArrayPointer) {
+  private constructor(ptr: TypedArrayPointer<V>) {
     super(ptr);
   }
 
@@ -45,17 +51,17 @@ export class Mat2 extends ManagedFloat64Array<4> implements Mat<2> {
     return 4;
   }
 
-  public add(rhs: Mat2): this {
+  public add(rhs: Mat2<TypedArray>): this {
     add(this, rhs);
     return this;
   }
 
-  public sub(rhs: Mat2): this {
+  public sub(rhs: Mat2<TypedArray>): this {
     sub(this, rhs);
     return this;
   }
 
-  public mul(rhs: Mat2): this {
+  public mul(rhs: Mat2<TypedArray>): this {
     mul(this, rhs, 2);
     return this;
   }
@@ -76,44 +82,48 @@ export class Mat2 extends ManagedFloat64Array<4> implements Mat<2> {
       return false;
     }
 
-    const ptr = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
+    const p = this.index;
     const view = this.view;
-    TEMP[0] = view[ptr + 3] / detA;
-    TEMP[1] = -view[ptr + 1] / detA;
-    TEMP[2] = -view[ptr + 2] / detA;
-    TEMP[3] = view[ptr + 0] / detA;
+    TEMP[0] = view[p + 3] / detA;
+    TEMP[1] = -view[p + 1] / detA;
+    TEMP[2] = -view[p + 2] / detA;
+    TEMP[3] = view[p + 0] / detA;
 
     for (let i = 0; i < 4; ++i) {
-      view[ptr + i] = TEMP[i];
+      view[p + i] = TEMP[i];
     }
 
     return true;
   }
 
   public det(): number {
-    const ptr = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
+    const p = this.index;
     const view = this.view;
 
-    return view[ptr + 0] * view[ptr + 3] - view[ptr + 2] * view[ptr + 1];
+    return view[p + 0] * view[p + 3] - view[p + 2] * view[p + 1];
   }
 }
 
 /** A 3x3 matrix. */
-export class Mat3 extends ManagedFloat64Array<9> implements Mat<3> {
+export class Mat3<V extends TypedArray = Float64Array> extends ManagedTypedArray<9, V> implements Mat<3> {
   /** Return an identity Mat3. */
-  public static identity(manager: MemoryManager = memoryManager): Mat3 {
+  public static identity<W extends TypedArray = Float64Array>(
+    manager: MemoryManager<W> = memoryManager as MemoryManager<W>,
+  ): Mat3<W> {
     const m = new Mat3(manager.allocate(9));
     m.set(MAT3_ID);
     return m;
   }
 
   /** Return a Mat3 from Mat2. */
-  public static fromMat2(m: Mat2, manager: MemoryManager = memoryManager): Mat3 {
+  public static fromMat2<W extends TypedArray = Float64Array>(
+    m: Mat2<TypedArray>, manager: MemoryManager<W> = memoryManager as MemoryManager<W>,
+  ): Mat3<W> {
     const ptr = manager.allocate(9);
-    const left = (ptr.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const right = (m.byteOffset / BYTES_PER_FLOAT64) | 0;
     const dst = ptr.view;
     const src = m.view;
+    const left = (ptr.byteOffset / dst.BYTES_PER_ELEMENT) | 0;
+    const right = m.index;
     for (let c = 0; c < 2; ++c) {
       for (let r = 0; r < 2; ++r) {
         dst[left + c * 3 + r] = src[right + c * 2 + r];
@@ -127,12 +137,14 @@ export class Mat3 extends ManagedFloat64Array<9> implements Mat<3> {
   }
 
   /** Return a Mat3 from Mat4. */
-  public static fromMat4(m: Mat4, manager: MemoryManager = memoryManager): Mat3 {
+  public static fromMat4<W extends TypedArray = Float64Array>(
+    m: Mat4<TypedArray>, manager: MemoryManager<W> = memoryManager as MemoryManager<W>,
+  ): Mat3<W> {
     const ptr = manager.allocate(9);
-    const left = (ptr.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const right = (m.byteOffset / BYTES_PER_FLOAT64) | 0;
     const dst = ptr.view;
     const src = m.view;
+    const left = (ptr.byteOffset / dst.BYTES_PER_ELEMENT) | 0;
+    const right = m.index;
     for (let c = 0; c < 3; ++c) {
       for (let r = 0; r < 3; ++r) {
         dst[left + c * 3 + r] = src[right + c * 4 + r];
@@ -142,11 +154,13 @@ export class Mat3 extends ManagedFloat64Array<9> implements Mat<3> {
   }
 
   /** Wraps an existing memory region as a borrowed (non-owning) Mat3. */
-  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Mat3 {
-    return ManagedFloat64Array.viewAs(Mat3, 9, source, byteOffset);
+  public static view<W extends TypedArray = Float64Array>(
+    source: TypedArrayPointer<W> | TypedArrayViewProvider<W>, byteOffset?: number,
+  ): Mat3<W> {
+    return ManagedTypedArray.viewAs(Mat3, 9, source, byteOffset);
   }
 
-  private constructor(ptr: Float64ArrayPointer) {
+  private constructor(ptr: TypedArrayPointer<V>) {
     super(ptr);
   }
 
@@ -154,17 +168,17 @@ export class Mat3 extends ManagedFloat64Array<9> implements Mat<3> {
     return 9;
   }
 
-  public add(rhs: Mat3): this {
+  public add(rhs: Mat3<TypedArray>): this {
     add(this, rhs);
     return this;
   }
 
-  public sub(rhs: Mat3): this {
+  public sub(rhs: Mat3<TypedArray>): this {
     sub(this, rhs);
     return this;
   }
 
-  public mul(rhs: Mat3): this {
+  public mul(rhs: Mat3<TypedArray>): this {
     mul(this, rhs, 3);
     return this;
   }
@@ -189,32 +203,32 @@ export class Mat3 extends ManagedFloat64Array<9> implements Mat<3> {
       return false;
     }
 
-    const ptr = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
+    const p = this.index;
     const view = this.view;
-    TEMP[0] = +(view[ptr + 4] * view[ptr + 8] - view[ptr + 7] * view[ptr + 5]);
-    TEMP[1] = -(view[ptr + 1] * view[ptr + 8] - view[ptr + 7] * view[ptr + 2]);
-    TEMP[2] = +(view[ptr + 1] * view[ptr + 5] - view[ptr + 4] * view[ptr + 2]);
-    TEMP[3] = -(view[ptr + 3] * view[ptr + 8] - view[ptr + 6] * view[ptr + 5]);
-    TEMP[4] = +(view[ptr + 0] * view[ptr + 8] - view[ptr + 6] * view[ptr + 2]);
-    TEMP[5] = -(view[ptr + 0] * view[ptr + 5] - view[ptr + 3] * view[ptr + 2]);
-    TEMP[6] = +(view[ptr + 3] * view[ptr + 7] - view[ptr + 6] * view[ptr + 4]);
-    TEMP[7] = -(view[ptr + 0] * view[ptr + 7] - view[ptr + 6] * view[ptr + 1]);
-    TEMP[8] = +(view[ptr + 0] * view[ptr + 4] - view[ptr + 3] * view[ptr + 1]);
+    TEMP[0] = +(view[p + 4] * view[p + 8] - view[p + 7] * view[p + 5]);
+    TEMP[1] = -(view[p + 1] * view[p + 8] - view[p + 7] * view[p + 2]);
+    TEMP[2] = +(view[p + 1] * view[p + 5] - view[p + 4] * view[p + 2]);
+    TEMP[3] = -(view[p + 3] * view[p + 8] - view[p + 6] * view[p + 5]);
+    TEMP[4] = +(view[p + 0] * view[p + 8] - view[p + 6] * view[p + 2]);
+    TEMP[5] = -(view[p + 0] * view[p + 5] - view[p + 3] * view[p + 2]);
+    TEMP[6] = +(view[p + 3] * view[p + 7] - view[p + 6] * view[p + 4]);
+    TEMP[7] = -(view[p + 0] * view[p + 7] - view[p + 6] * view[p + 1]);
+    TEMP[8] = +(view[p + 0] * view[p + 4] - view[p + 3] * view[p + 1]);
 
     for (let i = 0; i < 9; ++i) {
-      view[ptr + i] = TEMP[i];
+      view[p + i] = TEMP[i];
     }
 
     return true;
   }
 
   public det(): number {
-    const ptr = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
+    const p = this.index;
     const view = this.view;
     return (
-      view[ptr + 0] * +(view[ptr + 4] * view[ptr + 8] - view[ptr + 7] * view[ptr + 5]) +
-      view[ptr + 3] * -(view[ptr + 1] * view[ptr + 8] - view[ptr + 7] * view[ptr + 2]) +
-      view[ptr + 6] * +(view[ptr + 1] * view[ptr + 5] - view[ptr + 4] * view[ptr + 2])
+      view[p + 0] * +(view[p + 4] * view[p + 8] - view[p + 7] * view[p + 5]) +
+      view[p + 3] * -(view[p + 1] * view[p + 8] - view[p + 7] * view[p + 2]) +
+      view[p + 6] * +(view[p + 1] * view[p + 5] - view[p + 4] * view[p + 2])
     );
   }
 
@@ -229,21 +243,25 @@ export class Mat3 extends ManagedFloat64Array<9> implements Mat<3> {
 }
 
 /** A 4x4 matrix. */
-export class Mat4 extends ManagedFloat64Array<16> implements Mat<4> {
+export class Mat4<V extends TypedArray = Float64Array> extends ManagedTypedArray<16, V> implements Mat<4> {
   /** Return an identity Mat4. */
-  public static identity(manager: MemoryManager = memoryManager): Mat4 {
+  public static identity<W extends TypedArray = Float64Array>(
+    manager: MemoryManager<W> = memoryManager as MemoryManager<W>,
+  ): Mat4<W> {
     const m = new Mat4(manager.allocate(16));
     m.set(MAT4_ID);
     return m;
   }
 
   /** Return a Mat4 from Mat3. */
-  public static fromMat3(m: Mat3, manager: MemoryManager = memoryManager): Mat4 {
+  public static fromMat3<W extends TypedArray = Float64Array>(
+    m: Mat3<TypedArray>, manager: MemoryManager<W> = memoryManager as MemoryManager<W>,
+  ): Mat4<W> {
     const ptr = manager.allocate(16);
-    const left = (ptr.byteOffset / BYTES_PER_FLOAT64) | 0;
-    const right = (m.byteOffset / BYTES_PER_FLOAT64) | 0;
     const dst = ptr.view;
     const src = m.view;
+    const left = (ptr.byteOffset / dst.BYTES_PER_ELEMENT) | 0;
+    const right = m.index;
     for (let c = 0; c < 3; ++c) {
       for (let r = 0; r < 3; ++r) {
         dst[left + c * 4 + r] = src[right + c * 3 + r];
@@ -258,11 +276,13 @@ export class Mat4 extends ManagedFloat64Array<16> implements Mat<4> {
   }
 
   /** Wraps an existing memory region as a borrowed (non-owning) Mat4. */
-  public static view(source: Float64ArrayPointer | Float64ArrayViewProvider, byteOffset?: number): Mat4 {
-    return ManagedFloat64Array.viewAs(Mat4, 16, source, byteOffset);
+  public static view<W extends TypedArray = Float64Array>(
+    source: TypedArrayPointer<W> | TypedArrayViewProvider<W>, byteOffset?: number,
+  ): Mat4<W> {
+    return ManagedTypedArray.viewAs(Mat4, 16, source, byteOffset);
   }
 
-  private constructor(ptr: Float64ArrayPointer) {
+  private constructor(ptr: TypedArrayPointer<V>) {
     super(ptr);
   }
 
@@ -270,17 +290,17 @@ export class Mat4 extends ManagedFloat64Array<16> implements Mat<4> {
     return 16;
   }
 
-  public add(rhs: Mat4): this {
+  public add(rhs: Mat4<TypedArray>): this {
     add(this, rhs);
     return this;
   }
 
-  public sub(rhs: Mat4): this {
+  public sub(rhs: Mat4<TypedArray>): this {
     sub(this, rhs);
     return this;
   }
 
-  public mul(rhs: Mat4): this {
+  public mul(rhs: Mat4<TypedArray>): this {
     mul(this, rhs, 4);
     return this;
   }
@@ -296,65 +316,65 @@ export class Mat4 extends ManagedFloat64Array<16> implements Mat<4> {
   }
 
   public invert(): boolean {
-    const ptr = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
+    const p = this.index;
     const view = this.view;
-    const fA0 = (view[ptr + 0] * view[ptr + 5] - view[ptr + 4] * view[ptr + 1]);
-    const fA1 = (view[ptr + 0] * view[ptr + 9] - view[ptr + 8] * view[ptr + 1]);
-    const fA2 = (view[ptr + 0] * view[ptr + 13] - view[ptr + 12] * view[ptr + 1]);
-    const fA3 = (view[ptr + 4] * view[ptr + 9] - view[ptr + 8] * view[ptr + 5]);
-    const fA4 = (view[ptr + 4] * view[ptr + 13] - view[ptr + 12] * view[ptr + 5]);
-    const fA5 = (view[ptr + 8] * view[ptr + 13] - view[ptr + 12] * view[ptr + 9]);
-    const fB0 = (view[ptr + 2] * view[ptr + 7] - view[ptr + 6] * view[ptr + 3]);
-    const fB1 = (view[ptr + 2] * view[ptr + 11] - view[ptr + 10] * view[ptr + 3]);
-    const fB2 = (view[ptr + 2] * view[ptr + 15] - view[ptr + 14] * view[ptr + 3]);
-    const fB3 = (view[ptr + 6] * view[ptr + 11] - view[ptr + 10] * view[ptr + 7]);
-    const fB4 = (view[ptr + 6] * view[ptr + 15] - view[ptr + 14] * view[ptr + 7]);
-    const fB5 = (view[ptr + 10] * view[ptr + 15] - view[ptr + 14] * view[ptr + 11]);
+    const fA0 = (view[p + 0] * view[p + 5] - view[p + 4] * view[p + 1]);
+    const fA1 = (view[p + 0] * view[p + 9] - view[p + 8] * view[p + 1]);
+    const fA2 = (view[p + 0] * view[p + 13] - view[p + 12] * view[p + 1]);
+    const fA3 = (view[p + 4] * view[p + 9] - view[p + 8] * view[p + 5]);
+    const fA4 = (view[p + 4] * view[p + 13] - view[p + 12] * view[p + 5]);
+    const fA5 = (view[p + 8] * view[p + 13] - view[p + 12] * view[p + 9]);
+    const fB0 = (view[p + 2] * view[p + 7] - view[p + 6] * view[p + 3]);
+    const fB1 = (view[p + 2] * view[p + 11] - view[p + 10] * view[p + 3]);
+    const fB2 = (view[p + 2] * view[p + 15] - view[p + 14] * view[p + 3]);
+    const fB3 = (view[p + 6] * view[p + 11] - view[p + 10] * view[p + 7]);
+    const fB4 = (view[p + 6] * view[p + 15] - view[p + 14] * view[p + 7]);
+    const fB5 = (view[p + 10] * view[p + 15] - view[p + 14] * view[p + 11]);
 
     const detA = fA0 * fB5 - fA1 * fB4 + fA2 * fB3 + fA3 * fB2 - fA4 * fB1 + fA5 * fB0;
     if (!detA) {
       return false;
     }
 
-    TEMP[0] = +view[ptr + 5] * fB5 - view[ptr + 9] * fB4 + view[ptr + 13] * fB3;
-    TEMP[1] = -view[ptr + 1] * fB5 + view[ptr + 9] * fB2 - view[ptr + 13] * fB1;
-    TEMP[2] = +view[ptr + 1] * fB4 - view[ptr + 5] * fB2 + view[ptr + 13] * fB0;
-    TEMP[3] = -view[ptr + 1] * fB3 + view[ptr + 5] * fB1 - view[ptr + 9] * fB0;
-    TEMP[4] = -view[ptr + 4] * fB5 + view[ptr + 8] * fB4 - view[ptr + 12] * fB3;
-    TEMP[5] = +view[ptr + 0] * fB5 - view[ptr + 8] * fB2 + view[ptr + 12] * fB1;
-    TEMP[6] = -view[ptr + 0] * fB4 + view[ptr + 4] * fB2 - view[ptr + 12] * fB0;
-    TEMP[7] = +view[ptr + 0] * fB3 - view[ptr + 4] * fB1 + view[ptr + 8] * fB0;
-    TEMP[8] = +view[ptr + 7] * fA5 - view[ptr + 11] * fA4 + view[ptr + 15] * fA3;
-    TEMP[9] = -view[ptr + 3] * fA5 + view[ptr + 11] * fA2 - view[ptr + 15] * fA1;
-    TEMP[10] = +view[ptr + 3] * fA4 - view[ptr + 7] * fA2 + view[ptr + 15] * fA0;
-    TEMP[11] = -view[ptr + 3] * fA3 + view[ptr + 7] * fA1 - view[ptr + 11] * fA0;
-    TEMP[12] = -view[ptr + 6] * fA5 + view[ptr + 10] * fA4 - view[ptr + 14] * fA3;
-    TEMP[13] = +view[ptr + 2] * fA5 - view[ptr + 10] * fA2 + view[ptr + 14] * fA1;
-    TEMP[14] = -view[ptr + 2] * fA4 + view[ptr + 6] * fA2 - view[ptr + 14] * fA0;
-    TEMP[15] = +view[ptr + 2] * fA3 - view[ptr + 6] * fA1 + view[ptr + 10] * fA0;
+    TEMP[0] = +view[p + 5] * fB5 - view[p + 9] * fB4 + view[p + 13] * fB3;
+    TEMP[1] = -view[p + 1] * fB5 + view[p + 9] * fB2 - view[p + 13] * fB1;
+    TEMP[2] = +view[p + 1] * fB4 - view[p + 5] * fB2 + view[p + 13] * fB0;
+    TEMP[3] = -view[p + 1] * fB3 + view[p + 5] * fB1 - view[p + 9] * fB0;
+    TEMP[4] = -view[p + 4] * fB5 + view[p + 8] * fB4 - view[p + 12] * fB3;
+    TEMP[5] = +view[p + 0] * fB5 - view[p + 8] * fB2 + view[p + 12] * fB1;
+    TEMP[6] = -view[p + 0] * fB4 + view[p + 4] * fB2 - view[p + 12] * fB0;
+    TEMP[7] = +view[p + 0] * fB3 - view[p + 4] * fB1 + view[p + 8] * fB0;
+    TEMP[8] = +view[p + 7] * fA5 - view[p + 11] * fA4 + view[p + 15] * fA3;
+    TEMP[9] = -view[p + 3] * fA5 + view[p + 11] * fA2 - view[p + 15] * fA1;
+    TEMP[10] = +view[p + 3] * fA4 - view[p + 7] * fA2 + view[p + 15] * fA0;
+    TEMP[11] = -view[p + 3] * fA3 + view[p + 7] * fA1 - view[p + 11] * fA0;
+    TEMP[12] = -view[p + 6] * fA5 + view[p + 10] * fA4 - view[p + 14] * fA3;
+    TEMP[13] = +view[p + 2] * fA5 - view[p + 10] * fA2 + view[p + 14] * fA1;
+    TEMP[14] = -view[p + 2] * fA4 + view[p + 6] * fA2 - view[p + 14] * fA0;
+    TEMP[15] = +view[p + 2] * fA3 - view[p + 6] * fA1 + view[p + 10] * fA0;
 
     for (let i = 0; i < 16; ++i) {
-      view[ptr + i] = TEMP[i] / detA;
+      view[p + i] = TEMP[i] / detA;
     }
 
     return true;
   }
 
   public det(): number {
-    const ptr = (this.byteOffset / BYTES_PER_FLOAT64) | 0;
+    const p = this.index;
     const view = this.view;
-    const fA0 = (view[ptr + 0] * view[ptr + 5] - view[ptr + 4] * view[ptr + 1]);
-    const fA1 = (view[ptr + 0] * view[ptr + 9] - view[ptr + 8] * view[ptr + 1]);
-    const fA2 = (view[ptr + 0] * view[ptr + 13] - view[ptr + 12] * view[ptr + 1]);
-    const fA3 = (view[ptr + 4] * view[ptr + 9] - view[ptr + 8] * view[ptr + 5]);
-    const fA4 = (view[ptr + 4] * view[ptr + 13] - view[ptr + 12] * view[ptr + 5]);
-    const fA5 = (view[ptr + 8] * view[ptr + 13] - view[ptr + 12] * view[ptr + 9]);
-    const fB0 = (view[ptr + 2] * view[ptr + 7] - view[ptr + 6] * view[ptr + 3]);
-    const fB1 = (view[ptr + 2] * view[ptr + 11] - view[ptr + 10] * view[ptr + 3]);
-    const fB2 = (view[ptr + 2] * view[ptr + 15] - view[ptr + 14] * view[ptr + 3]);
-    const fB3 = (view[ptr + 6] * view[ptr + 11] - view[ptr + 10] * view[ptr + 7]);
-    const fB4 = (view[ptr + 6] * view[ptr + 15] - view[ptr + 14] * view[ptr + 7]);
-    const fB5 = (view[ptr + 10] * view[ptr + 15] - view[ptr + 14] * view[ptr + 11]);
+    const fA0 = (view[p + 0] * view[p + 5] - view[p + 4] * view[p + 1]);
+    const fA1 = (view[p + 0] * view[p + 9] - view[p + 8] * view[p + 1]);
+    const fA2 = (view[p + 0] * view[p + 13] - view[p + 12] * view[p + 1]);
+    const fA3 = (view[p + 4] * view[p + 9] - view[p + 8] * view[p + 5]);
+    const fA4 = (view[p + 4] * view[p + 13] - view[p + 12] * view[p + 5]);
+    const fA5 = (view[p + 8] * view[p + 13] - view[p + 12] * view[p + 9]);
+    const fB0 = (view[p + 2] * view[p + 7] - view[p + 6] * view[p + 3]);
+    const fB1 = (view[p + 2] * view[p + 11] - view[p + 10] * view[p + 3]);
+    const fB2 = (view[p + 2] * view[p + 15] - view[p + 14] * view[p + 3]);
+    const fB3 = (view[p + 6] * view[p + 11] - view[p + 10] * view[p + 7]);
+    const fB4 = (view[p + 6] * view[p + 15] - view[p + 14] * view[p + 7]);
+    const fB5 = (view[p + 10] * view[p + 15] - view[p + 14] * view[p + 11]);
 
     return fA0 * fB5 - fA1 * fB4 + fA2 * fB3 + fA3 * fB2 - fA4 * fB1 + fA5 * fB0;
   }

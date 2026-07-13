@@ -1,6 +1,6 @@
 import { copysign } from '../scalar.ts';
 import { Mat3, Mat4 } from './mat.ts';
-import { BYTES_PER_FLOAT64 } from './memory.ts';
+import type { TypedArray } from './memory.ts';
 import { Quat } from './quat.ts';
 import type { Vec2} from './vec.ts';
 import { Vec3 } from './vec.ts';
@@ -12,14 +12,14 @@ const MAT3_ID = [1, 0, 0, 0, 1, 0, 0, 0, 1];
 const MAT4_ID = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
 
 /** Returns a {@link Mat3} for a 2D point translated by (x, y). */
-export function translation2d(v: Vec2, out = Mat3.identity()): Mat3 {
+export function translation2d<W extends TypedArray = Float64Array>(v: Vec2<TypedArray>, out: Mat3<W> = Mat3.identity() as Mat3<W>): Mat3<W> {
   out.set(MAT3_ID);
   out.copy(v, 6, 0, 2);
   return out;
 }
 
 /** Returns a {@link Mat3} for a 2D point scaled by (x, y). */
-export function scaling2d(v: Vec2, out = Mat3.identity()): Mat3 {
+export function scaling2d<W extends TypedArray = Float64Array>(v: Vec2<TypedArray>, out: Mat3<W> = Mat3.identity() as Mat3<W>): Mat3<W> {
   const [x, y] = v;
   TEMP_MAT3.set(MAT3_ID);
   TEMP_MAT3[0] = x;
@@ -29,7 +29,7 @@ export function scaling2d(v: Vec2, out = Mat3.identity()): Mat3 {
 }
 
 /** Returns a {@link Mat3} for a 2D point rotated in couterclockwise direction. */
-export function rotation2d(angle: number, out = Mat3.identity()): Mat3 {
+export function rotation2d<W extends TypedArray = Float64Array>(angle: number, out: Mat3<W> = Mat3.identity() as Mat3<W>): Mat3<W> {
   TEMP_MAT3.set(MAT3_ID);
   TEMP_MAT3[0] = TEMP_MAT3[4] = Math.cos(angle);
   TEMP_MAT3[1] = TEMP_MAT3[3] = Math.sin(angle);
@@ -42,7 +42,7 @@ export function rotation2d(angle: number, out = Mat3.identity()): Mat3 {
  * Returns a {@link Mat3} for transformation in TRS order (= translation * rotation * scale).
  * @returns out = translation * rotation * scale
  */
-export function transformation2d(translate: Vec2, rotateAngle: number, scale: Vec2, out = Mat3.identity()): Mat3 {
+export function transformation2d<W extends TypedArray = Float64Array>(translate: Vec2<TypedArray>, rotateAngle: number, scale: Vec2<TypedArray>, out: Mat3<W> = Mat3.identity() as Mat3<W>): Mat3<W> {
   // Apply rotation
   TEMP_MAT3.set(MAT3_ID);
   TEMP_MAT3[0] = TEMP_MAT3[4] = Math.cos(rotateAngle);
@@ -65,14 +65,14 @@ export function transformation2d(translate: Vec2, rotateAngle: number, scale: Ve
 }
 
 /** Return a {@link Mat4} for a 3D point translated by (x, y, z). */
-export function translation(v: Vec3, out = Mat4.identity()): Mat4 {
+export function translation<W extends TypedArray = Float64Array>(v: Vec3<TypedArray>, out: Mat4<W> = Mat4.identity() as Mat4<W>): Mat4<W> {
   out.set(MAT4_ID);
   out.copy(v, 12, 0, 3);
   return out;
 }
 
 /** Return a {@link Mat4} for a 3D point scaled by (x, y, z). */
-export function scaling(v: Vec3, out = Mat4.identity()): Mat4 {
+export function scaling<W extends TypedArray = Float64Array>(v: Vec3<TypedArray>, out: Mat4<W> = Mat4.identity() as Mat4<W>): Mat4<W> {
   const [x, y, z] = v;
   out.set(MAT4_ID);
   out.setAt(0, x);
@@ -82,7 +82,7 @@ export function scaling(v: Vec3, out = Mat4.identity()): Mat4 {
 }
 
 /** Returns a {@link Mat4} for a rotation by a {@link Quat}. */
-export function rotation(q: Quat, out = Mat4.identity()): Mat4 {
+export function rotation<W extends TypedArray = Float64Array>(q: Quat<TypedArray>, out: Mat4<W> = Mat4.identity() as Mat4<W>): Mat4<W> {
   const [x, y, z, w] = q;
   const xx = (x * x),
     xy = (x * y),
@@ -111,14 +111,14 @@ export function rotation(q: Quat, out = Mat4.identity()): Mat4 {
 }
 
 /** Extract the {@link Vec3} translation component from a transformation matrix. */
-export function translationOf(m: Mat4, out = new Vec3()): Vec3 {
+export function translationOf<W extends TypedArray = Float64Array>(m: Mat4<TypedArray>, out: Vec3<W> = new Vec3() as Vec3<W>): Vec3<W> {
   out.copy(m, 0, 12, 3);
   return out;
 }
 
-function _scalingOf(m: Mat4): Float64Array {
+function _scalingOf(m: Mat4<TypedArray>): Float64Array {
   const view = m.view;
-  const start = (m.byteOffset / BYTES_PER_FLOAT64) | 0;
+  const start = m.index;
   for (let i = 0; i < 3; ++i) {
     TEMP_VEC3[i] = 0;
     for (let j = 0; j < 3; ++j) {
@@ -133,7 +133,7 @@ function _scalingOf(m: Mat4): Float64Array {
  * Extract the {@link Vec3} scaling components from a transformation matrix
  * in TRS order (= translation * rotation * scale).
  */
-export function scalingOf(m: Mat4, out = new Vec3()): Vec3 {
+export function scalingOf<W extends TypedArray = Float64Array>(m: Mat4<TypedArray>, out: Vec3<W> = new Vec3() as Vec3<W>): Vec3<W> {
   out.set(_scalingOf(m));
   return out;
 }
@@ -143,7 +143,7 @@ export function scalingOf(m: Mat4, out = new Vec3()): Vec3 {
  * in TRS order (= translation * rotation * scale).
  * @see https://en.wikipedia.org/wiki/Rotation_matrix#Quaternion
  */
-export function rotationOf(trs: Mat4, out = Quat.identity()): Quat {
+export function rotationOf<W extends TypedArray = Float64Array>(trs: Mat4<TypedArray>, out: Quat<W> = Quat.identity() as Quat<W>): Quat<W> {
   const m = [...trs];
   const [sx, sy, sz] = _scalingOf(trs);
   const m00 = m[0] / sx, m11 = m[5] / sy, m22 = m[10] / sz;
@@ -161,7 +161,7 @@ export function rotationOf(trs: Mat4, out = Quat.identity()): Quat {
  * Returns a {@link Mat4} for transformation in TRS order (= translation * rotation * scale).
  * @returns out = translation * rotation * scale
  */
-export function transformation(translate: Vec3, rotate: Quat, scale: Vec3, out = Mat4.identity()): Mat4 {
+export function transformation<W extends TypedArray = Float64Array>(translate: Vec3<TypedArray>, rotate: Quat<TypedArray>, scale: Vec3<TypedArray>, out: Mat4<W> = Mat4.identity() as Mat4<W>): Mat4<W> {
   // Apply rotation
   rotation(rotate, out);
   const m = [...out];
@@ -187,7 +187,7 @@ export function transformation(translate: Vec3, rotate: Quat, scale: Vec3, out =
  * This function is more efficient than {@link Mat4.invert} by using the properties of a TRS matrix.
  * @returns out = M^-1
  */
-export function inverseTRS(trs: Mat4, out = Mat4.identity()): boolean {
+export function inverseTRS(trs: Mat4<TypedArray>, out: Mat4<TypedArray> = Mat4.identity()): boolean {
   // Assume M is a TRS matrix:
   // M = T * R * S = [RS  t]
   //                 [0   1]
@@ -227,9 +227,9 @@ export function inverseTRS(trs: Mat4, out = Mat4.identity()): boolean {
  * @see https://en.wikipedia.org/wiki/Orthographic_projection
  * @see https://github.com/KhronosGroup/glTF/tree/master/specification/2.0
  */
-export function ortho(
-  left: number, right: number, bottom: number, top: number, znear: number, zfar: number, out = Mat4.identity()
-): Mat4 {
+export function ortho<W extends TypedArray = Float64Array>(
+  left: number, right: number, bottom: number, top: number, znear: number, zfar: number, out: Mat4<W> = Mat4.identity() as Mat4<W>
+): Mat4<W> {
   const x = 1 / (right - left);
   const y = 1 / (top - bottom);
   const z = 1 / (znear - zfar);
@@ -250,7 +250,7 @@ export function ortho(
  * Calculate the {@link Mat4} perspective projection using glTF's formula. Use infinite projection if zfar = Infinity.
  * @see https://github.com/KhronosGroup/glTF/tree/master/specification/2.0
  */
-export function perspective(aspect: number, yfov: number, znear: number, zfar: number, out = Mat4.identity()): Mat4 {
+export function perspective<W extends TypedArray = Float64Array>(aspect: number, yfov: number, znear: number, zfar: number, out: Mat4<W> = Mat4.identity() as Mat4<W>): Mat4<W> {
   const f = 1 / Math.tan(yfov / 2);
 
   TEMP_MAT4.set(MAT4_ID);
@@ -273,9 +273,9 @@ export function perspective(aspect: number, yfov: number, znear: number, zfar: n
 }
 
 /** Calculate the {@link Mat4} perspective projection from a viewport. Use infinite projection if zfar = Infinity. */
-export function perspectiveViewport(
-  left: number, right: number, bottom: number, top: number, znear: number, zfar: number, out = Mat4.identity()
-): Mat4 {
+export function perspectiveViewport<W extends TypedArray = Float64Array>(
+  left: number, right: number, bottom: number, top: number, znear: number, zfar: number, out: Mat4<W> = Mat4.identity() as Mat4<W>
+): Mat4<W> {
   const x = 1 / (right - left);
   const y = 1 / (top - bottom);
 
@@ -304,7 +304,7 @@ export function perspectiveViewport(
  * Calculate the {@link Mat4} model matrix for a camera at eye position looking at the center
  * position with a given up direction.
  */
-export function targetTo(eye: Vec3, center: Vec3, up: Vec3, out = Mat4.identity()): Mat4 {
+export function targetTo<W extends TypedArray = Float64Array>(eye: Vec3<TypedArray>, center: Vec3<TypedArray>, up: Vec3<TypedArray>, out: Mat4<W> = Mat4.identity() as Mat4<W>): Mat4<W> {
   using v = new Vec3(), n = new Vec3(), u = new Vec3();
   v.copy(eye);
   v.sub(center).normalize();
@@ -325,7 +325,7 @@ export function targetTo(eye: Vec3, center: Vec3, up: Vec3, out = Mat4.identity(
  * Calculate the {@link Mat4} view matrix for a camera at eye position looking at the center
  * position with a given up direction.
  */
-export function lookAt(eye: Vec3, center: Vec3, up: Vec3, out = Mat4.identity()): Mat4 {
+export function lookAt<W extends TypedArray = Float64Array>(eye: Vec3<TypedArray>, center: Vec3<TypedArray>, up: Vec3<TypedArray>, out: Mat4<W> = Mat4.identity() as Mat4<W>): Mat4<W> {
   using v = new Vec3(), n = new Vec3(), u = new Vec3();
   v.copy(center);
   v.sub(eye).normalize();
@@ -359,7 +359,7 @@ export function lookAt(eye: Vec3, center: Vec3, up: Vec3, out = Mat4.identity())
  * This can be used with lookAt method to build an FPS camera view matrix by:
  * viewMatrix = lookAt(eye, lookAtDir(yaw, pitch).add(eye), new Vec3(0, 1, 0));
  */
-export function lookAtDir(pitch: number, yaw: number, out = new Vec3()): Vec3 {
+export function lookAtDir<W extends TypedArray = Float64Array>(pitch: number, yaw: number, out: Vec3<W> = new Vec3() as Vec3<W>): Vec3<W> {
   const negCosPitch = -Math.cos(pitch);
   TEMP_VEC3[0] = negCosPitch * Math.sin(yaw);
   TEMP_VEC3[1] = Math.sin(pitch);

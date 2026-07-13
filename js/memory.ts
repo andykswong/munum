@@ -1,24 +1,35 @@
+/** @deprecated f64-specific; element size now comes from the view's `BYTES_PER_ELEMENT`. */
 export const BYTES_PER_FLOAT64 = 8;
 
+/** Element-storage typed arrays munum supports. */
+export type TypedArray = Float32Array | Float64Array;
+
+/** Constructor for a {@link TypedArray}, used by managers to build views generically. */
+export type TypedArrayConstructor<V extends TypedArray = Float64Array> = {
+  new (buffer: ArrayBufferLike): V;
+  readonly BYTES_PER_ELEMENT: number;
+};
+
 /**
- * Provides a live {@link Float64Array} view over some backing memory.
+ * Provides a live typed-array view over some backing memory.
  * The view is a getter so it can be re-derived after `WebAssembly.Memory.grow()`
  * detaches the previous buffer. `buffer` is always `view.buffer`.
  */
-export interface Float64ArrayViewProvider {
-  /** The active float64 memory view. */
-  readonly view: Float64Array;
+export interface TypedArrayViewProvider<V extends TypedArray = Float64Array> {
+  /** The active typed-array memory view. */
+  readonly view: V;
 }
 
 /**
- * A disposable handle to a region of float64 memory — everything a
- * {@link ManagedFloat64Array} needs to read/write and to release its storage.
+ * A disposable handle to a region of typed-array memory — everything a
+ * {@link ManagedTypedArray} needs to read/write and to release its storage.
  */
-export interface Float64ArrayPointer extends Float64ArrayViewProvider, Disposable {
+export interface TypedArrayPointer<V extends TypedArray = Float64Array>
+  extends TypedArrayViewProvider<V>, Disposable {
   /** Byte offset of the region. Negative once freed (also encodes validity). */
   readonly byteOffset: number;
 
-  /** Length of the region in number of float64. */
+  /** Length of the region in number of elements. */
   readonly length: number;
 
   /** Whether the region is still valid (not freed). */
@@ -29,36 +40,37 @@ export interface Float64ArrayPointer extends Float64ArrayViewProvider, Disposabl
 }
 
 /**
- * A linear memory manager that allocates float64 regions and produces owning
- * {@link Float64ArrayPointer}s. Owns an (optional) FinalizationRegistry so
+ * A linear memory manager that allocates element regions and produces owning
+ * {@link TypedArrayPointer}s. Owns an (optional) FinalizationRegistry so
  * dropped pointers are reclaimed automatically.
  */
-export interface MemoryManager extends Float64ArrayViewProvider {
+export interface MemoryManager<V extends TypedArray = Float64Array>
+  extends TypedArrayViewProvider<V> {
   /** The active memory buffer (== `view.buffer`). Retained for API compatibility. */
   readonly buffer: ArrayBufferLike;
 
-  /** Allocates `size` float64 and returns an owning, GC-registered pointer. */
-  allocate(size: number): Float64ArrayPointer;
+  /** Allocates `size` elements and returns an owning, GC-registered pointer. */
+  allocate(size: number): TypedArrayPointer<V>;
 
   /** Releases a pointer previously produced by {@link allocate}. Idempotent. */
-  free(ptr: Float64ArrayPointer): void;
+  free(ptr: TypedArrayPointer<V>): void;
 }
 
 const FREED = -Infinity;
 
 /** An owning pointer produced by {@link MemoryManager.allocate}. */
-class ManagedPointer implements Float64ArrayPointer {
-  private readonly manager: MemoryManager;
+class ManagedPointer<V extends TypedArray> implements TypedArrayPointer<V> {
+  private readonly manager: MemoryManager<V>;
   public byteOffset: number;
   public readonly length: number;
 
-  public constructor(manager: MemoryManager, byteOffset: number, length: number) {
+  public constructor(manager: MemoryManager<V>, byteOffset: number, length: number) {
     this.manager = manager;
     this.byteOffset = byteOffset;
     this.length = length;
   }
 
-  public get view(): Float64Array {
+  public get view(): V {
     return this.manager.view;
   }
 
@@ -83,18 +95,18 @@ class ManagedPointer implements Float64ArrayPointer {
  * underlying storage — the region is owned by someone else (another allocation,
  * or an external buffer such as a glTF accessor).
  */
-class ExternalPointer implements Float64ArrayPointer {
-  private readonly provider: Float64ArrayViewProvider;
+class ExternalPointer<V extends TypedArray> implements TypedArrayPointer<V> {
+  private readonly provider: TypedArrayViewProvider<V>;
   public readonly byteOffset: number;
   public readonly length: number;
 
-  public constructor(provider: Float64ArrayViewProvider, byteOffset: number, length: number) {
+  public constructor(provider: TypedArrayViewProvider<V>, byteOffset: number, length: number) {
     this.provider = provider;
     this.byteOffset = byteOffset;
     this.length = length;
   }
 
-  public get view(): Float64Array {
+  public get view(): V {
     return this.provider.view;
   }
 
@@ -112,22 +124,22 @@ class ExternalPointer implements Float64ArrayPointer {
 }
 
 /** Wraps a raw {@link Float64Array} (e.g. a glTF buffer) as a view provider. */
-export function float64View(array: Float64Array): Float64ArrayViewProvider {
+export function float64View(array: Float64Array): TypedArrayViewProvider<Float64Array> {
   return { view: array };
 }
 
 /**
- * Creates a borrowed {@link Float64ArrayPointer} over an existing region.
+ * Creates a borrowed {@link TypedArrayPointer} over an existing region.
  * The pointer's `free()`/dispose is a no-op; the caller retains ownership.
  * @param source a live view provider (a MemoryManager, another pointer, or `float64View(array)`)
  * @param byteOffset byte offset into the provider's view (default 0)
- * @param length length in float64
+ * @param length length in elements
  */
-export function externalPointer(
-  source: Float64ArrayViewProvider,
+export function externalPointer<V extends TypedArray = Float64Array>(
+  source: TypedArrayViewProvider<V>,
   byteOffset: number,
   length: number,
-): Float64ArrayPointer {
+): TypedArrayPointer<V> {
   return new ExternalPointer(source, byteOffset, length);
 }
 
@@ -136,7 +148,8 @@ export function externalPointer(
  * embedded {@link FinalizationRegistry} that reclaims dropped pointers. Concrete
  * managers implement {@link createRaw}/{@link freeRaw} and the `view` getter.
  */
-export abstract class AbstractMemoryManager implements MemoryManager {
+export abstract class AbstractMemoryManager<V extends TypedArray = Float64Array>
+implements MemoryManager<V> {
   private readonly registry?: FinalizationRegistry<[number, number]>;
 
   /**
@@ -151,19 +164,19 @@ export abstract class AbstractMemoryManager implements MemoryManager {
     }
   }
 
-  public abstract get view(): Float64Array;
+  public abstract get view(): V;
 
   public get buffer(): ArrayBufferLike {
     return this.view.buffer;
   }
 
-  /** Allocates `size` float64 and returns its byte offset. */
+  /** Allocates `size` elements and returns its byte offset. */
   protected abstract createRaw(size: number): number;
 
-  /** Frees the region at `byteOffset` of `size` float64. */
+  /** Frees the region at `byteOffset` of `size` elements. */
   protected abstract freeRaw(byteOffset: number, size: number): void;
 
-  public allocate(size: number): Float64ArrayPointer {
+  public allocate(size: number): TypedArrayPointer<V> {
     return this.wrap(this.createRaw(size), size);
   }
 
@@ -172,13 +185,13 @@ export abstract class AbstractMemoryManager implements MemoryManager {
    * Used by {@link allocate} and by the wasm binding, whose math ops allocate
    * their result region inside wasm memory and hand back the raw offset.
    */
-  public wrap(byteOffset: number, size: number): Float64ArrayPointer {
-    const ptr = new ManagedPointer(this, byteOffset, size);
+  public wrap(byteOffset: number, size: number): TypedArrayPointer<V> {
+    const ptr = new ManagedPointer<V>(this, byteOffset, size);
     this.registry?.register(ptr, [byteOffset, size], ptr);
     return ptr;
   }
 
-  public free(ptr: Float64ArrayPointer): void {
+  public free(ptr: TypedArrayPointer<V>): void {
     if (ptr.byteOffset >= 0) {
       this.registry?.unregister(ptr);
       this.freeRaw(ptr.byteOffset, ptr.length);
@@ -186,15 +199,17 @@ export abstract class AbstractMemoryManager implements MemoryManager {
   }
 }
 
-/** A wrapped Float64Array-backed value that requires explicit memory management. */
-export abstract class ManagedFloat64Array<N extends number = number>
-implements Float64ArrayViewProvider, Disposable, Iterable<number> {
+/** A wrapped typed-array-backed value that requires explicit memory management. */
+export abstract class ManagedTypedArray<
+  N extends number = number,
+  V extends TypedArray = Float64Array,
+> implements TypedArrayViewProvider<V>, Disposable, Iterable<number> {
 
   /** The pointer backing this value (owning or borrowed). */
-  public readonly ptr: Float64ArrayPointer;
+  public readonly ptr: TypedArrayPointer<V>;
 
   /** @param ptr the pointer backing this value (owning or borrowed). */
-  public constructor(ptr: Float64ArrayPointer) {
+  public constructor(ptr: TypedArrayPointer<V>) {
     this.ptr = ptr;
   }
 
@@ -206,29 +221,37 @@ implements Float64ArrayViewProvider, Disposable, Iterable<number> {
    * underlying storage is never freed through it. Subclasses expose a thin typed
    * `static view(...)` that forwards here.
    * @param ctor the concrete subclass constructor (used only for its prototype)
-   * @param size length of the region in float64
+   * @param size length of the region in elements
    * @param source a pointer, or a view provider (a MemoryManager, or `float64View(array)`)
    * @param byteOffset byte offset into the region; defaults to a passed pointer's own offset
    */
-  protected static viewAs<T extends ManagedFloat64Array>(
+  protected static viewAs<T extends ManagedTypedArray, W extends TypedArray = Float64Array>(
     ctor: { readonly prototype: T },
     size: number,
-    source: Float64ArrayPointer | Float64ArrayViewProvider,
+    source: TypedArrayPointer<W> | TypedArrayViewProvider<W>,
     byteOffset?: number,
   ): T {
     // Always borrow: even when given a pointer, wrap it in a non-owning
     // ExternalPointer so disposing the view never frees someone else's storage.
-    const offset = byteOffset ?? ('byteOffset' in source ? (source as Float64ArrayPointer).byteOffset : 0);
+    const offset = byteOffset ?? ('byteOffset' in source ? (source as TypedArrayPointer<W>).byteOffset : 0);
     const instance = Object.create(ctor.prototype) as T;
-    (instance as { ptr: Float64ArrayPointer }).ptr = externalPointer(source, offset, size);
+    // `as unknown as`: T defaults to ManagedTypedArray<_, Float64Array>, whose `ptr` field
+    // type does not overlap TypedArrayPointer<W> for an arbitrary W, so a single `as` here
+    // fails tsc with TS2352. This seam is inherently untyped (Object.create bypasses the ctor).
+    (instance as unknown as { ptr: TypedArrayPointer<W> }).ptr = externalPointer(source, offset, size);
     return instance;
+  }
+
+  /** Element index of this value's first element within its view. */
+  public get index(): number {
+    return (this.ptr.byteOffset / this.view.BYTES_PER_ELEMENT) | 0;
   }
 
   public get byteOffset(): number {
     return this.ptr.byteOffset;
   }
 
-  public get view(): Float64Array {
+  public get view(): V {
     return this.ptr.view;
   }
 
@@ -237,7 +260,7 @@ implements Float64ArrayViewProvider, Disposable, Iterable<number> {
   }
 
   public get byteLength(): number {
-    return this.length * BYTES_PER_FLOAT64;
+    return this.length * this.view.BYTES_PER_ELEMENT;
   }
 
   public get valid(): boolean {
@@ -246,8 +269,8 @@ implements Float64ArrayViewProvider, Disposable, Iterable<number> {
 
   public *[Symbol.iterator](): Iterator<number> {
     if (!this.valid) { return; }
-    const view = this.ptr.view;
-    const offset = (this.ptr.byteOffset / BYTES_PER_FLOAT64) | 0;
+    const view = this.view;
+    const offset = this.index;
     for (let i = 0; i < this.length && offset + i < view.length; i++) {
       yield view[offset + i];
     }
@@ -256,28 +279,37 @@ implements Float64ArrayViewProvider, Disposable, Iterable<number> {
   /** Gets the value at given index. */
   public at(index: number): number | undefined {
     if (index < 0 || index >= this.length) { return; }
-    return this.ptr.view[(this.ptr.byteOffset / BYTES_PER_FLOAT64 + index) | 0];
+    return this.view[this.index + index];
   }
 
   /** Sets the value at given index. */
   public setAt(index: number, value: number): void {
     if (index < 0 || index >= this.length) { return; }
-    this.ptr.view[(this.ptr.byteOffset / BYTES_PER_FLOAT64 + index) | 0] = value;
+    this.view[this.index + index] = value;
   }
 
-  /** Copies a managed array to this. */
+  /**
+   * Copies a managed array to this. Reads `from` from ITS OWN view and writes into
+   * this value's view, so the operands may live in different managers / element
+   * types (e.g. copying an f64 source into an f32 destination performs the
+   * numeric conversion). Assumes non-overlapping regions (true for all munum uses).
+   */
   public copy(
-    from: ManagedFloat64Array, dstOffset = 0, srcOffset = 0,
+    from: ManagedTypedArray<number, TypedArray>, dstOffset = 0, srcOffset = 0,
     length = Math.min(from.length - srcOffset, this.length - dstOffset),
   ): void {
-    const view = this.ptr.view;
-    const start = (from.byteOffset / BYTES_PER_FLOAT64 + srcOffset) | 0;
-    view.copyWithin((this.byteOffset / BYTES_PER_FLOAT64 + dstOffset) | 0, start, start + length);
+    const dst = this.view;
+    const src = from.view;
+    const d = this.index + dstOffset;
+    const s = from.index + srcOffset;
+    for (let i = 0; i < length; ++i) {
+      dst[d + i] = src[s + i];
+    }
   }
 
   /** Copies an array to this. */
   public set(array: ArrayLike<number>, offset = 0): void {
-    this.ptr.view.set(array, (this.byteOffset / BYTES_PER_FLOAT64 + offset) | 0);
+    this.view.set(array, this.index + offset);
   }
 
   /** Frees the backing pointer (no-op if borrowed). */
@@ -289,3 +321,21 @@ implements Float64ArrayViewProvider, Disposable, Iterable<number> {
     this.ptr.free();
   }
 }
+
+/**
+ * @deprecated Use {@link TypedArrayViewProvider} (defaults to `Float64Array`).
+ */
+export type Float64ArrayViewProvider = TypedArrayViewProvider<Float64Array>;
+
+/**
+ * @deprecated Use {@link TypedArrayPointer} (defaults to `Float64Array`).
+ */
+export type Float64ArrayPointer = TypedArrayPointer<Float64Array>;
+
+/**
+ * @deprecated Use {@link ManagedTypedArray} (defaults to `Float64Array`).
+ * Kept as a real subclass so existing subclasses (e.g. the wasm binding) that
+ * `extends ManagedFloat64Array<N>` and call its inherited `static viewAs` keep working.
+ */
+export abstract class ManagedFloat64Array<N extends number = number>
+  extends ManagedTypedArray<N, Float64Array> {}
